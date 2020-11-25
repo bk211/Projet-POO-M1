@@ -1,0 +1,16 @@
+1/Comment implementer le multijouer
+	- en reseau?
+	- sur une seul session?
+2/ GUI ou pas GUI? pas grave, faire un MVC et modifier la Vue pour plus tards
+3/ les "cartes" peuvent être non traditionnel comme dans le cas du UNO avec des cartes de couleur et de 1 à 9,
+Le cas des cartes spéciale
+
+3/ Je pense que le joueur ne devrait que pouvoir faire:
+	- obtenir les informations du tableau de bords, e.g quel carte sur la pioche, j'ai combien/quoi de carte
+	- il a acces à aucun structure de donnée directement, il ne peut que envoyer ses actions, e.g tire une carte, jouer une carte si le modele me le permet etc. Seule le Modèle a le droit de toucher au donnée. bref un MVC quoi
+4/ les classes obvious à implémenter que j'ai à l'idée:
+	- carte
+	- collection de carte
+	- compositions/héritage formés de collection de carte, e.g un joueur peut avoir un nom et tenir des cartes dans sa main, la table de jeu, la pioche ou tas de carte publique 
+
+5/ comment géneraliser le mécanisme de jeu de manière à n'avoir qu'à implémenter seulement les règles spécifique de chq jeux, un modèle puis par héritage peut être

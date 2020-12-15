@@ -4,6 +4,9 @@ CFLAGS = -Wall -std=c++11
 test:	test_exec
 	./test_exec
 
+clean:
+	rm -rf *.o *.exe test_exec
+
 test_exec:	Test.o Parseur.o Carte.o Exceptions.o
 	$(CC) $(CFLAGS) $^ -o $@
 
@@ -15,9 +18,6 @@ Parseur.o:	Parseur.cpp Parseur.hpp
 
 Carte.o:	Carte.cpp Carte.hpp
 	$(CC) $(CFLAGS) $< -c
-
-clean:
-	rm -rf *.o *.exe test_exec
 
 Exceptions.o: Exceptions.cpp Exceptions.hpp
 	$(CC) $(CFLAGS) $< -c

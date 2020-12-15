@@ -1,9 +1,7 @@
 #include "Parseur.hpp"
 
-//Parseur::Parseur(std::string filename, const int nb_column, const bool strict)
-//    : filename(filename), nb_column(nb_column), strict_reading(strict)
-Parseur::Parseur(std::string filename)
-    : filename(filename)
+Parseur::Parseur(std::string filename, const int nb_column, const bool strict)
+    : filename(filename), nb_column(nb_column), strict_reading(strict)
 {
     //debug
     std::cout<< "filename = <"<< filename<<">\n";

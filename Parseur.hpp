@@ -9,12 +9,12 @@
 class Parseur{
 private:
     const std::string filename;
-    int nb_column; 
+    const int nb_column; 
     std::vector<std::vector<int>> lignes;
-    bool strict_reading;
+    const bool strict_reading;
 public:
     //Parseur(std::string filename, const int nb_column, const bool strict = true);
-    Parseur(std::string filename);
+    Parseur(std::string filename, const int nb_column, const bool strict = true);
     virtual ~Parseur();
 };
 

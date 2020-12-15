@@ -16,11 +16,7 @@
 *.dylib
 *.dll
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
+# Compiled Static libraries.
 *.lai
 *.la
 *.a
@@ -32,3 +28,4 @@
 *.app
 
 mindmap/*
+test_exec

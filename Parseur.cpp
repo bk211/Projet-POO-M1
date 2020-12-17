@@ -34,14 +34,18 @@ std::vector<std::string> Parseur::split(std::string s, char delim) {
     return vec;
 }
 
-void Parseur::print_lines(){
+void Parseur::print_lines() const{
     for (auto ligne: lignes){
         for (auto word : ligne){
             std::cout<<word<<", ";
         }
         std::cout<<std::endl;
-        
     }
+}
+
+
+std::vector<std::vector<std::string>> Parseur::get_lignes(){
+    return lignes;
 }
 
 Parseur::~Parseur(){}

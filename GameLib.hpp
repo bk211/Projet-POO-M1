@@ -1,11 +1,9 @@
-#ifndef HPP_PARSEUR
-#define HPP_PARSEUR
+#ifndef HPP_GAMELIB
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
 #include <regex>
-
 
 
 class Parseur{
@@ -24,5 +22,15 @@ public:
     void print_lines() const;
     std::vector<std::vector<std::string>> get_lignes();
 };
+
+class Carte
+{
+private:
+public:
+    Carte();
+    virtual ~Carte();
+    
+};
+
 
 #endif

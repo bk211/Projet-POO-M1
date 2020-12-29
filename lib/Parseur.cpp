@@ -1,4 +1,4 @@
-#include "Parseur.hpp"
+#include "../GameLib.hpp"
 
 Parseur::Parseur(std::string filename, const int nb_column, const bool strict)
     : filename(filename), nb_column(nb_column), strict_reading(strict)

@@ -2,20 +2,20 @@ CC = g++
 CFLAGS = -Wall -std=c++11
 LIBDIR = lib/
 LIBSRC = Carte.cpp Parseur.cpp Exceptions.cpp
-LIBHEADER = ../GameLib.hpp
+LIBHEADER = ../libCardGame.hpp
 LIBOBJ = $(LIBSRC:.cpp=.o)
 
 
 test:	test_exec
 	./test_exec
 
-test_exec:	Test.o GameLib.a
+test_exec:	Test.o libCardGame.a
 	$(CC) $(CFLAGS) $^ -o $@
 
 Test.o:	Test.cpp
 	$(CC) $(CFLAGS) $< -c
 
-GameLib.a: lib/Carte.o lib/Parseur.o lib/Exceptions.o
+libCardGame.a: lib/Carte.o lib/Parseur.o lib/Exceptions.o
 	ar rvs $@ $^
 
 lib/Carte.o:	lib/Carte.cpp

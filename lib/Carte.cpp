@@ -1,4 +1,4 @@
-#include "../GameLib.hpp"
+#include "../libCardGame.hpp"
 Carte::Carte(/* args */)
 {
 }

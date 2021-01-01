@@ -26,11 +26,34 @@ public:
 class Carte
 {
 private:
+protected:
+    std::string name;
 public:
     Carte();
     virtual ~Carte();
-    
+    virtual std::string toString() const;
+    friend const std::ostream& operator<<(std::ostream& out, const Carte& mat);
+    virtual std::string getName()const;
+    virtual void setName(std::string str);
+    virtual int operator==(Carte second);
 };
+
+
+class CollectionCarte
+{
+private:
+    std::vector<Carte> data;
+
+public:
+    CollectionCarte();
+    ~CollectionCarte();
+    virtual void addCarte(Carte c);
+    virtual int removeCarte(Carte c);
+    virtual int removeCarte(Carte c, int (*compareFunction)(Carte first, Carte second));
+    int size()const;
+
+};
+
 
 
 #endif

@@ -14,3 +14,5 @@ Le cas des cartes spéciale
 	- compositions/héritage formés de collection de carte, e.g un joueur peut avoir un nom et tenir des cartes dans sa main, la table de jeu, la pioche ou tas de carte publique 
 
 5/ comment géneraliser le mécanisme de jeu de manière à n'avoir qu'à implémenter seulement les règles spécifique de chq jeux, un modèle puis par héritage peut être
+
+6/ Test push Visual Studio (Vincent)

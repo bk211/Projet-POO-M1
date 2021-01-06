@@ -2,12 +2,11 @@
 Carte::Carte():name("") {
 }
 
-Carte::~Carte()
-{
+Carte::~Carte(){
 }
 
 const std::ostream& operator<<(std::ostream& out, const Carte& carte){
-    out<< carte.toString()<<std::endl;
+    out<< carte.toString();
     return out;
 }
 

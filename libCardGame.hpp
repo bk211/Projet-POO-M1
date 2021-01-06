@@ -5,7 +5,6 @@
 #include <string>
 #include <regex>
 
-
 class Parseur{
 private:
     const std::string filename;
@@ -39,20 +38,61 @@ public:
 };
 
 
+template<class T>
 class CollectionCarte
 {
 private:
-    std::vector<Carte> data;
+    std::vector<T> data;
 
 public:
-    CollectionCarte();
-    ~CollectionCarte();
-    virtual void addCarte(Carte c);
-    virtual int removeCarte(Carte c);
-    virtual int removeCarte(Carte c, int (*compareFunction)(Carte first, Carte second));
-    int size()const;
+    CollectionCarte(){};
+    ~CollectionCarte(){};
+    virtual void addCarte(T c){
+        data.push_back(c);
+    }
 
+    virtual int removeCarte(T c){
+        if(data.size() == 0){
+        return 0;
+        }
+        for (size_t i = 0; i < data.size(); i++){
+            if(data.at(i) == c){
+                data.erase(data.begin()+i);
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    virtual int removeCarte(T c, int (*compareFunction)(T first, T second)){
+        if(data.size() == 0){
+            return 0;
+        }
+    
+        for (size_t i = 0; i < data.size(); i++){
+            if(compareFunction(data.at(i), c)){
+                data.erase(data.begin()+i);
+                return 1;
+                }
+            }    
+        return 0;
+    }
+
+    int size()const{
+        return data.size();
+    };
+
+    virtual T operator [](int pos)const{
+        return data.at(pos);
+    }
+    
+    
+    virtual T& operator [](int pos){
+        return data.at(pos);
+    }
+    
 };
+
 
 
 

@@ -102,7 +102,6 @@ public:
         return data.at(pos);
     }
     
-    
     virtual T& operator [](int pos){
         return data.at(pos);
     }
@@ -114,8 +113,22 @@ public:
         }
         return result;
     }
-    
+
 };
+
+template<typename Data>
+void shuffleVector(std::vector<Data>& vec){
+    int size = vec.size();
+    int pick;
+    Data tmp;
+    for (int i = 0; i < size; i++){
+        pick = rand() % size;
+        tmp = vec.at(i);
+        vec.at(i) = vec.at(pick);
+        vec.at(pick) = tmp;
+    }
+    std::cout<<"shuffle done"<<std::endl;
+}
 
 template<typename CardData, typename Player>
 class GameModel{

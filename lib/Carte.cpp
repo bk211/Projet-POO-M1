@@ -2,6 +2,9 @@
 Carte::Carte():name("") {
 }
 
+Carte::Carte(std::string name):name(name) {
+}
+
 Carte::~Carte(){
 }
 

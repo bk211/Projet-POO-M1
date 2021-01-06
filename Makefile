@@ -1,8 +1,8 @@
 CC = g++
 CFLAGS = -Wall -std=c++11
 LIBDIR = lib/
-LIBSRC = Carte.cpp Parseur.cpp Exceptions.cpp CollectionCarte.cpp
-LIBHEADER = ../libCardGame.hpp
+LIBSRC = Carte.cpp Parseur.cpp Exceptions.cpp CollectionCarte.cpp Player.cpp GameModel.cpp
+HEADER = libCardGame.hpp
 LIBOBJ = $(LIBSRC:.cpp=.o)
 
 
@@ -15,20 +15,27 @@ test_exec:	Test.o libCardGame.a
 Test.o:	Test.cpp
 	$(CC) $(CFLAGS) $< -c
 
-libCardGame.a: lib/Carte.o lib/Parseur.o lib/Exceptions.o lib/CollectionCarte.o
+libCardGame.a: lib/Carte.o lib/Parseur.o lib/Exceptions.o lib/CollectionCarte.o lib/GameModel.o lib/Player.o
 	ar rvs $@ $^
 
-lib/Carte.o:	lib/Carte.cpp
+lib/Carte.o:	lib/Carte.cpp $(HEADER)
 	$(CC) $(CFLAGS) $< -c -o $@
 
-lib/CollectionCarte.o:	lib/CollectionCarte.cpp
+lib/CollectionCarte.o:	lib/CollectionCarte.cpp $(HEADER)
 	$(CC) $(CFLAGS) $< -c -o $@
 	
-lib/Parseur.o:	lib/Parseur.cpp
+lib/Parseur.o:	lib/Parseur.cpp $(HEADER)
 	$(CC) $(CFLAGS) $< -c -o $@
 	
-lib/Exceptions.o:	lib/Exceptions.cpp
+lib/Exceptions.o:	lib/Exceptions.cpp $(HEADER)
 	$(CC) $(CFLAGS) $< -c -o $@
+
+lib/Player.o:	lib/Player.cpp $(HEADER)
+	$(CC) $(CFLAGS) $< -c -o $@
+
+lib/GameModel.o:	lib/GameModel.cpp $(HEADER)
+	$(CC) $(CFLAGS) $< -c -o $@
+
 
 clean:
 	rm -rf *.o *.exe test_exec lib/*.o lib/*.exe

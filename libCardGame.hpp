@@ -29,6 +29,7 @@ protected:
     std::string name;
 public:
     Carte();
+    Carte(std::string name);
     virtual ~Carte();
     virtual std::string toString() const;
     friend const std::ostream& operator<<(std::ostream& out, const Carte& mat);
@@ -40,20 +41,20 @@ public:
 };
 
 
-template<class T>
-class CollectionCarte
+template<typename T>
+class CollectionData
 {
 private:
     std::vector<T> data;
 
 public:
-    CollectionCarte(){};
-    ~CollectionCarte(){};
-    virtual void addCarte(T c){
+    CollectionData(){};
+    ~CollectionData(){};
+    virtual void addData(T c){
         data.push_back(c);
     }
 
-    virtual int removeCarte(T c){
+    virtual int removeData(T c){
         if(data.size() == 0){
         return 0;
         }
@@ -66,7 +67,7 @@ public:
         return 0;
     }
 
-    virtual int removeCarteByName(std::string name){
+    virtual int removeDataByName(std::string name){
         if(data.size() == 0){
         return 0;
         }
@@ -79,7 +80,7 @@ public:
         return 0;
     }
 
-    virtual int removeCarte(T c, int (*compareFunction)(T first, T second)){
+    virtual int removeData(T c, int (*compareFunction)(T first, T second)){
         if(data.size() == 0){
             return 0;
         }
@@ -93,7 +94,7 @@ public:
         return 0;
     }
 
-    int size()const{
+    virtual int size()const{
         return data.size();
     };
 
@@ -105,10 +106,61 @@ public:
     virtual T& operator [](int pos){
         return data.at(pos);
     }
+
+    virtual std::string toString()const{
+        std::string result{};
+        for (auto obj : data){
+            result += obj.toString();
+        }
+        return result;
+    }
     
 };
 
+template<typename CardData, typename Player>
+class GameModel{
+protected:
+    CollectionData<CardData> data;
+public:
+    GameModel(){};
+    virtual int initGameData(std::vector<std::vector<std::string>> configData){
+        try{
+            std::cout<<"in initGameData"<<std::endl;
+            for (auto lines : configData){
+                int nbCard = stoi(lines[0]);
+                //std::cout<<"nbCard :" <<nbCard <<std::endl;
+                for (int i = 0; i < nbCard; i++){
+                    CardData generatedData = createDataFromStrLine(lines);
+                    data.addData(generatedData);
+                }
+            }
+        
+        }catch(std::exception &e){ // TODO tester l'erreur s'il marche en cas de pb de lecture de fichier config
+            std::cout<<"reading failed"<<std::endl;     
+            return 0;
+        }
+        std::cout<<"done reading"<<std::endl;
+        return 1;
 
+    }
 
+    virtual CardData createDataFromStrLine(std::vector<std::string>) = 0;
+
+    virtual CollectionData<CardData> getDataCollection()const{
+        return data;
+    }
+
+};
+
+class Player{
+private:
+protected:
+    std::string name;
+public:
+    Player(std::string);
+    virtual void setName(std::string str);
+    virtual std::string getName()const;
+    
+};
 
 #endif

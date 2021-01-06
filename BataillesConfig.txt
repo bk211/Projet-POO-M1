@@ -1,0 +1,7 @@
+4,1,As,carte 1
+4,2,Deux,carte 2
+4,3,Trois,carte 3
+4,4,Quatre,carte 4
+4,5,Cinq,carte 5
+4,6,Six,carte 6
+4,7,Sept,carte 7

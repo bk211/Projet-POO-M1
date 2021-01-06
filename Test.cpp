@@ -3,8 +3,11 @@
 using namespace std;
 class MyCard:public Carte{
 private:
+    std::string symbole;
+    std::string description;
 public:
     MyCard();
+    MyCard(std::string symbole,std::string name, std::string description);
     ~MyCard(); 
     MyCard(const MyCard &cp);   
     virtual std::string toString() const;
@@ -14,19 +17,26 @@ MyCard::MyCard()
 {
 }
 
-MyCard::MyCard(const MyCard &cp){
-    name = cp.name;
+MyCard::MyCard(std::string symbole, std::string name, std::string description)
+:symbole(symbole), description(description)
+{
+    setName(name);
 }
 
 
 
+MyCard::MyCard(const MyCard &cp){
+    name = cp.name;
+    symbole = cp.symbole;
+    description = cp.description;
+}
 
 MyCard::~MyCard(){
 }
 
 
 std::string MyCard::toString() const{
-    return "my card :"+name+ "\n";
+    return "my card : "+name+", "+symbole+", "+description+"\n";
 }
 
 int removefunc(MyCard a, MyCard b){
@@ -35,6 +45,40 @@ int removefunc(MyCard a, MyCard b){
     }
     return false;
 }
+
+
+
+class MyGameModel: public GameModel<MyCard, Player>
+{
+private:
+public:
+    MyGameModel();
+    ~MyGameModel();
+    virtual MyCard createDataFromStrLine(vector<string> line);
+
+};
+
+MyGameModel::MyGameModel(/* args */)
+{
+}
+
+MyGameModel::~MyGameModel()
+{
+}
+
+MyCard MyGameModel::createDataFromStrLine(vector<string> line){
+    
+    /*
+    cout<<"Dealing with line content: ";
+    for (auto word : line){ std::cout<< word +", ";}
+    cout<<std::endl;*/
+    
+    MyCard result = MyCard(line[1], line[2], line[3]);
+    //cout<<"generated card: "<< result;
+    return result;
+}
+
+
 
 int main(int argc, char const *argv[])
 {
@@ -45,11 +89,13 @@ int main(int argc, char const *argv[])
         std::cout<<"Test: Invoke Parseur with bad filename"<<std::endl;
     }
     */
-    /*
+    
     cout<<"=========================================="<<endl;
-    Parseur parseur = Parseur("configTest.txt", 4, true);
-    parseur.print_lines();*/
+    //Parseur parseur = Parseur("configTest.txt", 4, true);
+    Parseur parseur = Parseur("BataillesConfig.txt", 4, true);
+    parseur.print_lines();
 
+    /*
     cout<<"=========================================="<<endl;
     MyCard c1{};
     MyCard c2 = MyCard();
@@ -62,11 +108,11 @@ int main(int argc, char const *argv[])
     c3.setName("trois");
     
     cout<<"=========================================="<<endl;
-    CollectionCarte<MyCard> deck{};
+    CollectionData<MyCard> deck{};
     cout<<"Size: "<<deck.size() <<endl;
-    deck.addCarte(c1);
-    deck.addCarte(c2);
-    deck.addCarte(c3);
+    deck.addData(c1);
+    deck.addData(c2);
+    deck.addData(c3);
     
     cout<<"Size: "<<deck.size() <<endl;
     
@@ -76,16 +122,19 @@ int main(int argc, char const *argv[])
     deck[1].setName("deux bis");
     cout<<"after: "<<deck[1];
     cout<<"=========================================="<<endl;
-    cout<<"removing c1: "<<deck.removeCarte(c1)<<endl;
-    cout<<"removing c2: "<<deck.removeCarte(c2)<<endl;
-    cout<<"removing c2 bis: "<<deck.removeCarteByName("deux bis")<<endl;
-    cout<<"removing c3: "<<deck.removeCarte(c3, removefunc)<<endl;
+    cout<<"removing c1: "<<deck.removeData(c1)<<endl;
+    cout<<"removing c2: "<<deck.removeData(c2)<<endl;
+    cout<<"removing c2 bis: "<<deck.removeDataByName("deux bis")<<endl;
+    cout<<"removing c3: "<<deck.removeData(c3, removefunc)<<endl;
     cout<<"Size: "<<deck.size() <<endl;
-    
-
     cout<<"=========================================="<<endl;
+    */
+    
+    MyGameModel GM{};
+    cout<<GM.initGameData(parseur.get_lignes());
+    cout<<"=========================================="<<endl;
+    //cout<<"contenue: \n"<<GM.getDataCollection().toString();
+    
 
-    
-    
     return 0;
 }

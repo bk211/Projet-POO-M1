@@ -92,7 +92,7 @@ int main(int argc, char const *argv[])
     
     cout<<"=========================================="<<endl;
     //Parseur parseur = Parseur("configTest.txt", 4, true);
-    Parseur parseur = Parseur("BataillesConfig.txt", 4, true);
+    Parseur parseur = Parseur("BataillesConfig32.txt", 4, true);
     parseur.print_lines();
 
     /*

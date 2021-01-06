@@ -78,6 +78,7 @@ int main(int argc, char const *argv[])
     cout<<"=========================================="<<endl;
     cout<<"removing c1: "<<deck.removeCarte(c1)<<endl;
     cout<<"removing c2: "<<deck.removeCarte(c2)<<endl;
+    cout<<"removing c2 bis: "<<deck.removeCarteByName("deux bis")<<endl;
     cout<<"removing c3: "<<deck.removeCarte(c3, removefunc)<<endl;
     cout<<"Size: "<<deck.size() <<endl;
     

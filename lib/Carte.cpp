@@ -32,3 +32,11 @@ int Carte::operator==(Carte second){
     }
     return 0;
 }
+
+
+int Carte::operator==(std::string name){
+    if(name == name){
+        return 1;
+    }
+    return 0;
+}

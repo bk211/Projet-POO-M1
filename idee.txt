@@ -36,3 +36,5 @@ on a juste besoin d'hériter une seule classe d'instanciation avec les nouveau a
 7/ implémenter l'interface vérification de fin de partie, comptage des points
 8/ initGame presque fini, faire initJoueurs ? 
 -> si on veut garder une trace des scores, faut éventuellement faire une sauvegarde/lecture de score, ça devrait être optionnel
+
+REDEFINIR LA PORTEE DES FONCTIONS A FAIRE ABSOLUMENT<<<  

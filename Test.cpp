@@ -135,25 +135,7 @@ int main(int argc, char const *argv[])
     
     cout<<"=========================================="<<endl;
 
-    //cout<<"contenue: \n"<<GM.getDataCollection().toString();
-    cout<<"=========================================="<<endl;
-    cout<<"Test shuffle"<<endl;
-    vector<int> vec; 
-    for (size_t i = 0; i < 15; i++){
-        vec.push_back(i);
-    }
-
-    for (auto c : vec){
-        cout<<c <<", ";
-        
-    }
-    cout<<endl;
-
-    shuffleVector(vec);
-    for (auto c : vec){
-        cout<<c <<", ";
-    }
-
+    cout<<"contenue: \n"<<GM.getDataCollection().toString();
     
     cout<<"=========================================="<<endl;
     

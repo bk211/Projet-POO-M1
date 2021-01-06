@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 #include <regex>
-
 class Parseur{
 private:
     const std::string filename;
@@ -114,15 +113,28 @@ public:
         return result;
     }
 
+    virtual bool isEmpty()const{
+        return data.size() != 0;
+    }
+
+    virtual void clear(){
+        data.clear();
+    }
+
+    virtual void shuffle(){
+        shuffleVector(data);
+    }
+
 };
 
 template<typename Data>
 void shuffleVector(std::vector<Data>& vec){
+    std::srand(std::time(0));
     int size = vec.size();
     int pick;
     Data tmp;
     for (int i = 0; i < size; i++){
-        pick = rand() % size;
+        pick = std::rand() % size;
         tmp = vec.at(i);
         vec.at(i) = vec.at(pick);
         vec.at(pick) = tmp;
@@ -137,6 +149,11 @@ protected:
 public:
     GameModel(){};
     virtual int initGameData(std::vector<std::vector<std::string>> configData){
+
+        if(!data.isEmpty()){// une partie a déjà été joué, refaire le deck et refaire la main des joueurs
+            data.clear();
+            //TODO joueur.clear()
+        }
         try{
             std::cout<<"in initGameData"<<std::endl;
             for (auto lines : configData){
@@ -153,6 +170,7 @@ public:
             return 0;
         }
         std::cout<<"done reading"<<std::endl;
+        data.shuffle();
         return 1;
 
     }

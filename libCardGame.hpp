@@ -155,27 +155,22 @@ public:
             //TODO joueur.clear()
         }
         try{
-            std::cout<<"in initGameData"<<std::endl;
+            //std::cout<<"in initGameData"<<std::endl;
             for (auto lines : configData){
-                int nbCard = stoi(lines[0]);
-                //std::cout<<"nbCard :" <<nbCard <<std::endl;
-                for (int i = 0; i < nbCard; i++){
-                    CardData generatedData = createDataFromStrLine(lines);
-                    data.addData(generatedData);
-                }
+                pushDataFromStrLine(lines);
             }
         
         }catch(std::exception &e){ // TODO tester l'erreur s'il marche en cas de pb de lecture de fichier config
             std::cout<<"reading failed"<<std::endl;     
             return 0;
         }
-        std::cout<<"done reading"<<std::endl;
-        data.shuffle();
-        return 1;
+        //std::cout<<"done reading"<<std::endl;
 
+
+        return 1;
     }
 
-    virtual CardData createDataFromStrLine(std::vector<std::string>) = 0;
+    virtual void pushDataFromStrLine(std::vector<std::string>) = 0;
 
     virtual CollectionData<CardData> getDataCollection()const{
         return data;
@@ -191,7 +186,6 @@ public:
     Player(std::string);
     virtual void setName(std::string str);
     virtual std::string getName()const;
-    
 };
 
 #endif

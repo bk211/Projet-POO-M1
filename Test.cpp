@@ -54,7 +54,7 @@ private:
 public:
     MyGameModel();
     ~MyGameModel();
-    virtual MyCard createDataFromStrLine(vector<string> line);
+    virtual void pushDataFromStrLine(vector<string> line);
 
 };
 
@@ -66,18 +66,18 @@ MyGameModel::~MyGameModel()
 {
 }
 
-MyCard MyGameModel::createDataFromStrLine(vector<string> line){
+void MyGameModel::pushDataFromStrLine(vector<string> line){
     
     /*
     cout<<"Dealing with line content: ";
     for (auto word : line){ std::cout<< word +", ";}
     cout<<std::endl;*/
-    
-    MyCard result = MyCard(line[1], line[2], line[3]);
-    //cout<<"generated card: "<< result;
-    return result;
+    for (int i = 0; i < stoi(line[0]); i++){
+        MyCard result{line[1], line[2], line[3]};
+        //cout<<"generated card: "<< result;
+        data.addData(result);
+    }
 }
-
 
 
 int main(int argc, char const *argv[])
@@ -135,7 +135,7 @@ int main(int argc, char const *argv[])
     
     cout<<"=========================================="<<endl;
 
-    cout<<"contenue: \n"<<GM.getDataCollection().toString();
+    //cout<<"contenue: \n"<<GM.getDataCollection().toString();
     
     cout<<"=========================================="<<endl;
     

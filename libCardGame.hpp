@@ -22,6 +22,7 @@ public:
 };
 
 class CollectionCarte;
+class PlayerManager;
 
 class Carte
 {
@@ -68,46 +69,7 @@ public:
     virtual void shuffle();
 };
 
-class GameModel{
-protected:
-    CollectionCarte data;
-    //PlayerManager<CardType> playerManager;
 
-public:
-    GameModel(){};
-    virtual int initGameData(std::vector<std::vector<std::string>> configData){
-
-        if(!data.isEmpty()){// une partie a déjà été joué, refaire le deck et refaire la main des joueurs
-            data.clear();
-            //TODO joueur.clear()
-        }
-        try{
-            //std::cout<<"in initGameData"<<std::endl;
-            for (auto lines : configData){
-                pushDataFromStrLine(lines);
-            }
-        
-        }catch(std::exception &e){ // TODO tester l'erreur s'il marche en cas de pb de lecture de fichier config
-            std::cout<<"reading failed"<<std::endl;     
-            return 0;
-        }
-        //std::cout<<"done reading"<<std::endl;
-
-
-        return 1;
-    }
-
-    virtual void pushDataFromStrLine(std::vector<std::string>) = 0;
-
-    virtual CollectionCarte getDataCollection()const{
-        return data;    
-    }
-
-    virtual void initPlayers() = 0;
-
-};
-
-class PlayerManager;
 class Player{
 private:
 protected:
@@ -136,16 +98,13 @@ public:
 
 };
 
-
-
-
 class PlayerManager{
-private:
+protected:
+public:
     std::vector<Player> players;
     int currentPlayer;
     int direction;
     int step;
-    friend GameModel;
     PlayerManager():currentPlayer(0), direction(1), step(1){}
     Player& getCurrentPlayer(){
         return players[currentPlayer];
@@ -174,19 +133,32 @@ private:
                 next = size - next;
             }
 
-            if(players[next].status == 1){
-                step--;
-            }
+            //if(players[next].status == 1){
+              //  step--;
+            //}
         }
         step = 1;
     }
 
-public:
     void addPlayer(Player p){
         players.push_back(p);
     }
 
 };
 
+
+class GameModel{
+protected:
+    CollectionCarte data;
+    PlayerManager playerManager;
+
+public:
+    GameModel();
+    virtual int initGameData(std::vector<std::vector<std::string>> configData);
+    virtual void pushDataFromStrLine(std::vector<std::string>) = 0;
+    virtual CollectionCarte getDataCollection()const;
+    virtual void initPlayers() = 0;
+
+};
 
 #endif

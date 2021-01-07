@@ -47,10 +47,7 @@ int removefunc(Carte* a, Carte* b){
 }
 
 
-/*
-
-
-class MyGameModel: public GameModel<MyCard, PlayerManager>
+class MyGameModel: public GameModel
 {
 private:
 public:
@@ -67,47 +64,41 @@ MyGameModel::MyGameModel()
 MyGameModel::~MyGameModel()
 {
 }
-*/
 
-/*
 void MyGameModel::pushDataFromStrLine(vector<string> line){
     
     //cout<<"Dealing with line content: ";
     //for (auto word : line){ std::cout<< word +", ";}
     //cout<<std::endl;
     for (int i = 0; i < stoi(line[0]); i++){
-        MyCard result{line[1], line[2], line[3]};
+        MyCard * result = new MyCard{line[1], line[2], line[3]};
         //cout<<"generated card: "<< result;
         data.addData(result);
     }
 }
-*/
 
-/*
 void MyGameModel::initPlayers(){
-    Player<MyCard> p1{"joueur 1"};
-    Player<MyCard> p2{"joueur 2"};
-    playerManager.addPlayer(p1);
+    Player p1{"joueur 1"};
+    Player p2{"joueur 2"};
+    //playerManager.addPlayer(p1);
     
 }
-*/
+
 
 int main(int argc, char const *argv[])
 {
-    /*`
     try{
         Parseur badparseur = Parseur("doesNotExist.txt", 4);
     }catch(std::invalid_argument&){
         std::cout<<"Test: Invoke Parseur with bad filename"<<std::endl;
     }
-    */
     
-    /*
+    
     cout<<"=========================================="<<endl;
     //Parseur parseur = Parseur("configTest.txt", 4, true);
     Parseur parseur = Parseur("BataillesConfig32.txt", 4, true);
     parseur.print_lines();
-    */
+    
     
     cout<<"=========================================="<<endl;
     Carte * c1 = new Carte();
@@ -142,16 +133,15 @@ int main(int argc, char const *argv[])
     cout<<"Size: "<<deck.size() <<endl;
     cout<<"=========================================="<<endl;
     
-    /*
+    
     MyGameModel GM{};
     cout<<"init game return :" <<GM.initGameData(parseur.get_lignes())<<endl;
     
     cout<<"=========================================="<<endl;
 
-    //cout<<"contenue: \n"<<GM.getDataCollection().toString();
+    cout<<"contenue: \n"<<GM.getDataCollection().toString();
     
     cout<<"=========================================="<<endl;
-    */
     
 
     return 0;

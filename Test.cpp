@@ -48,14 +48,14 @@ int removefunc(MyCard a, MyCard b){
 
 
 
-class MyGameModel: public GameModel<MyCard, Player>
+class MyGameModel: public GameModel<MyCard, PlayerManager>
 {
 private:
 public:
     MyGameModel();
     ~MyGameModel();
     virtual void pushDataFromStrLine(vector<string> line);
-
+    virtual void initPlayers();
 };
 
 MyGameModel::MyGameModel(/* args */)
@@ -79,6 +79,13 @@ void MyGameModel::pushDataFromStrLine(vector<string> line){
     }
 }
 
+
+void MyGameModel::initPlayers(){
+    Player<MyCard> p1{"joueur 1"};
+    Player<MyCard> p2{"joueur 2"};
+    playerManager.addPlayer(p1);
+    
+}
 
 int main(int argc, char const *argv[])
 {
@@ -122,10 +129,10 @@ int main(int argc, char const *argv[])
     deck[1].setName("deux bis");
     cout<<"after: "<<deck[1];
     cout<<"=========================================="<<endl;
-    cout<<"removing c1: "<<deck.removeData(c1)<<endl;
-    cout<<"removing c2: "<<deck.removeData(c2)<<endl;
-    cout<<"removing c2 bis: "<<deck.removeDataByName("deux bis")<<endl;
-    cout<<"removing c3: "<<deck.removeData(c3, removefunc)<<endl;
+    cout<<"removing c1: "<<deck.deleteData(c1)<<endl;
+    cout<<"removing c2: "<<deck.deleteData(c2)<<endl;
+    cout<<"removing c2 bis: "<<deck.deleteDataByName("deux bis")<<endl;
+    cout<<"removing c3: "<<deck.deleteData(c3, removefunc)<<endl;
     cout<<"Size: "<<deck.size() <<endl;
     cout<<"=========================================="<<endl;
     */
@@ -138,6 +145,7 @@ int main(int argc, char const *argv[])
     //cout<<"contenue: \n"<<GM.getDataCollection().toString();
     
     cout<<"=========================================="<<endl;
+
     
 
     return 0;

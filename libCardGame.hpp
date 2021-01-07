@@ -53,7 +53,7 @@ public:
         data.push_back(c);
     }
 
-    virtual int removeData(T c){
+    virtual int deleteData(T c){
         if(data.size() == 0){
         return 0;
         }
@@ -66,7 +66,7 @@ public:
         return 0;
     }
 
-    virtual int removeDataByName(std::string name){
+    virtual int deleteDataByName(std::string name){
         if(data.size() == 0){
         return 0;
         }
@@ -79,7 +79,7 @@ public:
         return 0;
     }
 
-    virtual int removeData(T c, int (*compareFunction)(T first, T second)){
+    virtual int deleteData(T c, int (*compareFunction)(T first, T second)){
         if(data.size() == 0){
             return 0;
         }
@@ -93,6 +93,12 @@ public:
         return 0;
     }
 
+    virtual T draw(){
+        T result = data.back();
+        data.pop_back();
+        return result;
+    }
+    
     virtual int size()const{
         return data.size();
     };
@@ -125,6 +131,7 @@ public:
         shuffleVector(data);
     }
 
+
 };
 
 template<typename Data>
@@ -142,10 +149,13 @@ void shuffleVector(std::vector<Data>& vec){
     std::cout<<"shuffle done"<<std::endl;
 }
 
-template<typename CardData, typename Player>
+
+template<typename CardType, template <typename> class PlayerManager>
 class GameModel{
 protected:
-    CollectionData<CardData> data;
+    CollectionData<CardType> data;
+    PlayerManager<CardType> playerManager;
+
 public:
     GameModel(){};
     virtual int initGameData(std::vector<std::vector<std::string>> configData){
@@ -172,20 +182,92 @@ public:
 
     virtual void pushDataFromStrLine(std::vector<std::string>) = 0;
 
-    virtual CollectionData<CardData> getDataCollection()const{
-        return data;
+    virtual CollectionData<CardType> getDataCollection()const{
+        return data;    
     }
+
+    virtual void initPlayers() = 0;
 
 };
 
+template<typename CardType>
 class Player{
 private:
 protected:
     std::string name;
+    int status;
+    int classId;
+    CollectionData<CardType> hand;
+
 public:
-    Player(std::string);
-    virtual void setName(std::string str);
-    virtual std::string getName()const;
+    Player(std::string _name, int _status = 0, int _classId = 0):
+    name(_name), status(_status), classId(_classId)
+    {}
+
+    virtual std::string getName()const{
+        return name;
+    }
+
+    void setName(std::string str){
+        name = str;
+    }
+
+    CollectionData<CardType>& getHand(){
+        return hand;
+    }
+
 };
+
+
+template<typename CardType>
+class PlayerManager{
+private:
+    std::vector<Player<CardType>> players;
+    int currentPlayer;
+    int direction;
+    int step;
+    friend class GameModel<CardType, PlayerManager>;
+    PlayerManager():currentPlayer(0), direction(1), step(1){}
+    Player<CardType>& getCurrentPlayer(){
+        return players[currentPlayer];
+    }
+
+    Player<CardType>& getPlayer(int pos){
+        return players[pos];
+    }
+
+    void swapDirection(){
+        direction = (direction ==1)? -1 : 1;
+    }
+
+    void setStep(unsigned int s){
+        step = s;
+    }
+
+    void rotateToNext(){
+        int next = currentPlayer;
+        int size = players.size();
+        while(step > 0){
+            next += direction;
+            if(next >= size){
+                next %= size; 
+            }else if(next < 0){
+                next = size - next;
+            }
+
+            if(players[next].status == 1){
+                step--;
+            }
+        }
+        step = 1;
+    }
+
+public:
+    void addPlayer(Player<CardType> p){
+        players.push_back(p);
+    }
+
+};
+
 
 #endif

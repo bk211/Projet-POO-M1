@@ -37,9 +37,17 @@ int Carte::operator==(Carte second){
 }
 
 
-int Carte::operator==(std::string name){
-    if(name == name){
+int Carte::operator==(std::string second){
+    if(name == second){
         return 1;
     }
     return 0;
+}
+
+void Carte::addAttribut(std::string att){
+    attributs.push_back(att);
+}
+
+std::string Carte::getAttribut(int pos){
+    return attributs.at(pos);
 }

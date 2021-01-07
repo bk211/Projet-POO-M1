@@ -21,140 +21,57 @@ public:
     std::vector<std::vector<std::string>> get_lignes();
 };
 
+class CollectionCarte;
+
 class Carte
 {
 private:
 protected:
+
     std::string name;
+    std::vector<std::string> attributs;
+    virtual void addAttribut(std::string name);
+
 public:
-    Carte();
-    Carte(std::string name);
+    virtual void setName(std::string str);
+    virtual std::string getAttribut(int pos);
     virtual ~Carte();
     virtual std::string toString() const;
     friend const std::ostream& operator<<(std::ostream& out, const Carte& mat);
     virtual std::string getName()const;
-    virtual void setName(std::string str);
     virtual int operator==(Carte second);
     virtual int operator==(std::string name);
-    
+    Carte();
+    Carte(std::string name);
+    friend CollectionCarte;
 };
 
 
-template<typename T>
-class CollectionData
+class CollectionCarte
 {
 private:
-    std::vector<T> data;
+    std::vector<Carte *> data;
 
 public:
-    CollectionData(){};
-    ~CollectionData(){};
-    virtual void addData(T c){
-        data.push_back(c);
-    }
-
-    virtual int deleteData(T c){
-        if(data.size() == 0){
-        return 0;
-        }
-        for (size_t i = 0; i < data.size(); i++){
-            if(data.at(i) == c){
-                data.erase(data.begin()+i);
-                return 1;
-            }
-        }
-        return 0;
-    }
-
-    virtual int deleteDataByName(std::string name){
-        if(data.size() == 0){
-        return 0;
-        }
-        for (size_t i = 0; i < data.size(); i++){
-            if(data.at(i) == name){
-                data.erase(data.begin()+i);
-                return 1;
-            }
-        }
-        return 0;
-    }
-
-    virtual int deleteData(T c, int (*compareFunction)(T first, T second)){
-        if(data.size() == 0){
-            return 0;
-        }
-    
-        for (size_t i = 0; i < data.size(); i++){
-            if(compareFunction(data.at(i), c)){
-                data.erase(data.begin()+i);
-                return 1;
-                }
-            }    
-        return 0;
-    }
-
-    virtual T draw(){
-        T result = data.back();
-        data.pop_back();
-        return result;
-    }
-    
-    virtual int size()const{
-        return data.size();
-    };
-
-    virtual T operator [](int pos)const{
-        return data.at(pos);
-    }
-    
-    virtual T& operator [](int pos){
-        return data.at(pos);
-    }
-
-    virtual std::string toString()const{
-        std::string result{};
-        for (auto obj : data){
-            result += obj.toString();
-        }
-        return result;
-    }
-
-    virtual bool isEmpty()const{
-        return data.size() != 0;
-    }
-
-    virtual void clear(){
-        data.clear();
-    }
-
-    virtual void shuffle(){
-        shuffleVector(data);
-    }
-
-
+    CollectionCarte(){};
+    ~CollectionCarte();
+    virtual void addData(Carte *c);
+    virtual int deleteData(Carte* c);
+    virtual int deleteDataByName(std::string name);
+    virtual int deleteData(Carte *c, int (*compareFunction)(Carte* first, Carte* second));
+    virtual Carte * draw();
+    virtual int size()const;
+    virtual Carte * operator [](int pos)const;
+    virtual std::string toString()const;
+    virtual bool isEmpty()const;
+    virtual void clear();
+    virtual void shuffle();
 };
 
-template<typename Data>
-void shuffleVector(std::vector<Data>& vec){
-    std::srand(std::time(0));
-    int size = vec.size();
-    int pick;
-    Data tmp;
-    for (int i = 0; i < size; i++){
-        pick = std::rand() % size;
-        tmp = vec.at(i);
-        vec.at(i) = vec.at(pick);
-        vec.at(pick) = tmp;
-    }
-    std::cout<<"shuffle done"<<std::endl;
-}
-
-
-template<typename CardType, template <typename> class PlayerManager>
 class GameModel{
 protected:
-    CollectionData<CardType> data;
-    PlayerManager<CardType> playerManager;
+    CollectionCarte data;
+    //PlayerManager<CardType> playerManager;
 
 public:
     GameModel(){};
@@ -182,7 +99,7 @@ public:
 
     virtual void pushDataFromStrLine(std::vector<std::string>) = 0;
 
-    virtual CollectionData<CardType> getDataCollection()const{
+    virtual CollectionCarte getDataCollection()const{
         return data;    
     }
 
@@ -190,14 +107,14 @@ public:
 
 };
 
-template<typename CardType>
+class PlayerManager;
 class Player{
 private:
 protected:
     std::string name;
     int status;
     int classId;
-    CollectionData<CardType> hand;
+    CollectionCarte hand;
 
 public:
     Player(std::string _name, int _status = 0, int _classId = 0):
@@ -212,27 +129,29 @@ public:
         name = str;
     }
 
-    CollectionData<CardType>& getHand(){
+    CollectionCarte& getHand(){
         return hand;
     }
+    friend PlayerManager;
 
 };
 
 
-template<typename CardType>
+
+
 class PlayerManager{
 private:
-    std::vector<Player<CardType>> players;
+    std::vector<Player> players;
     int currentPlayer;
     int direction;
     int step;
-    friend class GameModel<CardType, PlayerManager>;
+    friend GameModel;
     PlayerManager():currentPlayer(0), direction(1), step(1){}
-    Player<CardType>& getCurrentPlayer(){
+    Player& getCurrentPlayer(){
         return players[currentPlayer];
     }
 
-    Player<CardType>& getPlayer(int pos){
+    Player& getPlayer(int pos){
         return players[pos];
     }
 
@@ -263,7 +182,7 @@ private:
     }
 
 public:
-    void addPlayer(Player<CardType> p){
+    void addPlayer(Player p){
         players.push_back(p);
     }
 

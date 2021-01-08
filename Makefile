@@ -15,7 +15,7 @@ test_exec:	Test.o libCardGame.a
 Test.o:	Test.cpp
 	$(CC) $(CFLAGS) $< -c
 
-libCardGame.a: lib/Carte.o lib/Parseur.o lib/Exceptions.o lib/Player.o lib/CollectionCarte.o lib/GameModel.o lib/PlayerManager.o lib/GameController.cpp lib/GameView.cpp
+libCardGame.a: lib/Carte.o lib/Parseur.o lib/Exceptions.o lib/Player.o lib/CollectionCarte.o lib/GameModel.o lib/PlayerManager.o lib/GameController.o lib/GameView.o
 	ar rvs $@ $^
 
 lib/Carte.o:	lib/Carte.cpp $(HEADER)

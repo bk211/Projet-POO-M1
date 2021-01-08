@@ -16,18 +16,17 @@ public:
 };
 
 
-/*
+
 class Batailles
 {
 private:
-    MyGameModel gameModel;
-    GameView GameView;
-    GameController GameController;
-    Parseur * parseur;
 public:
+    MyGameModel gameModel;
+    GameView gameView;
+    //GameController gameController;
+    Parseur * parseur;
     Batailles();
     ~Batailles();
 };
-*/
 
 #endif

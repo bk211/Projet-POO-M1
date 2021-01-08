@@ -21,4 +21,4 @@ update_lib: ../libCardGame.a ../libCardGame.hpp
 	cp $^ .
 
 clean:
-	rm -rf *.o *.exe test_exec lib/*.o lib/*.exe
+	rm -rf *.o *.exe test_exec 

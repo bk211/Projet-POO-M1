@@ -35,3 +35,12 @@ void MyGameModel::initPlayers(){
 }
 
 
+Batailles::Batailles()
+:gameModel(MyGameModel())
+{
+    gameView = GameView();
+}
+
+Batailles::~Batailles()
+{
+}

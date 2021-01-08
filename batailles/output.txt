@@ -1,0 +1,178 @@
+Round of player : joueur 1
+Player has draw :
+Carte Name : V
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : 10
+
+comparaison en cours ...
+result of diff : 1
+
+Round of player : joueur 1
+Player has draw :
+Carte Name : 7
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : 10
+
+comparaison en cours ...
+result of diff : -3
+
+Round of player : joueur 1
+Player has draw :
+Carte Name : 7
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : 8
+
+comparaison en cours ...
+result of diff : -1
+
+Round of player : joueur 1
+Player has draw :
+Carte Name : 10
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : 8
+
+comparaison en cours ...
+result of diff : 2
+
+Round of player : joueur 1
+Player has draw :
+Carte Name : 1
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : V
+
+comparaison en cours ...
+result of diff : -11
+
+Round of player : joueur 1
+Player has draw :
+Carte Name : D
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : 7
+
+comparaison en cours ...
+result of diff : 5
+
+Round of player : joueur 1
+Player has draw :
+Carte Name : 10
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : D
+
+comparaison en cours ...
+result of diff : -2
+
+Round of player : joueur 1
+Player has draw :
+Carte Name : V
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : 1
+
+comparaison en cours ...
+result of diff : 11
+
+Round of player : joueur 1
+Player has draw :
+Carte Name : 9
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : 9
+
+comparaison en cours ...
+result of diff : 0
+Batailles !!
+
+Round of player : joueur 1
+Player has draw :
+Carte Name : R
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : R
+
+comparaison en cours ...
+result of diff : 0
+Batailles !!
+
+Round of player : joueur 1
+Player has draw :
+Carte Name : 7
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : 1
+
+comparaison en cours ...
+result of diff : 7
+
+Round of player : joueur 1
+Player has draw :
+Carte Name : 8
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : 9
+
+comparaison en cours ...
+result of diff : -1
+
+Round of player : joueur 1
+Player has draw :
+Carte Name : 1
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : 8
+
+comparaison en cours ...
+result of diff : -8
+
+Round of player : joueur 1
+Player has draw :
+Carte Name : R
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : V
+
+comparaison en cours ...
+result of diff : 2
+
+Round of player : joueur 1
+Player has draw :
+Carte Name : 9
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : D
+
+comparaison en cours ...
+result of diff : -3
+
+Round of player : joueur 1
+Player has draw :
+Carte Name : D
+
+Round of player : joueur 2
+Player has draw :
+Carte Name : R
+
+comparaison en cours ...
+result of diff : -1
+GAME OVER

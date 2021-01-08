@@ -9,6 +9,7 @@ MyGameModel::~MyGameModel()
 }
 
 void MyGameModel::startGame(){
+    
     data->shuffle();
     while (!data->isEmpty()){//tant que le deck n'est pas vide
         //tirer une carte, la donner au joueur qui joue, puis passer au joueur suivant
@@ -47,7 +48,11 @@ void MyGameModel::initPlayers(){
 }
 
 bool MyGameModel::isGameOver(){ // verifie les conditions de fin de jeu
-    return false;
+    for (Player * p : playerManager->players){
+        if(p->getHand().size() == 0) 
+            return true;
+    }
+    
 }
 
 
@@ -58,6 +63,7 @@ Batailles::Batailles(): parseur(Parseur("BataillesConfig32.txt", 4)){
     gameModel.playerManager = new PlayerManager();
     gameModel.initPlayers();
     std::cout<<gameModel.playerManager->getCurrentPlayer()->toString();
+
 }
 
 Batailles::~Batailles()
@@ -72,14 +78,87 @@ void Batailles::start(){
     std::cout<<"===========================\n";
     std::cout<<gameModel.playerManager->getPlayer(1)->getHand().toString();
     */
+    bool bataille = false;
     while(!gameModel.isGameOver()){
 
+        std::vector<Carte *> stack;
         
-        std::cout<<" round of player : " << gameModel.playerManager->currentPlayer<<std::endl;
-        gameView.afficher("afficher la main du joueur :"); // affichage a faire
-        std::string userInput = gameController.getUserInput(); // verifier si l'entree est valide
-        gameModel.playerManager->rotateToNext();
+        Player * lastPlayer = nullptr;
+
+        for (Player* player: gameModel.playerManager->players){
+            std::cout<<"\nRound of player : " << player->getName()<<std::endl;
+            gameView.afficher("Player has draw :"); // affichage a faire
+            if(player->getHand().isEmpty()){
+                continue;
+            }
+            Carte * out = player->getHand().draw();
+            gameView.afficher(out->toString()); // affichage a faire
+
+            if (stack.empty() || bataille){
+            // si la pile est vide ou il y a eu "bataille" dans le round predecedent
+                stack.push_back(out);
+                bataille = false;
+                lastPlayer = player;
+            }else{
+                std::cout<<"\ncomparaison en cours ...\n";
+                int diff = compare(stack.back(), out);
+                std::cout<< "result of diff : "<<diff <<std::endl;
+                if(diff == 0){// bataille
+                    std::cout<<"Batailles !!"<<std::endl;
+                    bataille = true;
+                    stack.push_back(out);
+                }else if(diff >0){ // le joueur gagne
+                    bataille = false; 
+                    gameModel.TakeStack(stack, player);
+                    lastPlayer = player;
+                }else{ // diff < 0
+                    bataille = false;
+                    gameModel.TakeStack(stack, lastPlayer);
+                    lastPlayer = player;
+                }
+
+            }
+            
+            
+            
+            //std::string userInput = gameController.getUserInput(); // verifier si l'entree est valide
+            //std::getchar(); //faire une pause
+            gameModel.playerManager->rotateToNext();
+        }
         
     }
+
+    std::cout<<"GAME OVER\n";
     
+}
+
+/* compare 2 cartes:
+    -> negatif si first < second
+    -> positif si first >= second
+*/
+int compare(Carte * first, Carte * second){
+
+    std::map<std::string, int> order;
+    order["2"] = 2;
+    order["4"] = 4;
+    order["5"] = 5;
+    order["6"] = 6;
+    order["7"] = 7;
+    order["8"] = 8;
+    order["9"] = 9;
+    order["10"] = 10;
+    order["V"] = 11;
+    order["D"] = 12;
+    order["R"] = 13;
+    order["A"] = 14;
+
+    //std::cout<<"premier :" <<first->getName()<< "\t deuxieme " <<second->getName();
+    //std::cout<<" result = " << order[first->getName()] - order[second->getName()];
+    return order[first->getName()] - order[second->getName()];
+
+}
+
+
+void MyGameModel::TakeStack(std::vector<Carte *>& stack, Player * player){
+
 }

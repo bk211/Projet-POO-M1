@@ -11,16 +11,15 @@ private:
     void initPlayers();
     void startGame();
     bool isGameOver();
-
+    void TakeStack(std::vector<Carte *>& stack, Player * player);
 public:
     void countScore();
     ~MyGameModel();
     MyGameModel();
     friend Batailles;
-
-
 };
 
+int compare(Carte * first, Carte * second);
 
 
 class Batailles

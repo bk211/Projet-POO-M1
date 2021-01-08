@@ -9,11 +9,18 @@ MyGameModel::~MyGameModel()
 }
 
 void MyGameModel::startGame(){
-
+    data->shuffle();
+    while (!data->isEmpty()){//tant que le deck n'est pas vide
+        //tirer une carte, la donner au joueur qui joue, puis passer au joueur suivant
+        //std::cout<<"current player is : "<<playerManager->currentPlayer<<std::endl;
+        playerManager->getCurrentPlayer()->getHand().addData(data->draw());
+        playerManager->rotateToNext();   
+        //std::cout<<"next player is : "<<playerManager->currentPlayer<<std::endl;
+    }
 }
 
 void MyGameModel::countScore(){
-    
+
 }
 
 
@@ -51,4 +58,9 @@ Batailles::Batailles(): parseur(Parseur("BataillesConfig32.txt", 4)){
 
 Batailles::~Batailles()
 {
+}
+
+void Batailles::start(){
+    gameModel.startGame();// distribuer les cartes au joueurs
+    std::cout<<gameModel.playerManager->getCurrentPlayer()->getHand().toString();
 }

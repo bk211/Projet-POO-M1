@@ -51,6 +51,7 @@ void PlayerManager::rotateToNext()
         }
     }
     step = 1;
+    currentPlayer = next;
 }
 
 void PlayerManager::addPlayer(Player *p)

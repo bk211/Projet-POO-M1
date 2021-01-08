@@ -146,7 +146,7 @@ int main(int argc, char const *argv[])
     cout<<"=========================================="<<endl;
     */
     MyGameModel *GM = new MyGameModel();
-    //cout<<"init game return :" <<GM->initGameData(parseur.get_lignes())<<endl;
+//    cout<<"init game return :" <<GM->initGameData(parseur.get_lignes())<<endl;
     
     /*
     cout<<"=========================================="<<endl;

@@ -35,6 +35,7 @@ std::string Player::toString() const{
     result += "\nStatus: "+ std::to_string(status);
     result += "\nClassId: "+ std::to_string(classId);
     result += "\nScore: "+ std::to_string(score);
+    result += "\n";
     return result;
 }
 

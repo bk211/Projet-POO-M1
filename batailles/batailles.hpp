@@ -7,14 +7,16 @@ class Batailles;
 class MyGameModel: public GameModel
 {
 private:
+    void pushDataFromStrLine(std::vector<std::string> line);
+    void initPlayers();
+    void startGame();
 public:
-    MyGameModel();
+    void countScore();
     ~MyGameModel();
-    virtual void pushDataFromStrLine(std::vector<std::string> line);
-    virtual void initPlayers();
-    virtual void startGame();
-    virtual void countScore();
+    MyGameModel();
     friend Batailles;
+
+
 };
 
 
@@ -29,6 +31,7 @@ public:
     Parseur parseur;
     Batailles();
     ~Batailles();
+    void start();
 };
 
 #endif

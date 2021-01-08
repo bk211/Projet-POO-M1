@@ -105,6 +105,7 @@ std::string CollectionCarte::toString() const
     for (Carte *obj : data)
     {
         result += obj->toString();
+        result += "\n";
     }
     return result;
 }

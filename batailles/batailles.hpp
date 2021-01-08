@@ -2,6 +2,8 @@
 #define BATAILLES_HPP
 #include "libCardGame.hpp"
 
+
+class Batailles;
 class MyGameModel: public GameModel
 {
 private:
@@ -12,7 +14,7 @@ public:
     virtual void initPlayers();
     virtual void startGame();
     virtual void countScore();
-    
+    friend Batailles;
 };
 
 

@@ -38,11 +38,11 @@ private:
 protected:
     std::string name;
     std::vector<std::string> attributs;
-    virtual void addAttribut(std::string name);
 
 public:
     virtual void setName(std::string str);
     virtual std::string getAttribut(int pos);
+    virtual void addAttribut(std::string name);
     virtual ~Carte();
     virtual std::string toString() const;
     friend const std::ostream& operator<<(std::ostream& out, const Carte& mat);
@@ -51,7 +51,7 @@ public:
     virtual int operator==(std::string name);
     Carte();
     Carte(std::string name);
-    friend CollectionCarte;
+
 };
 
 

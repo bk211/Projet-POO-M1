@@ -83,9 +83,6 @@ void Batailles::start(){
 
     std::vector<Carte *> stack;
     int diff;
-    
-    std::vector<Carte *> stack_p1;
-    std::vector<Carte *> stack_p2;
 
     std::cout<<"\nDebut du jeu ====================================================== \n";
     while(!gameModel.isGameOver()){

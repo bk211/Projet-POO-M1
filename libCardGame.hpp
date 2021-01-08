@@ -96,10 +96,17 @@ public:
     Player(std::string _name, int _status = 1, int _classId = 0, int _score =0 );
     virtual std::string getName()const;
     void setName(std::string str);
+    void setStatus(int val);
+    void setClassId(int val);
+    void setScore(int val);
+    int getStatus();
+    int getClassId();
+    int getScore();
     CollectionCarte& getHand();
     friend PlayerManager;
     std::string toString() const;
     friend const std::ostream& operator<<(std::ostream& out, const Player& p);
+
 };
 
 class PlayerManager{

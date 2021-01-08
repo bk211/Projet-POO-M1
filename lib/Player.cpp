@@ -18,6 +18,29 @@ void Player::setName(std::string str)
     name = str;
 }
 
+void Player::setStatus(int val){
+    status = val;
+}
+void Player::setClassId(int val){
+    classId = val;
+}
+void Player::setScore(int val){
+    score = val;
+}
+
+int Player::getStatus(){
+    return status;
+}
+int Player::getClassId(){
+    return classId;
+}
+int Player::getScore(){
+    return score;
+}
+    
+
+    
+
 CollectionCarte & Player::getHand()
 {
     return hand;

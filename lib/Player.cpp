@@ -1,10 +1,11 @@
 #include "../libCardGame.hpp"
 
-Player::Player(std::string _name, int _status, int _classId) : name(_name), status(_status), classId(_classId){
+Player::Player(std::string _name, int _status, int _classId, int _score) 
+: name(_name), status(_status), classId(_classId), score(_score){
 }
 
 Player::~Player(){
-    
+
 }
 
 std::string Player::getName() const
@@ -33,6 +34,7 @@ std::string Player::toString() const{
     result += "Name: "+name;
     result += "\nStatus: "+ std::to_string(status);
     result += "\nClassId: "+ std::to_string(classId);
+    result += "\nScore: "+ std::to_string(score);
     return result;
 }
 

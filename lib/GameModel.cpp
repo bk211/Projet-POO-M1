@@ -31,13 +31,26 @@ int GameModel::initGameData(std::vector<std::vector<std::string>> configData)
 }
 
 
-CollectionCarte GameModel::getDataCollection()const
+CollectionCarte& GameModel::getDataCollection()
 {
     return data;
+}
+
+PlayerManager& GameModel::getPlayerManager()
+{
+    return playerManager;
 }
 
 
 void GameModel::test(){
     std::cout<<"in gameModel test\n";
     std::cout<<*playerManager.getCurrentPlayer();
+}
+
+void GameModel::countScore(){
+
+}
+
+bool GameModel::isGameOver(){
+    return false;
 }

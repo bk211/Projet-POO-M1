@@ -29,7 +29,6 @@ class Carte
 {
 private:
 protected:
-
     std::string name;
     std::vector<std::string> attributs;
     virtual void addAttribut(std::string name);
@@ -78,11 +77,12 @@ protected:
     std::string name;
     int status;
     int classId;
+    int score;
     CollectionCarte hand;
 
 public:
     virtual ~Player();
-    Player(std::string _name, int _status = 0, int _classId = 0);
+    Player(std::string _name, int _status = 0, int _classId = 0, int _score =0 );
     virtual std::string getName()const;
     void setName(std::string str);
     CollectionCarte& getHand();
@@ -118,16 +118,47 @@ protected:
 public:
     GameModel();
     virtual int initGameData(std::vector<std::vector<std::string>> configData);
-    virtual CollectionCarte getDataCollection()const;
+    virtual CollectionCarte& getDataCollection();
+    virtual PlayerManager& getPlayerManager();
     virtual void pushDataFromStrLine(std::vector<std::string>) = 0;
     virtual void initPlayers() = 0;
     virtual void startGame() = 0;
-    virtual void countScore() = 0;
-
-
+    virtual void countScore();
+    virtual bool isGameOver();
     //to be deleted
     virtual void test();
-
 };
+
+class GameController
+{
+private:
+public:
+    GameController(/* args */);
+    virtual ~GameController();
+    virtual std::string getUserInput();
+};
+
+class GameView
+{
+private:
+public:
+    virtual void afficher(std::string msg); 
+    GameView();
+    virtual ~GameView();
+};
+
+
+
+class Command{
+private:
+    GameModel * gameModel;
+    GameController * gameController;
+    GameView * gameView;
+public:
+    Command(GameModel * gm = nullptr, GameController * gc = nullptr, GameView * gv = nullptr);
+    virtual ~Command();
+};
+
+
 
 #endif

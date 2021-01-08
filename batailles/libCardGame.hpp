@@ -23,6 +23,7 @@ public:
 
 class CollectionCarte;
 class PlayerManager;
+class GameModel;
 
 class Carte
 {
@@ -55,11 +56,12 @@ private:
 
 public:
     CollectionCarte(){};
-    ~CollectionCarte();
+    virtual ~CollectionCarte();
     virtual void addData(Carte *c);
     virtual int deleteData(Carte* c);
     virtual int deleteDataByName(std::string name);
     virtual int deleteData(Carte *c, int (*compareFunction)(Carte* first, Carte* second));
+    virtual int deleteData(int pos);
     virtual Carte * draw();
     virtual int size()const;
     virtual Carte * operator [](int pos)const;
@@ -76,32 +78,36 @@ protected:
     std::string name;
     int status;
     int classId;
+    int score;
     CollectionCarte hand;
 
 public:
-    Player(std::string _name, int _status = 0, int _classId = 0);
+    virtual ~Player();
+    Player(std::string _name, int _status = 0, int _classId = 0, int _score =0 );
     virtual std::string getName()const;
     void setName(std::string str);
     CollectionCarte& getHand();
     friend PlayerManager;
-
+    std::string toString() const;
+    friend const std::ostream& operator<<(std::ostream& out, const Player& p);
 };
 
 class PlayerManager{
 protected:
 public:
-    std::vector<Player> players;
+    PlayerManager();
+    virtual ~PlayerManager();
+    std::vector<Player *> players;
     int currentPlayer;
     int direction;
     int step;
-    PlayerManager();
-    Player& getCurrentPlayer();
-    Player& getPlayer(int pos);
+    Player* getCurrentPlayer();
+    Player* getPlayer(int pos);
     void swapDirection();
     void setStep(unsigned int s);
     void rotateToNext();
-    void addPlayer(Player p);
-
+    void addPlayer(Player *p);
+    friend GameModel;
 };
 
 
@@ -113,9 +119,15 @@ protected:
 public:
     GameModel();
     virtual int initGameData(std::vector<std::vector<std::string>> configData);
-    virtual void pushDataFromStrLine(std::vector<std::string>) = 0;
     virtual CollectionCarte getDataCollection()const;
+    virtual void pushDataFromStrLine(std::vector<std::string>) = 0;
     virtual void initPlayers() = 0;
+    virtual void startGame() = 0;
+    virtual void countScore() = 0;
+
+
+    //to be deleted
+    virtual void test();
 
 };
 

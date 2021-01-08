@@ -145,19 +145,16 @@ int main(int argc, char const *argv[])
     cout<<"Size: "<<deck.size() <<endl;
     cout<<"=========================================="<<endl;
     
-    
     MyGameModel GM{};
     cout<<"init game return :" <<GM.initGameData(parseur.get_lignes())<<endl;
     
     cout<<"=========================================="<<endl;
 
-    //cout<<"contenue: \n"<<GM.getDataCollection().toString();
-    
     cout<<"=========================================="<<endl;
     
     cout<<"initPlayer:" ;
     GM.initPlayers();
     GM.test();
-
+    
     return 0;
 }

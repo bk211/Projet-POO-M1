@@ -12,3 +12,4 @@ GameView::~GameView()
 void GameView::afficher(std::string msg){
     std::cout<<msg<<std::endl;
 }
+

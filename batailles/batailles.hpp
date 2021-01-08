@@ -23,8 +23,8 @@ private:
 public:
     MyGameModel gameModel;
     GameView gameView;
-    //GameController gameController;
-    Parseur * parseur;
+    GameController gameController;
+    Parseur parseur;
     Batailles();
     ~Batailles();
 };

@@ -13,19 +13,22 @@ class GameController;
 
 class Parseur{
 private:
-    const std::string filename;
-    const int nb_column; 
+    std::string filename;
+    int nb_column; 
     mutable std::vector<std::vector<std::string>> lignes;
     const bool strict_reading;
     char delim{','};
 
 public:
-    //Parseur(std::string filename, const int nb_column, const bool strict = true);
+    Parseur();
     Parseur(std::string filename, const int nb_column, const bool strict = true);
     virtual ~Parseur();
-    std::vector<std::string> split(const std::string s, const char delim);
-    void print_lines() const;
-    std::vector<std::vector<std::string>> get_lignes();
+    virtual std::vector<std::string> split(const std::string s, const char delim);
+    virtual void print_lines() const;
+    virtual std::vector<std::vector<std::string>> get_lignes();
+    virtual void setFilename(std::string fn);
+    virtual void setNbColumn(int nb);
+    virtual void parse();
 };
 
 

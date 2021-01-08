@@ -4,12 +4,11 @@ Parseur::Parseur(std::string filename, const int nb_column, const bool strict)
     : filename(filename), nb_column(nb_column), strict_reading(strict)
 {
     //debug
-    std::cout<< "filename = <"<< filename<<">\n";
+    //std::cout<< "filename = <"<< filename<<">\n";
     std::ifstream ifs(filename);
     if(!ifs.good()){
         throw std::invalid_argument("No such file <" + filename+">");
     }
-
     std::string buffer;
     while(std::getline(ifs, buffer)){
         if(buffer.size() == 0) continue;
@@ -49,3 +48,36 @@ std::vector<std::vector<std::string>> Parseur::get_lignes(){
 }
 
 Parseur::~Parseur(){}
+
+void Parseur::setFilename(std::string fn){
+    filename = fn;
+}
+
+void Parseur::setNbColumn(int nb){
+    nb_column = nb;
+}
+
+Parseur::Parseur():nb_column(0),strict_reading(true){
+
+}
+
+void Parseur::parse(){
+    std::ifstream ifs(filename);
+    if(!ifs.good()){
+        throw std::invalid_argument("No such file <" + filename+">");
+    }
+    ifs.close();
+
+    std::string buffer;
+    while(std::getline(ifs, buffer)){
+        if(buffer.size() == 0) continue;
+        std::vector<std::string> vec;
+        //std::cout<<"buffer ="<<buffer<<" size = "<<buffer.size()<<std::endl;
+        vec = split(buffer, delim);
+        //debug
+        //for (auto s : vec){std::cout<<s<<", ";}
+        //std::cout <<std::endl;
+        lignes.push_back(vec);
+    }
+    ifs.close();
+}

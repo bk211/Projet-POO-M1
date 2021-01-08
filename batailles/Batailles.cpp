@@ -35,10 +35,9 @@ void MyGameModel::initPlayers(){
 }
 
 
-Batailles::Batailles()
-:gameModel(MyGameModel())
-{
-    gameView = GameView();
+Batailles::Batailles(){
+    parseur.setFilename("BataillesConfig32.txt");
+    gameModel.initGameData(parseur.get_lignes());
 }
 
 Batailles::~Batailles()

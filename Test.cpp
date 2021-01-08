@@ -85,25 +85,25 @@ void MyGameModel::pushDataFromStrLine(vector<string> line){
     for (int i = 0; i < stoi(line[0]); i++){
         MyCard * result = new MyCard{line[1], line[2], line[3]};
         //cout<<"generated card: "<< result;
-        data.addData(result);
+        data->addData(result);
     }
 }
 
 void MyGameModel::initPlayers(){
     Player* p1 = new Player{"joueur 1",1};
     Player* p2 = new Player{"joueur 2"};
-    playerManager.addPlayer(p1);
-    
+    playerManager->addPlayer(p1);
 }
 
 
 int main(int argc, char const *argv[])
 {
+    /*
     try{
         Parseur badparseur = Parseur("doesNotExist.txt", 4);
     }catch(std::invalid_argument&){
         std::cout<<"Test: Invoke Parseur with bad filename"<<std::endl;
-    }
+    }*/
     
     
     cout<<"=========================================="<<endl;
@@ -111,7 +111,7 @@ int main(int argc, char const *argv[])
     Parseur parseur = Parseur("BataillesConfig32.txt", 4, true);
     parseur.print_lines();
     
-    
+    /*
     cout<<"=========================================="<<endl;
     Carte * c1 = new Carte();
     MyCard * c2 = new MyCard();
@@ -144,16 +144,17 @@ int main(int argc, char const *argv[])
     cout<<"removing c3: "<<deck.deleteData(c3, removefunc)<<endl;
     cout<<"Size: "<<deck.size() <<endl;
     cout<<"=========================================="<<endl;
+    */
+    MyGameModel *GM = new MyGameModel();
+    //cout<<"init game return :" <<GM->initGameData(parseur.get_lignes())<<endl;
     
-    MyGameModel GM{};
-    cout<<"init game return :" <<GM.initGameData(parseur.get_lignes())<<endl;
-    
+    /*
     cout<<"=========================================="<<endl;
 
     cout<<"=========================================="<<endl;
     
     cout<<"initPlayer:" ;
-    GM.initPlayers();
-    
+    GM->initPlayers();
+    */
     return 0;
 }

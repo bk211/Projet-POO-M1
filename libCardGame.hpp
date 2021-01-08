@@ -116,17 +116,16 @@ public:
 
 class GameModel{
 protected:
-    CollectionCarte data;
-    PlayerManager playerManager;
+    CollectionCarte * data;
+    PlayerManager * playerManager;
     GameView * gameView;
     GameController * gameController;
     
-
 public:
     GameModel();
     virtual int initGameData(std::vector<std::vector<std::string>> configData);
-    virtual CollectionCarte& getDataCollection();
-    virtual PlayerManager& getPlayerManager();
+    virtual CollectionCarte* getDataCollection();
+    virtual PlayerManager* getPlayerManager();
     virtual void pushDataFromStrLine(std::vector<std::string>) = 0;
     virtual void initPlayers() = 0;
     virtual void startGame() = 0;

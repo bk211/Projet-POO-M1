@@ -1,15 +1,14 @@
 #include "../libCardGame.hpp"
 
-GameModel::GameModel(){
-
+GameModel::GameModel():data(nullptr),playerManager(nullptr), gameView(nullptr),gameController(nullptr){
 }
 
 int GameModel::initGameData(std::vector<std::vector<std::string>> configData)
 {
 
-    if (!data.isEmpty())
+    if (!data->isEmpty())
     { // une partie a déjà été joué, refaire le deck et refaire la main des joueurs
-        data.clear();
+        data->clear();
         //TODO joueur.clear()
     }
     try
@@ -31,12 +30,12 @@ int GameModel::initGameData(std::vector<std::vector<std::string>> configData)
 }
 
 
-CollectionCarte& GameModel::getDataCollection()
+CollectionCarte* GameModel::getDataCollection()
 {
     return data;
 }
 
-PlayerManager& GameModel::getPlayerManager()
+PlayerManager* GameModel::getPlayerManager()
 {
     return playerManager;
 }
@@ -44,7 +43,7 @@ PlayerManager& GameModel::getPlayerManager()
 
 void GameModel::test(){
     std::cout<<"in gameModel test\n";
-    std::cout<<*playerManager.getCurrentPlayer();
+    std::cout<<*playerManager->getCurrentPlayer();
 }
 
 void GameModel::countScore(){

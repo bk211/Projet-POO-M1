@@ -55,6 +55,9 @@ public:
     ~MyGameModel();
     virtual void pushDataFromStrLine(vector<string> line);
     virtual void initPlayers();
+    virtual void startGame();
+    virtual void countScore();
+    
 };
 
 MyGameModel::MyGameModel()
@@ -64,6 +67,15 @@ MyGameModel::MyGameModel()
 MyGameModel::~MyGameModel()
 {
 }
+
+void MyGameModel::startGame(){
+
+}
+
+void MyGameModel::countScore(){
+    
+}
+
 
 void MyGameModel::pushDataFromStrLine(vector<string> line){
     
@@ -78,9 +90,9 @@ void MyGameModel::pushDataFromStrLine(vector<string> line){
 }
 
 void MyGameModel::initPlayers(){
-    Player p1{"joueur 1"};
-    Player p2{"joueur 2"};
-    //playerManager.addPlayer(p1);
+    Player* p1 = new Player{"joueur 1",1};
+    Player* p2 = new Player{"joueur 2"};
+    playerManager.addPlayer(p1);
     
 }
 
@@ -139,10 +151,13 @@ int main(int argc, char const *argv[])
     
     cout<<"=========================================="<<endl;
 
-    cout<<"contenue: \n"<<GM.getDataCollection().toString();
+    //cout<<"contenue: \n"<<GM.getDataCollection().toString();
     
     cout<<"=========================================="<<endl;
     
+    cout<<"initPlayer:" ;
+    GM.initPlayers();
+    GM.test();
 
     return 0;
 }

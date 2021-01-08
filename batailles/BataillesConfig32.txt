@@ -1,0 +1,8 @@
+4,1,As,carte As
+4,R,Roi,carte Roi
+4,D,Dame,carte Dame
+4,V,Valet,carte Valet
+4,10,Dix,carte 10
+4,9,Neuf,carte 9
+4,8,Huit,carte 8
+4,7,Sept,carte 7

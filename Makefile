@@ -15,7 +15,7 @@ test_exec:	Test.o libCardGame.a
 Test.o:	Test.cpp
 	$(CC) $(CFLAGS) $< -c
 
-libCardGame.a: lib/Carte.o lib/Parseur.o lib/Exceptions.o lib/Player.o lib/CollectionCarte.o lib/GameModel.o
+libCardGame.a: lib/Carte.o lib/Parseur.o lib/Exceptions.o lib/Player.o lib/CollectionCarte.o lib/GameModel.o lib/PlayerManager.o
 	ar rvs $@ $^
 
 lib/Carte.o:	lib/Carte.cpp $(HEADER)
@@ -36,6 +36,11 @@ lib/CollectionCarte.o:	lib/CollectionCarte.cpp $(HEADER)
 lib/GameModel.o:	lib/GameModel.cpp $(HEADER)
 	$(CC) $(CFLAGS) $< -c -o $@
 
+lib/PlayerManager.o:	lib/PlayerManager.cpp $(HEADER)
+	$(CC) $(CFLAGS) $< -c -o $@
 
+migrate:
+	cp libCardGame.a batailles/
+	cp libCardGame.hpp batailles/
 clean:
 	rm -rf *.o *.exe test_exec lib/*.o lib/*.exe

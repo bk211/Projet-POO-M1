@@ -35,3 +35,9 @@ CollectionCarte GameModel::getDataCollection()const
 {
     return data;
 }
+
+
+void GameModel::test(){
+    std::cout<<"in gameModel test\n";
+    std::cout<<*playerManager.getCurrentPlayer();
+}

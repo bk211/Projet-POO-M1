@@ -2,7 +2,7 @@
 
 CollectionCarte::~CollectionCarte()
 {
-    data.clear();
+    clear();
 };
 
 void CollectionCarte::addData(Carte *c)
@@ -66,6 +66,22 @@ int CollectionCarte::deleteData(Carte *c, int (*compareFunction)(Carte *first, C
     return 0;
 }
 
+int CollectionCarte::deleteData(int pos)
+{
+    if (data.size() == 0)
+    {
+        return 0;
+    }
+    
+    if(pos> (int)data.size() || pos <0){
+        return 0;
+    }
+
+    delete data.at(pos);
+    data.erase(data.begin() + pos);
+    return 1;
+}
+
 Carte * CollectionCarte::draw()
 {
     Carte *result = data.back();
@@ -121,3 +137,4 @@ void CollectionCarte::shuffle()
         *data.at(pick) = *tmp;
     }
 }
+

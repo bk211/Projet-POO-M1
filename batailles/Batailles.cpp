@@ -46,6 +46,10 @@ void MyGameModel::initPlayers(){
     playerManager->addPlayer(p2);
 }
 
+bool MyGameModel::isGameOver(){ // verifie les conditions de fin de jeu
+    return false;
+}
+
 
 Batailles::Batailles(): parseur(Parseur("BataillesConfig32.txt", 4)){
     //parseur.print_lines();
@@ -62,5 +66,20 @@ Batailles::~Batailles()
 
 void Batailles::start(){
     gameModel.startGame();// distribuer les cartes au joueurs
-    std::cout<<gameModel.playerManager->getCurrentPlayer()->getHand().toString();
+    //decommenter pour voir la distribution
+    /*
+    std::cout<<gameModel.playerManager->getPlayer(0)->getHand().toString();
+    std::cout<<"===========================\n";
+    std::cout<<gameModel.playerManager->getPlayer(1)->getHand().toString();
+    */
+    while(!gameModel.isGameOver()){
+
+        
+        std::cout<<" round of player : " << gameModel.playerManager->currentPlayer<<std::endl;
+        gameView.afficher("afficher la main du joueur :"); // affichage a faire
+        std::string userInput = gameController.getUserInput(); // verifier si l'entree est valide
+        gameModel.playerManager->rotateToNext();
+        
+    }
+    
 }

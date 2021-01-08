@@ -107,12 +107,13 @@ public:
     int currentPlayer;
     int direction;
     int step;
-    Player* getCurrentPlayer();
-    Player* getPlayer(int pos);
-    void swapDirection();
-    void setStep(unsigned int s);
-    void rotateToNext();
-    void addPlayer(Player *p);
+    virtual Player* getCurrentPlayer();
+    virtual Player* getPlayer(int pos);
+    virtual  void swapDirection();
+    virtual void setStep(unsigned int s);
+    virtual void rotateToNext();
+    virtual void addPlayer(Player *p);
+    virtual int nbPlayers();
     friend GameModel;
 };
 

@@ -58,3 +58,7 @@ void PlayerManager::addPlayer(Player *p)
 {   
     players.push_back(p);
 }
+
+int PlayerManager::nbPlayers(){
+    return players.size();
+}

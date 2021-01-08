@@ -10,6 +10,8 @@ private:
     void pushDataFromStrLine(std::vector<std::string> line);
     void initPlayers();
     void startGame();
+    bool isGameOver();
+
 public:
     void countScore();
     ~MyGameModel();

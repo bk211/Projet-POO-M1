@@ -57,7 +57,7 @@ public:
 
 class CollectionCarte
 {
-private:
+protected:
     std::vector<Carte *> data;
 
 public:
@@ -83,7 +83,6 @@ public:
 
 
 class Player{
-private:
 protected:
     std::string name;
     int status;
@@ -127,7 +126,6 @@ public:
     virtual void rotateToNext();
     virtual void addPlayer(Player *p);
     virtual int nbPlayers();
-
     friend GameModel;
 };
 

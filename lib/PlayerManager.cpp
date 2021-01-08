@@ -15,6 +15,11 @@ Player * PlayerManager::getCurrentPlayer()
     return players[currentPlayer];
 }
 
+Player * PlayerManager::getLastPlayer()
+{
+    return players[lastPlayer];
+}
+
 Player * PlayerManager::getPlayer(int pos)
 {
     return players[pos];
@@ -30,8 +35,10 @@ void PlayerManager:: setStep(unsigned int s)
     step = s;
 }
 
+//
 void PlayerManager::rotateToNext()
 {
+    lastPlayer = currentPlayer;
     int next = currentPlayer;
     int size = players.size();
     while (step > 0)

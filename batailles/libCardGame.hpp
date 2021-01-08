@@ -69,12 +69,16 @@ public:
     virtual int deleteData(Carte *c, int (*compareFunction)(Carte* first, Carte* second));
     virtual int deleteData(int pos);
     virtual Carte * draw();
+    virtual Carte * draw(int pos);
+    virtual Carte * drawRandom();
     virtual int size()const;
     virtual Carte * operator [](int pos)const;
     virtual std::string toString()const;
     virtual bool isEmpty()const;
     virtual void clear();
     virtual void shuffle();
+    virtual void insertData(Carte *c, int pos);
+    virtual void insertFront(Carte *c);
 };
 
 
@@ -89,7 +93,7 @@ protected:
 
 public:
     virtual ~Player();
-    Player(std::string _name, int _status = 0, int _classId = 0, int _score =0 );
+    Player(std::string _name, int _status = 1, int _classId = 0, int _score =0 );
     virtual std::string getName()const;
     void setName(std::string str);
     CollectionCarte& getHand();
@@ -105,14 +109,18 @@ public:
     virtual ~PlayerManager();
     std::vector<Player *> players;
     int currentPlayer;
+    int lastPlayer;
     int direction;
     int step;
-    Player* getCurrentPlayer();
-    Player* getPlayer(int pos);
-    void swapDirection();
-    void setStep(unsigned int s);
-    void rotateToNext();
-    void addPlayer(Player *p);
+    virtual Player* getCurrentPlayer();
+    virtual Player* getPlayer(int pos);
+    virtual Player* getLastPlayer();    
+    virtual  void swapDirection();
+    virtual void setStep(unsigned int s);
+    virtual void rotateToNext();
+    virtual void addPlayer(Player *p);
+    virtual int nbPlayers();
+
     friend GameModel;
 };
 

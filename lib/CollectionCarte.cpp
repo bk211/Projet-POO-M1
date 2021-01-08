@@ -89,6 +89,21 @@ Carte * CollectionCarte::draw()
     return result;
 }
 
+
+Carte * CollectionCarte::draw(int pos){
+    Carte *result = data.at(pos);
+    data.erase(data.begin() + pos);
+    return result;
+
+}
+Carte * CollectionCarte::drawRandom(){
+    std::srand(std::time(0));
+    int pick = std::rand() % data.size();
+    Carte *result = data.at(pick);
+    data.erase(data.begin() + pick);
+    return result;    
+}
+
 int CollectionCarte::size() const
 {
     return data.size();
@@ -126,16 +141,26 @@ void CollectionCarte::clear()
 
 void CollectionCarte::shuffle()
 {
-    std::cout<<"shuffling"<<std::endl;
+    //std::cout<<"shuffling"<<std::endl;
     
     std::srand(std::time(0));
     int size = data.size();
-    std::cout<<"size : "<< size <<std::endl; 
+    //std::cout<<"size : "<< size <<std::endl; 
     int pick;
     for (int i = 0; i < size; i++)
     {
         pick = std::rand() % size;
         std::swap(*data.at(i), *data.at(pick));
     }
+}
+
+
+
+void CollectionCarte::insertData(Carte *c, int pos){
+    data.insert(data.begin()+pos, c);    
+}
+
+void CollectionCarte::insertFront(Carte *c){
+    data.insert(data.begin(), c); 
 }
 

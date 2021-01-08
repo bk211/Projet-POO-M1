@@ -154,7 +154,6 @@ int main(int argc, char const *argv[])
     
     cout<<"initPlayer:" ;
     GM.initPlayers();
-    GM.test();
     
     return 0;
 }

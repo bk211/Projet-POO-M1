@@ -4,6 +4,13 @@
 #include <vector>
 #include <string>
 #include <regex>
+
+class CollectionCarte;
+class PlayerManager;
+class GameModel;
+class GameView;
+class GameController;
+
 class Parseur{
 private:
     const std::string filename;
@@ -21,9 +28,6 @@ public:
     std::vector<std::vector<std::string>> get_lignes();
 };
 
-class CollectionCarte;
-class PlayerManager;
-class GameModel;
 
 class Carte
 {
@@ -114,6 +118,9 @@ class GameModel{
 protected:
     CollectionCarte data;
     PlayerManager playerManager;
+    GameView * gameView;
+    GameController * gameController;
+    
 
 public:
     GameModel();
@@ -125,6 +132,10 @@ public:
     virtual void startGame() = 0;
     virtual void countScore();
     virtual bool isGameOver();
+    virtual void attach(GameView * gv);
+    virtual void attach(GameController * gc);
+    
+
     //to be deleted
     virtual void test();
 };
@@ -158,7 +169,6 @@ public:
     Command(GameModel * gm = nullptr, GameController * gc = nullptr, GameView * gv = nullptr);
     virtual ~Command();
 };
-
 
 
 #endif

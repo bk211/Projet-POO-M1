@@ -54,3 +54,11 @@ void GameModel::countScore(){
 bool GameModel::isGameOver(){
     return false;
 }
+
+void GameModel::attach(GameView * gv){
+    gameView = gv;
+}
+
+void GameModel::attach(GameController * gc){
+    gameController = gc;
+}

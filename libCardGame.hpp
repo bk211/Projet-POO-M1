@@ -38,11 +38,17 @@ private:
 protected:
     std::string name;
     std::vector<std::string> attributs;
-
+    int status; //face caché ou autres choses
+    int value; // valeur mis à defaut à 0 dans le constructeur de Carte, ça permet d'écrire plus facilement les fct de comparaison si besoin
+    
 public:
     virtual void setName(std::string str);
     virtual std::string getAttribut(int pos);
     virtual void addAttribut(std::string name);
+    virtual int getStatus();
+    virtual void setStatus(int val);
+    virtual int getValue();
+    virtual void setValue(int val);
     virtual ~Carte();
     virtual std::string toString() const;
     friend const std::ostream& operator<<(std::ostream& out, const Carte& mat);
@@ -50,7 +56,7 @@ public:
     virtual int operator==(Carte second);
     virtual int operator==(std::string name);
     Carte();
-    Carte(std::string name);
+    Carte(std::string name, int status =0, int value = 0);
 
 };
 
@@ -68,6 +74,7 @@ public:
     virtual int deleteDataByName(std::string name);
     virtual int deleteData(Carte *c, int (*compareFunction)(Carte* first, Carte* second));
     virtual int deleteData(int pos);
+    
     virtual Carte * draw();
     virtual Carte * draw(int pos);
     virtual Carte * drawRandom();

@@ -1,9 +1,10 @@
 #include "../libCardGame.hpp"
-Carte::Carte():name("") {
+Carte::Carte():name(""), status(0), value(0){
 }
 
-Carte::Carte(std::string name):name(name) {
+Carte::Carte(std::string _name, int _status, int _value):name(_name), status(_status), value(0){
 }
+
 
 Carte::~Carte(){
 }
@@ -50,4 +51,19 @@ void Carte::addAttribut(std::string att){
 
 std::string Carte::getAttribut(int pos){
     return attributs.at(pos);
+}
+
+int Carte::getStatus(){
+    return status;
+}
+void Carte::setStatus(int val){
+    status = val;
+}
+
+int Carte::getValue(){
+    return value;
+}
+
+void Carte::setValue(int val){
+    value = val;
 }

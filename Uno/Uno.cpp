@@ -1,51 +1,12 @@
 #include "Uno.hpp"
 
-UnoGameModel::UnoGameModel()
-{
-}
 
-UnoGameModel::~UnoGameModel()
-{
-}
-
-void UnoGameModel::startGame(){
-    //TODO()
-}
-
-void UnoGameModel::countScore(){
-    //TODO()
-}
-
-
-void UnoGameModel::pushDataFromStrLine(std::vector<std::string> line){
-    for (int i = 0; i < stoi(line[0]); i++){
-        Carte * result = new Carte(line[1]);
-        result->addAttribut(line[2]);
-        result->addAttribut(line[3]);
-        data->addData(result);
-    }
-}
-
-void UnoGameModel::initPlayers(){
-    Player* p1 = new Player{"joueur 1",1};
-    Player* p2 = new Player{"joueur 2",1};
-    playerManager->addPlayer(p1);
-    playerManager->addPlayer(p2);
-    // TODO()
-}
-
-bool UnoGameModel::isGameOver(){ // verifie les conditions de fin de jeu
-    // TODO()
-    return false;
-}
-
-
-Uno::Uno():parseur(Parseur("ConfigCarte52.txt", 4)){
-    //parseur.print_lines();
+Uno::Uno():parseur(Parseur("UnoConfig.txt",42,false)){
+    parseur.print_lines();
     gameModel.data = new CollectionCarte();
     gameModel.initGameData(parseur.get_lignes());
-    gameModel.playerManager = new PlayerManager();
-    gameModel.initPlayers();
+    //gameModel.playerManager = new PlayerManager();
+    //gameModel.initPlayers();
 }
 
 Uno::~Uno()
@@ -54,7 +15,6 @@ Uno::~Uno()
 
 void Uno::start(){
     gameModel.startGame();// distribuer les cartes au joueurs
-    
 }
 
 int compare(Carte * first, Carte * second){

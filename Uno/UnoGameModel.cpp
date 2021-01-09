@@ -8,25 +8,6 @@ UnoGameModel::~UnoGameModel()
 {
 }
 
-void UnoGameModel::startGame()
-{                    //debut de la partie, distribuer les cartes
-    data->shuffle(); // melanger les cartes;
-    std::cout<<"--------------------------start game --------------\n";
-    std::cout<<data->toString();
-
-    /*
-    int nbCarte = 1;
-    for (Player *player : playerManager->players)
-    {
-        for (int i = 0; i < nbCarte; i++){ 
-            UnoCard * tmp = dynamic_cast<UnoCard*> (data->draw());
-            player->getHand().addData( tmp);
-        }
-        std::cout<< player->getHand().toString();
-    }*/
-
-
-}
 
 void UnoGameModel::countScore()
 {
@@ -52,12 +33,26 @@ void UnoGameModel::pushDataFromStrLine(std::vector<std::string> line)
             UnoCard *result = new UnoCard(line[1], type, couleur, value);
 
             //decommenter ici pour voir les cartes;
-            std::cout << *result;
-            std::cout << "\n";
+            //std::cout << *result;
+            //std::cout << "\n";
 
             data->addData(result);
         }
     }    
+}
+
+void UnoGameModel::startGame()
+{                    //debut de la partie, distribuer les cartes
+    data->shuffle(); // melanger les cartes;
+    std::cout<<"--------------------------start game --------------\n";
+
+    int nbCarte = 7;
+    for (Player *player : playerManager->players)
+    {
+        for (int i = 0; i < nbCarte; i++){ 
+            player->getHand().addData(data->draw());
+        }
+    }
 }
 
 void UnoGameModel::initPlayers()

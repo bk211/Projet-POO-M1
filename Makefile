@@ -46,8 +46,8 @@ lib/GameController.o:	lib/GameController.cpp $(HEADER)
 	$(CC) $(CFLAGS) $< -c -o $@
 
 
-migrate:
-	cp libCardGame.a batailles/
-	cp libCardGame.hpp batailles/
+migrate: libCardGame.a libCardGame.hpp
+	cp $^ batailles/
+	cp $^ Briscola/
 clean:
 	rm -rf *.o *.exe test_exec lib/*.o lib/*.exe

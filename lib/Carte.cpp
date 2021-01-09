@@ -2,7 +2,7 @@
 Carte::Carte():name(""), status(0), value(0){
 }
 
-Carte::Carte(std::string _name, int _status, int _value):name(_name), status(_status), value(0){
+Carte::Carte(std::string _name, int _status, int _value):name(_name), status(_status), value(_value){
 }
 
 

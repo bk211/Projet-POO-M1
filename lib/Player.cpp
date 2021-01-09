@@ -41,7 +41,7 @@ int Player::getScore(){
 
     
 
-CollectionCarte & Player::getHand()
+CollectionCarte * Player::getHand()
 {
     return hand;
 }

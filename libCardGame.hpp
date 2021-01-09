@@ -112,7 +112,7 @@ public:
     int getStatus();
     int getClassId();
     int getScore();
-    CollectionCarte& getHand();
+    CollectionCarte* getHand();
     friend PlayerManager;
     std::string toString() const;
     friend const std::ostream& operator<<(std::ostream& out, const Player& p);

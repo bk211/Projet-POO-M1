@@ -33,17 +33,17 @@ void Uno::start(){
             gameView.afficher(dynamic_cast<UnoCard*>(gameModel.table->last())->toStringLess());
             
             gameView.afficher("Quelle est votre action? ");
-            std::string userAction = gameController.askCommandString(gameModel.commandStrings);
+            int userAction = gameController.askCommandString(gameModel.commandStrings);
             std::cout<<"utilisateur a choisi : " << userAction<<std::endl;
 
 
             // switch pour savoir quel command executer
             Command * command;
-            if(userAction == "Jouer une carte"){
+            if(userAction == 0){
                 command = new JouerCommand(&gameModel, &gameController, &gameView, &actionEnCours);
-            }else if(userAction == "Piocher"){
+            }else if(userAction == 1){
                 command = new PiocherCommand(&gameModel, &gameController, &gameView, &actionEnCours);
-            }else if(userAction == "Uno"){
+            }else if(userAction == 2){
                 command = new UnoCommand(&gameModel, &gameController, &gameView, &actionEnCours);
             }
             command->run();

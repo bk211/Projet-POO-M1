@@ -37,7 +37,6 @@ std::string UnoCard::toStringLess()const{
     std::cout<<"Carte: " + name + "\t";
     std::cout<<"Valeur: " + std::to_string(value) + "\t";
     std::cout<<"Couleur: " + couleur+ "\t";
-    std::cout<<"Description: " + description+ "\t";
-    std::cout<<std::endl;    
+    std::cout<<"Description: " + description +"\n";
     return result;
 }

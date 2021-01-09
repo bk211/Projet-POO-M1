@@ -86,6 +86,8 @@ public:
     JouerCommand(UnoGameModel * gameModel, GameController * gameController, UnoGameView * gameView, bool *actionEnCours);
     ~JouerCommand();
     void run();
+    void playCard(int playedCardId);
+
 };
 
 class PiocherCommand:public Command

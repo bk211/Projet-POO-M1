@@ -22,7 +22,7 @@ bool JouerCommand::playable(UnoCard* first, UnoCard* second)const{
         return true;
     }else if (first->getCouleur() == second->getCouleur()){ // si 2 cartes de meme couleurs
         return true;
-    }else if(first->getValue() == second->getValue()){
+    }else if(first->getValue() == second->getValue()){ // si les 2 cartes on la meme valeur
         return true;
     }
     
@@ -37,13 +37,37 @@ int JouerCommand::foundPlayableCards(){
         UnoCard* currentCard = dynamic_cast<UnoCard*>(gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->at(i));
         if(playable( currentCard, carteTable)){
             result++;
-            availbleCardsString.push_back(currentCard->getName());
+            std::string cardString = currentCard->getName() + "\t" + currentCard->getCouleur();
+            availbleCardsString.push_back(cardString);
         }
     }
     
     return result;
 }
 
+void JouerCommand::playCard(int playedCardId){
+    UnoCard* toBePlayedCard;
+    // retrouver la bonne carte 
+    for (int i = 0; i < gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->size(); i++){
+        toBePlayedCard = dynamic_cast<UnoCard*>(gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->at(i));
+        std::string cardString = toBePlayedCard->getName() + "\t" + toBePlayedCard->getCouleur();
+        if(cardString == availbleCardsString[playedCardId]){    
+            //retirer la carte de la main du joueur
+            gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->draw(i);
+            break;
+        }
+    }
+
+    //mettre la carte sur la table et appliquer son effet
+    dynamic_cast<UnoGameModel*>(gameModel)->table->addData(toBePlayedCard);
+    if(toBePlayedCard->getType() == 0){// carte numerique, rien a faire
+
+    }
+    
+
+
+    
+}
 
 void JouerCommand::run()
 {
@@ -54,8 +78,11 @@ void JouerCommand::run()
         return;
     }
     gameView->afficher("Quel carte voulez vous jouer?");
-    std::string playedCard = gameController->askCommandString(availbleCardsString);
-
+    gameView->afficher("");
+    
+    int playedCardId = gameController->askCommandString(availbleCardsString);
+    playCard(playedCardId);
+    
     std::cout<<"out ==========================\n";
     *actionEnCours = false;
 }

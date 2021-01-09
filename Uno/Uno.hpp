@@ -83,7 +83,7 @@ private:
     int foundPlayableCards();
     bool playable(UnoCard* first, UnoCard* second)const;
     std::vector<std::string> availbleCardsString;
-    std::vector<std::string> couleurString{"Bleu", "Rouge", "Jaune", "Vert"};
+    std::vector<std::string> couleurString{"Bleu", "Rouge", "Jaune", "Verte"};
 
 public:
     JouerCommand(UnoGameModel * gameModel, GameController * gameController, UnoGameView * gameView, bool *actionEnCours);

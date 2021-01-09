@@ -20,7 +20,10 @@ bool JouerCommand::playable(UnoCard* first, UnoCard* second)const{
         return true;
     }else if(first->getValue() == second->getValue()){ // si les 2 cartes on la meme valeur
         return true;
+    }else if(second->getCouleur() == "null"){
+        return true;
     }
+    
     
     return false;
 }
@@ -60,7 +63,12 @@ void JouerCommand::playCard(int playedCardId){
     }else if(toBePlayedCard->getName() == "Joker"){
         int couleur = gameController->askCommandString(couleurString);
         toBePlayedCard->changeColor(couleurString[couleur]);
-
+    }else if(toBePlayedCard->getName() == "+4"){
+        toBePlayedCard->changeColor(dynamic_cast<UnoCard*>(dynamic_cast<UnoGameModel*>(gameModel)->table->last())->getCouleur());
+    }else if(toBePlayedCard->getName() == "Pass"){
+        gameView->afficher("Une carte [Pass] a ete joue");
+        gameView->afficher("Le tour du prochain joueur saute");
+        gameModel->getPlayerManager()->setStep(2);
     }
     
     

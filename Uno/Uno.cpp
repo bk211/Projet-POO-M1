@@ -18,4 +18,22 @@ Uno::~Uno()
 
 void Uno::start(){
     gameModel.startGame();// distribuer les cartes au joueurs
+    std::cout<<gameModel.playerManager->players[0]->getHand().toString();
+
+
+    while (!gameModel.isGameOver()){
+        Player * player = gameModel.getPlayerManager()->getCurrentPlayer();
+        if(player->getStatus() == 0){ // si le joueur ne peux pas jouer, passer au suivant 
+            gameModel.playerManager->rotateToNext();
+            continue;
+        }
+        std::cout<<"=============================\n";
+        //gameView.afficherPlayersCollection(player->getHand());
+        //std::string userInput = gameController.askUser("Quelle est votre commande? ");
+        std::cout<<"=============================\n";
+        //std::cout<< player->getHand().toString();
+        break;
+        gameModel.playerManager->rotateToNext();
+    }
+    
 }

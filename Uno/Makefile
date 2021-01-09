@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -Wall -std=c++11
 HEADER = libCardGame.hpp Uno.hpp
-BINAIRES = Uno.o UnoCard.o UnoGameModel.o
+BINAIRES = Uno.o UnoCard.o UnoGameModel.o UnoGameView.o
 
 run:	exec
 	./exec
@@ -19,6 +19,9 @@ UnoCard.o:	UnoCard.cpp $(HEADER)
 	$(CC) $(CFLAGS) $< -c
 
 UnoGameModel.o:	UnoGameModel.cpp $(HEADER)
+	$(CC) $(CFLAGS) $< -c
+
+UnoGameView.o:	UnoGameView.cpp $(HEADER)
 	$(CC) $(CFLAGS) $< -c
 
 Test.o:	Test.cpp $(HEADER)

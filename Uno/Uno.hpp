@@ -17,7 +17,21 @@ public:
 
 };
 
+
 class Uno;
+
+class UnoGameView: public GameView
+{
+private:
+public:
+    UnoGameView(/* args */);
+    ~UnoGameView();
+    void afficherPlayersCollection(CollectionCarte & deck);
+
+};
+
+
+
 class UnoGameModel: public GameModel
 {
 private:
@@ -39,7 +53,7 @@ class Uno
 private:
 public:
     UnoGameModel gameModel;
-    GameView gameView;
+    UnoGameView gameView;
     GameController gameController;
     Parseur parseur;
     Uno();

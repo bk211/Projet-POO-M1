@@ -8,7 +8,7 @@
 2,7,7,0,4,carte 7,bleu,rouge,jaune,verte
 2,8,8,0,4,carte 8,bleu,rouge,jaune,verte
 2,9,9,0,4,carte 9,bleu,rouge,jaune,verte
-2,+2,999,1,4,carte +2,bleu,rouge,jaune,verte
+2,+2,999,1,4,carte +2,bleu,rouge,jaune,verte    
 2,Inv,999,1,4,carte inversement de sens,bleu,rouge,jaune,verte
 2,Pass,999,1,4,carte passe ton tour,bleu,rouge,jaune,verte
 4,Joker,999,1,1,carte Joker,null

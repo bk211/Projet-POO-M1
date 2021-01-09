@@ -3,6 +3,7 @@
 using namespace std;
 int main(int argc, char const *argv[])
 {    
-    Uno monUno = Uno();
+    Uno jeu = Uno();
+    jeu.start();
     return 0;
 }

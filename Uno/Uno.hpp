@@ -42,6 +42,7 @@ private:
     void startGame();
     bool isGameOver();
     CollectionCarte * table;
+    std::vector<std::string> commandStrings{"Jouer une carte", "Piocher", "Uno"};
 
 public:
     void countScore();
@@ -62,5 +63,37 @@ public:
     ~Uno();
     void start();
 };
+
+
+class JouerCommand:public Command
+{
+private:
+public:
+    JouerCommand(GameModel * gameModel, GameController * gameController, GameView * gameView);
+
+    ~JouerCommand();
+    void run();
+};
+
+class PiocherCommand:public Command
+{
+private:
+public:
+    PiocherCommand(GameModel * gameModel, GameController * gameController, GameView * gameView);
+    ~PiocherCommand();
+    void run();
+};
+
+
+class UnoCommand:public Command
+{
+private:
+public:
+    UnoCommand(GameModel * gameModel, GameController * gameController, GameView * gameView);
+    ~UnoCommand();
+    void run();
+};
+
+
 
 #endif

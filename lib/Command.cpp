@@ -8,3 +8,8 @@ Command::Command(GameModel * gm, GameController * gc, GameView * gv)
 Command::~Command()
 {
 }
+
+
+void Command::run(){
+
+}

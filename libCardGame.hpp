@@ -171,7 +171,7 @@ public:
     virtual std::string getUserInput();
     virtual std::string askUser(std::string question);
     virtual std::string askCommandString(std::vector<std::string> commandStrings);
-    
+
 };
 
 class GameView
@@ -193,6 +193,7 @@ private:
 public:
     Command(GameModel * gm = nullptr, GameController * gc = nullptr, GameView * gv = nullptr);
     virtual ~Command();
+    virtual void run();
 };
 
 

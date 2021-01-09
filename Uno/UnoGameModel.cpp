@@ -2,6 +2,7 @@
 
 UnoGameModel::UnoGameModel()
 {
+    
 }
 
 UnoGameModel::~UnoGameModel()

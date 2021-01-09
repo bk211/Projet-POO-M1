@@ -2,7 +2,7 @@
 
 UnoGameModel::UnoGameModel()
 {
-    
+
 }
 
 UnoGameModel::~UnoGameModel()
@@ -43,8 +43,7 @@ void UnoGameModel::pushDataFromStrLine(std::vector<std::string> line)
     }    
 }
 
-void UnoGameModel::startGame()
-{                    //debut de la partie, distribuer les cartes
+void UnoGameModel::startGame(){//debut de la partie, distribuer les cartes
     data->shuffle(); // melanger les cartes;
     std::cout<<"--------------------------start game ----------------------------\n";
     int nbCarte = 7;
@@ -53,6 +52,11 @@ void UnoGameModel::startGame()
         for (int i = 0; i < nbCarte; i++){ 
             player->getHand().addData(data->draw());
         }
+    }
+    //tirer une carte et poser sur la table;
+    // si la carte est une carte speciale, continuer jusqu'a trouver une carte numerique
+    while (table->isEmpty() ||dynamic_cast<UnoCard*>(table->last())->getType() == 1){
+        table->addData(data->draw());
     }
 }
 

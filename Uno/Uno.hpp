@@ -16,6 +16,7 @@ public:
     std::string getDescription();
     int getType();
     std::string toString()const;
+    std::string toStringLess()const;
 
 };
 
@@ -78,7 +79,7 @@ class JouerCommand:public Command
 private:
     bool * actionEnCours;
 public:
-    JouerCommand(GameModel * gameModel, GameController * gameController, GameView * gameView, bool *actionEnCours);
+    JouerCommand(UnoGameModel * gameModel, GameController * gameController, UnoGameView * gameView, bool *actionEnCours);
     ~JouerCommand();
     void run();
 };
@@ -88,7 +89,7 @@ class PiocherCommand:public Command
 private:
     bool * actionEnCours;
 public:
-    PiocherCommand(GameModel * gameModel, GameController * gameController, GameView * gameView,bool *actionEnCours);
+    PiocherCommand(UnoGameModel * gameModel, GameController * gameController, UnoGameView * gameView,bool *actionEnCours);
     ~PiocherCommand();
     void run();
 };
@@ -99,7 +100,7 @@ class UnoCommand:public Command
 private:
     bool * actionEnCours;
 public:
-    UnoCommand(GameModel * gameModel, GameController * gameController, GameView * gameView, bool *actionEnCours);
+    UnoCommand(UnoGameModel * gameModel, GameController * gameController, UnoGameView * gameView, bool *actionEnCours);
     ~UnoCommand();
     void run();
 };

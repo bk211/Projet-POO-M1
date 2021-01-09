@@ -31,3 +31,13 @@ std::string UnoCard::toString()const{
     result += "description=["+description +"] ";
     return result;
 }
+
+std::string UnoCard::toStringLess()const{
+    std::string result;
+    std::cout<<"Carte: " + name + "\t";
+    std::cout<<"Valeur: " + std::to_string(value) + "\t";
+    std::cout<<"Couleur: " + couleur+ "\t";
+    std::cout<<"Description: " + description+ "\t";
+    std::cout<<std::endl;    
+    return result;
+}

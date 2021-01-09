@@ -1,6 +1,6 @@
 #include "Uno.hpp"
 
-JouerCommand::JouerCommand(GameModel * gameModel, GameController * gameController, GameView * gameView,bool *actionEnCours)
+JouerCommand::JouerCommand(UnoGameModel * gameModel, GameController * gameController, UnoGameView * gameView,bool *actionEnCours)
 :Command(gameModel, gameController, gameView), actionEnCours(actionEnCours)
 {
 }

@@ -31,9 +31,13 @@ void Uno::start(){
 
         bool actionEnCours = true;
         while (actionEnCours){
-        gameView.afficher("==============================================\n");
-        gameView.afficher("C'est au tour de : "+ player->getName());
+            gameView.afficher("==============================================\n");
+            gameView.afficher("C'est au tour de : "+ player->getName());
             gameView.afficherPlayersCollection(player->getHand());
+            gameView.afficher("==============================================");
+            gameView.afficher("La carte actuellement mise sur la table est :");
+            gameView.afficher(dynamic_cast<UnoCard*>(gameModel.table->last())->toStringLess());
+            
             gameView.afficher("Quelle est votre action? ");
             std::string userAction = gameController.askCommandString(gameModel.commandStrings);
             std::cout<<"utilisateur a choisi : " << userAction<<std::endl;

@@ -78,9 +78,9 @@ class JouerCommand:public Command
 {
 private:
     bool * actionEnCours;
-    int foundPlayableCardCount()const;
+    int foundPlayableCards();
     bool playable(UnoCard* first, UnoCard* second)const;
-
+    std::vector<std::string> availbleCardsString;
 
 public:
     JouerCommand(UnoGameModel * gameModel, GameController * gameController, UnoGameView * gameView, bool *actionEnCours);

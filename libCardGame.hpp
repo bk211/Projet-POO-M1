@@ -174,7 +174,7 @@ public:
     virtual ~GameController();
     virtual std::string getUserInput();
     virtual std::string askUser(std::string question);
-    virtual std::string askCommandString(std::vector<std::string> commandStrings);
+    virtual int askCommandString(std::vector<std::string> commandStrings);
 
 };
 

@@ -29,14 +29,15 @@ bool JouerCommand::playable(UnoCard* first, UnoCard* second)const{
     return false;
 }
 
-int JouerCommand::foundPlayableCardCount()const{
+int JouerCommand::foundPlayableCards(){
     int result = 0;
-    CollectionCarte * cartes = gameModel->getPlayerManager()->getCurrentPlayer()->getHand();
-    UnoCard * carteTable = dynamic_cast<UnoCard*>(dynamic_cast<UnoGameModel*>(gameModel)->table->last());
 
+    UnoCard * carteTable = dynamic_cast<UnoCard*>(dynamic_cast<UnoGameModel*>(gameModel)->table->last());
     for (int i = 0; i < gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->size(); i++){
-        if(playable(dynamic_cast<UnoCard*>(gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->at(i)), carteTable)){
+        UnoCard* currentCard = dynamic_cast<UnoCard*>(gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->at(i));
+        if(playable( currentCard, carteTable)){
             result++;
+            availbleCardsString.push_back(currentCard->getName());
         }
     }
     
@@ -46,30 +47,15 @@ int JouerCommand::foundPlayableCardCount()const{
 
 void JouerCommand::run()
 {
-    int playableCardCount = foundPlayableCardCount();
+    int playableCardCount = foundPlayableCards();
     gameView->afficher("Vous pouvez jouer " + std::to_string(playableCardCount) +" cartes");
     if(playableCardCount == 0){
         gameView->afficher("Vous n'avez aucun carte jouable");
         return;
     }
     gameView->afficher("Quel carte voulez vous jouer?");
-    std::vector<std::string> availble = {"dwa", "dawd"};
-    std::cout<<"djaiwodjawodijawoda";
-    std::cout<< gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->toString();
-    //->getCurrentPlayer()->getHand().toString();
-    std::cout<<"djaiwodjawodijawoda";
+    std::string playedCard = gameController->askCommandString(availbleCardsString);
 
-    /*for (int i = 0; i < gameModel->getPlayerManager()->getCurrentPlayer()->getHand().size(); i++){
-        std::string name =gameModel->getPlayerManager()->getCurrentPlayer()->getHand().at(i)->getName(); 
-        availble.push_back(name);
-    }
-    */
-    
-
-    gameController->askCommandString(availble);
-    gameController->askUser("sdadw? ");
     std::cout<<"out ==========================\n";
-
-
     *actionEnCours = false;
 }

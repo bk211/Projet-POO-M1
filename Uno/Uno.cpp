@@ -29,8 +29,6 @@ void Uno::start(){
             gameView.afficher("==============================================\n");
             gameView.afficher("C'est au tour de : "+ player->getName());
             gameView.afficherPlayersCollection(player->getHand());
-            std::cout<<"get card uscces\n";
-            gameView.afficher("==============================================");
             gameView.afficher("La carte actuellement mise sur la table est :");
             gameView.afficher(dynamic_cast<UnoCard*>(gameModel.table->last())->toStringLess());
             

@@ -7,11 +7,13 @@ class UnoCard:public Carte{
 private:
     int type;
     std::string couleur;
+    std::string description;
 
 public:
-    UnoCard(std::string name,int type,std::string couleur, int value);
+    UnoCard(std::string name,int type,std::string couleur, int value, std::string description);
     ~UnoCard();
     std::string getCouleur();
+    std::string getDescription();
     int getType();
     std::string toString()const;
 

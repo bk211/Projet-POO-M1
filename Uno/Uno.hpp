@@ -21,6 +21,10 @@ public:
 
 
 class Uno;
+class JouerCommand;
+class PiocherCommand;
+class UnoCommand;
+    
 
 class UnoGameView: public GameView
 {
@@ -49,6 +53,10 @@ public:
     ~UnoGameModel();
     UnoGameModel();
     friend Uno;
+    friend JouerCommand;
+    friend PiocherCommand;
+    friend UnoCommand;
+    
 };
 
 class Uno
@@ -68,9 +76,9 @@ public:
 class JouerCommand:public Command
 {
 private:
+    bool * actionEnCours;
 public:
-    JouerCommand(GameModel * gameModel, GameController * gameController, GameView * gameView);
-
+    JouerCommand(GameModel * gameModel, GameController * gameController, GameView * gameView, bool *actionEnCours);
     ~JouerCommand();
     void run();
 };
@@ -78,8 +86,9 @@ public:
 class PiocherCommand:public Command
 {
 private:
+    bool * actionEnCours;
 public:
-    PiocherCommand(GameModel * gameModel, GameController * gameController, GameView * gameView);
+    PiocherCommand(GameModel * gameModel, GameController * gameController, GameView * gameView,bool *actionEnCours);
     ~PiocherCommand();
     void run();
 };
@@ -88,8 +97,9 @@ public:
 class UnoCommand:public Command
 {
 private:
+    bool * actionEnCours;
 public:
-    UnoCommand(GameModel * gameModel, GameController * gameController, GameView * gameView);
+    UnoCommand(GameModel * gameModel, GameController * gameController, GameView * gameView, bool *actionEnCours);
     ~UnoCommand();
     void run();
 };

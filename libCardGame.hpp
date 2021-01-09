@@ -176,7 +176,7 @@ public:
 
 class GameView
 {
-private:
+protected:
 public:
     virtual void afficher(std::string msg); 
     GameView();
@@ -186,7 +186,7 @@ public:
 
 
 class Command{
-private:
+protected:
     GameModel * gameModel;
     GameController * gameController;
     GameView * gameView;

@@ -27,28 +27,31 @@ void Uno::start(){
             gameModel.playerManager->rotateToNext();
             continue;
         }
+
+
+        bool actionEnCours = true;
+        while (actionEnCours){
         gameView.afficher("==============================================\n");
         gameView.afficher("C'est au tour de : "+ player->getName());
-
-        gameView.afficherPlayersCollection(player->getHand());
-        gameView.afficher("Quelle est votre action? ");
-        
-        std::string userAction = gameController.askCommandString(gameModel.commandStrings);
-        std::cout<<"utilisateur a choisi : " << userAction<<std::endl;
+            gameView.afficherPlayersCollection(player->getHand());
+            gameView.afficher("Quelle est votre action? ");
+            std::string userAction = gameController.askCommandString(gameModel.commandStrings);
+            std::cout<<"utilisateur a choisi : " << userAction<<std::endl;
 
 
-        // switch pour savoir quel command executer
-        Command * command;
-        if(userAction == "Jouer une carte"){
-            command = new JouerCommand(&gameModel, &gameController, &gameView);
-        }else if(userAction == "Piocher"){
-            command = new PiocherCommand(&gameModel, &gameController, &gameView);
-        }else if(userAction == "Uno"){
-            command = new UnoCommand(&gameModel, &gameController, &gameView);
+            // switch pour savoir quel command executer
+            Command * command;
+            if(userAction == "Jouer une carte"){
+                command = new JouerCommand(&gameModel, &gameController, &gameView, &actionEnCours);
+            }else if(userAction == "Piocher"){
+                command = new PiocherCommand(&gameModel, &gameController, &gameView, &actionEnCours);
+            }else if(userAction == "Uno"){
+                command = new UnoCommand(&gameModel, &gameController, &gameView, &actionEnCours);
+            }
+            command->run();
+            delete command;// command fini, on libere la memoire
         }
-
-        command->run();
-
+        
         gameModel.playerManager->rotateToNext();
     }
     

@@ -3,6 +3,22 @@
 #include "libCardGame.hpp"
 #include <map>
 
+class UnoCard:public Carte{
+private:
+    std::string couleur;
+    int type;
+
+public:
+    UnoCard(std::string name,int type,std::string couleur);
+    ~UnoCard();
+    std::string getCouleur();
+    int getType();
+    std::string toString()const;
+
+};
+
+
+
 class Uno;
 class UnoGameModel: public GameModel
 {

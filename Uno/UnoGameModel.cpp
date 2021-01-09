@@ -18,6 +18,16 @@ void UnoGameModel::countScore(){
 
 
 void UnoGameModel::pushDataFromStrLine(std::vector<std::string> line){
+    std::cout<<"Dealing with line content: ";
+    for (auto word : line){ std::cout<< word +", ";}
+    std::cout<<std::endl;
+    
+
+    for (int i = 0; i < std::stoi(line[0]); i++){
+        UnoCard * result = new UnoCard(line[1],std::stoi(line[2]),line[3]);
+        std::cout<<*result;
+        std::cout<<"\n";
+    }
     
 }
 

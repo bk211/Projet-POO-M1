@@ -1,9 +1,8 @@
 #include "Uno.hpp"
 
-
 Uno::Uno():parseur(Parseur("UnoConfig.txt",42,false)){
-    parseur.print_lines();
-    gameModel.data = new CollectionCarte();
+    //parseur.print_lines();//affiche toutes les lignes lu par le parseur
+    gameModel.data = new CollectionCarte(); 
     gameModel.initGameData(parseur.get_lignes());
     //gameModel.playerManager = new PlayerManager();
     //gameModel.initPlayers();

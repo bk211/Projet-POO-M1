@@ -33,7 +33,7 @@ private:
 public:
     UnoGameView(/* args */);
     ~UnoGameView();
-    void afficherPlayersCollection(CollectionCarte & deck);
+    void afficherPlayersCollection(CollectionCarte * deck);
 
 };
 
@@ -48,7 +48,7 @@ private:
     bool isGameOver();
     CollectionCarte * table;
     std::vector<std::string> commandStrings{"Jouer une carte", "Piocher", "Uno"};
-
+    
 public:
     void countScore();
     ~UnoGameModel();
@@ -78,6 +78,10 @@ class JouerCommand:public Command
 {
 private:
     bool * actionEnCours;
+    int foundPlayableCardCount()const;
+    bool playable(UnoCard* first, UnoCard* second)const;
+
+
 public:
     JouerCommand(UnoGameModel * gameModel, GameController * gameController, UnoGameView * gameView, bool *actionEnCours);
     ~JouerCommand();

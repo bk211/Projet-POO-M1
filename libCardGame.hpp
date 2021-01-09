@@ -99,7 +99,7 @@ protected:
     int status;
     int classId;
     int score;
-    CollectionCarte hand;
+    CollectionCarte * hand;
 
 public:
     virtual ~Player();

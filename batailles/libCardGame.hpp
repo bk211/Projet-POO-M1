@@ -80,12 +80,16 @@ public:
     virtual Carte * drawRandom();
     virtual int size()const;
     virtual Carte * operator [](int pos)const;
+    virtual Carte* at(int pos);
+    virtual Carte* first();
+    virtual Carte* last();
     virtual std::string toString()const;
     virtual bool isEmpty()const;
     virtual void clear();
     virtual void shuffle();
     virtual void insertData(Carte *c, int pos);
     virtual void insertFront(Carte *c);
+
 };
 
 
@@ -95,7 +99,7 @@ protected:
     int status;
     int classId;
     int score;
-    CollectionCarte hand;
+    CollectionCarte * hand;
 
 public:
     virtual ~Player();
@@ -108,7 +112,7 @@ public:
     int getStatus();
     int getClassId();
     int getScore();
-    CollectionCarte& getHand();
+    CollectionCarte* getHand();
     friend PlayerManager;
     std::string toString() const;
     friend const std::ostream& operator<<(std::ostream& out, const Player& p);
@@ -166,14 +170,17 @@ class GameController
 {
 private:
 public:
-    GameController(/* args */);
+    GameController();
     virtual ~GameController();
     virtual std::string getUserInput();
+    virtual std::string askUser(std::string question);
+    virtual std::string askCommandString(std::vector<std::string> commandStrings);
+
 };
 
 class GameView
 {
-private:
+protected:
 public:
     virtual void afficher(std::string msg); 
     GameView();
@@ -183,13 +190,14 @@ public:
 
 
 class Command{
-private:
+protected:
     GameModel * gameModel;
     GameController * gameController;
     GameView * gameView;
 public:
     Command(GameModel * gm = nullptr, GameController * gc = nullptr, GameView * gv = nullptr);
     virtual ~Command();
+    virtual void run();
 };
 
 

@@ -23,17 +23,13 @@ void Uno::start(){
 
     while (!gameModel.isGameOver()){
         Player * player = gameModel.getPlayerManager()->getCurrentPlayer();
-        if(player->getStatus() == 0){ // si le joueur ne peux pas jouer, passer au suivant 
-            gameModel.playerManager->rotateToNext();
-            continue;
-        }
-
 
         bool actionEnCours = true;
         while (actionEnCours){
             gameView.afficher("==============================================\n");
             gameView.afficher("C'est au tour de : "+ player->getName());
             gameView.afficherPlayersCollection(player->getHand());
+            std::cout<<"get card uscces\n";
             gameView.afficher("==============================================");
             gameView.afficher("La carte actuellement mise sur la table est :");
             gameView.afficher(dynamic_cast<UnoCard*>(gameModel.table->last())->toStringLess());
@@ -53,7 +49,7 @@ void Uno::start(){
                 command = new UnoCommand(&gameModel, &gameController, &gameView, &actionEnCours);
             }
             command->run();
-            delete command;// command fini, on libere la memoire
+
         }
         
         gameModel.playerManager->rotateToNext();

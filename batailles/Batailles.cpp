@@ -14,7 +14,7 @@ void MyGameModel::startGame(){
     while (!data->isEmpty()){//tant que le deck n'est pas vide
         //tirer une carte, la donner au joueur qui joue, puis passer au joueur suivant
         //std::cout<<"current player is : "<<playerManager->currentPlayer<<std::endl;
-        playerManager->getCurrentPlayer()->getHand().addData(data->draw());
+        playerManager->getCurrentPlayer()->getHand()->addData(data->draw());
         playerManager->rotateToNext();   
         //std::cout<<"next player is : "<<playerManager->currentPlayer<<std::endl;
     }
@@ -49,7 +49,7 @@ void MyGameModel::initPlayers(){
 
 bool MyGameModel::isGameOver(){ // verifie les conditions de fin de jeu
     for (Player * p : playerManager->players){
-        if(p->getHand().size() > 32)
+        if(p->getHand()->size() > 32)
             return true;
     }
 
@@ -88,15 +88,15 @@ void Batailles::start(){
     while(!gameModel.isGameOver()){
         Player * p1 = gameModel.getPlayerManager()->getPlayer(0);
         Player * p2 = gameModel.getPlayerManager()->getPlayer(1);
-        if(p1->getHand().isEmpty() ||p2->getHand().isEmpty()) break;
+        if(p1->getHand()->isEmpty() ||p2->getHand()->isEmpty()) break;
 
         gameView.afficher(p1->getName()+" has draw :"); 
-        Carte * c1 = p1->getHand().drawRandom();
+        Carte * c1 = p1->getHand()->drawRandom();
         stack.push_back(c1);
         gameView.afficher(c1->getName()); 
         
         gameView.afficher(p2->getName()+" has draw :");
-        Carte * c2 = p2->getHand().drawRandom();
+        Carte * c2 = p2->getHand()->drawRandom();
         stack.push_back(c2);
         gameView.afficher(c2->getName()); 
 
@@ -112,8 +112,8 @@ void Batailles::start(){
             gameModel.TakeStack(stack, p2);
         }
         
-        gameView.afficher(p1->getName()+" possede :" + std::to_string(gameModel.playerManager->getPlayer(0)->getHand().size()) +" cartes\n"); 
-        gameView.afficher(p2->getName()+" possede :" + std::to_string(gameModel.playerManager->getPlayer(1)->getHand().size()) +" cartes\n"); 
+        gameView.afficher(p1->getName()+" possede :" + std::to_string(gameModel.playerManager->getPlayer(0)->getHand()->size()) +" cartes\n"); 
+        gameView.afficher(p2->getName()+" possede :" + std::to_string(gameModel.playerManager->getPlayer(1)->getHand()->size()) +" cartes\n"); 
             
         //std::string userInput = gameController.getUserInput(); // verifier si l'entree est valide
         std::cout<<"====================================================== \n";
@@ -154,7 +154,7 @@ int compare(Carte * first, Carte * second){
 
 void MyGameModel::TakeStack(std::vector<Carte *>& stack, Player * player){
     for (Carte * carte : stack){
-        player->getHand().insertFront(carte);
+        player->getHand()->insertFront(carte);
     }
     stack.clear();
 }

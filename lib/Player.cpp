@@ -1,11 +1,11 @@
 #include "../libCardGame.hpp"
 
 Player::Player(std::string _name, int _status, int _classId, int _score) 
-: name(_name), status(_status), classId(_classId), score(_score){
+: name(_name), status(_status), classId(_classId), score(_score), hand(new CollectionCarte()){
 }
 
 Player::~Player(){
-
+    delete hand;
 }
 
 std::string Player::getName() const

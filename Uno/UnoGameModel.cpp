@@ -50,7 +50,7 @@ void UnoGameModel::startGame(){//debut de la partie, distribuer les cartes
     for (Player *player : playerManager->players)
     {
         for (int i = 0; i < nbCarte; i++){ 
-            player->getHand().addData(data->draw());
+            player->getHand()->addData(data->draw());
         }
     }
     //tirer une carte et poser sur la table;

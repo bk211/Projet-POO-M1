@@ -10,7 +10,7 @@ UnoGameModel::~UnoGameModel()
 
 void UnoGameModel::startGame()
 {                    //debut de la partie, distribuer les cartes
-    //data->shuffle(); // melanger les cartes;
+    data->shuffle(); // melanger les cartes;
     std::cout<<"--------------------------start game --------------\n";
     std::cout<<data->toString();
 

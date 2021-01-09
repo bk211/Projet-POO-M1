@@ -142,16 +142,8 @@ void CollectionCarte::clear()
 void CollectionCarte::shuffle()
 {
     //std::cout<<"shuffling"<<std::endl;
-    
     std::srand(std::time(0));
-    int size = data.size();
-    //std::cout<<"size : "<< size <<std::endl; 
-    int pick;
-    for (int i = 0; i < size; i++)
-    {
-        pick = std::rand() % size;
-        std::swap(*data.at(i), *data.at(pick));
-    }
+    std::random_shuffle(data.begin(), data.end());
 }
 
 

@@ -166,9 +166,10 @@ class GameController
 {
 private:
 public:
-    GameController(/* args */);
+    GameController();
     virtual ~GameController();
     virtual std::string getUserInput();
+    virtual std::string askUser(std::string question);
 };
 
 class GameView

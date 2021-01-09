@@ -5,19 +5,17 @@
 
 class UnoCard:public Carte{
 private:
-    std::string couleur;
     int type;
+    std::string couleur;
 
 public:
-    UnoCard(std::string name,int type,std::string couleur);
+    UnoCard(std::string name,int type,std::string couleur, int value);
     ~UnoCard();
     std::string getCouleur();
     int getType();
     std::string toString()const;
 
 };
-
-
 
 class Uno;
 class UnoGameModel: public GameModel
@@ -27,15 +25,14 @@ private:
     void initPlayers();
     void startGame();
     bool isGameOver();
+    CollectionCarte * table;
+
 public:
     void countScore();
     ~UnoGameModel();
     UnoGameModel();
     friend Uno;
 };
-
-int compare(Carte * first, Carte * second);
-
 
 class Uno
 {

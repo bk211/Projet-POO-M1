@@ -1,15 +1,15 @@
-1,0,0,carte 0,bleu,rouge,jaune,verte
-2,1,0,carte 1,bleu,rouge,jaune,verte
-2,2,0,carte 2,bleu,rouge,jaune,verte
-2,3,0,carte 3,bleu,rouge,jaune,verte
-2,4,0,carte 4,bleu,rouge,jaune,verte
-2,5,0,carte 5,bleu,rouge,jaune,verte
-2,6,0,carte 6,bleu,rouge,jaune,verte
-2,7,0,carte 7,bleu,rouge,jaune,verte
-2,8,0,carte 8,bleu,rouge,jaune,verte
-2,9,0,carte 9,bleu,rouge,jaune,verte
-2,+2,1,carte +2,bleu,rouge,jaune,verte
-2,Inv,1,carte inversement de sens,bleu,rouge,jaune,verte
-2,Pass,1,carte passe ton tour,bleu,rouge,jaune,verte
-4,Joker,1,carte Joker,null
-4,+4,1,carte +4,null
+1,0,0,0,4,carte 0,bleu,rouge,jaune,verte
+2,1,1,0,4,carte 1,bleu,rouge,jaune,verte
+2,2,2,0,4,carte 2,bleu,rouge,jaune,verte
+2,3,3,0,4,carte 3,bleu,rouge,jaune,verte
+2,4,4,0,4,carte 4,bleu,rouge,jaune,verte
+2,5,5,0,4,carte 5,bleu,rouge,jaune,verte
+2,6,6,0,4,carte 6,bleu,rouge,jaune,verte
+2,7,7,0,4,carte 7,bleu,rouge,jaune,verte
+2,8,8,0,4,carte 8,bleu,rouge,jaune,verte
+2,9,9,0,4,carte 9,bleu,rouge,jaune,verte
+2,+2,999,1,4,carte +2,bleu,rouge,jaune,verte
+2,Inv,999,1,4,carte inversement de sens,bleu,rouge,jaune,verte
+2,Pass,999,1,4,carte passe ton tour,bleu,rouge,jaune,verte
+4,Joker,999,1,1,carte Joker,null
+4,+4,999,1,1,carte +4,null

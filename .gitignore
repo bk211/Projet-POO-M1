@@ -24,3 +24,5 @@
 mindmap/*
 test_exec
 .vscode/*
+batailles/*.a
+batailles/libCardGame.hpp

@@ -1,10 +1,10 @@
-#ifndef BASE_HPP
-#define BASE_HPP
+#ifndef UNO_HPP
+#define UNO_HPP
 #include "libCardGame.hpp"
 
 
-class BaseJeu;
-class BaseGameModel: public GameModel
+class Uno;
+class UnoGameModel: public GameModel
 {
 private:
     void pushDataFromStrLine(std::vector<std::string> line);
@@ -13,24 +13,24 @@ private:
     bool isGameOver();
 public:
     void countScore();
-    ~BaseGameModel();
-    BaseGameModel();
-    friend BaseJeu;
+    ~UnoGameModel();
+    UnoGameModel();
+    friend Uno;
 };
 
 int compare(Carte * first, Carte * second);
 
 
-class BaseJeu
+class Uno
 {
 private:
 public:
-    BaseGameModel gameModel;
+    UnoGameModel gameModel;
     GameView gameView;
     GameController gameController;
     Parseur parseur;
-    BaseJeu();
-    ~BaseJeu();
+    Uno();
+    ~Uno();
     void start();
 };
 

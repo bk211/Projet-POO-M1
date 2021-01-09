@@ -1,23 +1,23 @@
-#include "Base.hpp"
+#include "Uno.hpp"
 
-BaseGameModel::BaseGameModel()
+UnoGameModel::UnoGameModel()
 {
 }
 
-BaseGameModel::~BaseGameModel()
+UnoGameModel::~UnoGameModel()
 {
 }
 
-void BaseGameModel::startGame(){
+void UnoGameModel::startGame(){
     //TODO()
 }
 
-void BaseGameModel::countScore(){
+void UnoGameModel::countScore(){
     //TODO()
 }
 
 
-void BaseGameModel::pushDataFromStrLine(std::vector<std::string> line){
+void UnoGameModel::pushDataFromStrLine(std::vector<std::string> line){
     for (int i = 0; i < stoi(line[0]); i++){
         Carte * result = new Carte(line[1]);
         result->addAttribut(line[2]);
@@ -26,7 +26,7 @@ void BaseGameModel::pushDataFromStrLine(std::vector<std::string> line){
     }
 }
 
-void BaseGameModel::initPlayers(){
+void UnoGameModel::initPlayers(){
     Player* p1 = new Player{"joueur 1",1};
     Player* p2 = new Player{"joueur 2",1};
     playerManager->addPlayer(p1);
@@ -34,13 +34,13 @@ void BaseGameModel::initPlayers(){
     // TODO()
 }
 
-bool BaseGameModel::isGameOver(){ // verifie les conditions de fin de jeu
+bool UnoGameModel::isGameOver(){ // verifie les conditions de fin de jeu
     // TODO()
     return false;
 }
 
 
-BaseJeu::BaseJeu():parseur(Parseur("ConfigCarte52.txt", 4)){
+Uno::Uno():parseur(Parseur("ConfigCarte52.txt", 4)){
     //parseur.print_lines();
     gameModel.data = new CollectionCarte();
     gameModel.initGameData(parseur.get_lignes());
@@ -48,17 +48,16 @@ BaseJeu::BaseJeu():parseur(Parseur("ConfigCarte52.txt", 4)){
     gameModel.initPlayers();
 }
 
-BaseJeu::~BaseJeu()
+Uno::~Uno()
 {
 }
 
-void BaseJeu::start(){
+void Uno::start(){
     gameModel.startGame();// distribuer les cartes au joueurs
     
 }
 
 int compare(Carte * first, Carte * second){
-
     std::map<std::string, int> order;
     order["2"] = 2;
     order["4"] = 4;

@@ -1,19 +1,19 @@
 CC = g++
 CFLAGS = -Wall -std=c++11
-HEADER = libCardGame.hpp Base.hpp
+HEADER = libCardGame.hpp Uno.hpp
 LIBOBJ = $(LIBSRC:.cpp=.o)
 
 
 run:	exec
 	./exec
 
-exec:	Main.o Base.o libCardGame.a
+exec:	Main.o Uno.o libCardGame.a
 	$(CC) $(CFLAGS) $^ -o $@
 
 Main.o:	Main.cpp $(HEADER) 
 	$(CC) $(CFLAGS) $< -c 
 
-Base.o:	Base.cpp $(HEADER)
+Uno.o:	Uno.cpp $(HEADER)
 	$(CC) $(CFLAGS) $< -c
 
 update_lib: ../libCardGame.a ../libCardGame.hpp

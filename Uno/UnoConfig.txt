@@ -8,8 +8,8 @@
 2,7,7,0,4,carte de valeur 7,bleu,rouge,jaune,verte
 2,8,8,0,4,carte de valeur 8,bleu,rouge,jaune,verte
 2,9,9,0,4,carte de valeur 9,bleu,rouge,jaune,verte
-2,+2,999,1,4,carte [+2] le prochain joueur pioche 2 cartes,bleu,rouge,jaune,verte    
-2,Inv,999,1,4,carte inversement de sens,bleu,rouge,jaune,verte
-2,Pass,999,1,4,carte [Pass] le prochain joueur saute son tour,bleu,rouge,jaune,verte
+2,+2,996,1,4,carte [+2] le prochain joueur pioche 2 cartes,bleu,rouge,jaune,verte    
+2,Inv,997,1,4,carte inversement de sens,bleu,rouge,jaune,verte
+2,Pass,998,1,4,carte [Pass] le prochain joueur saute son tour,bleu,rouge,jaune,verte
 4,Joker,999,1,1,carte [Joker],null
 4,+4,999,1,1,carte +4,null

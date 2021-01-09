@@ -9,10 +9,6 @@ JouerCommand::~JouerCommand()
 {
 }
 
-
-
-
-
 /*
     * true -> si on peut jouer first au dessus de second
     * false -> sinon
@@ -61,8 +57,12 @@ void JouerCommand::playCard(int playedCardId){
     //mettre la carte sur la table et appliquer son effet
     dynamic_cast<UnoGameModel*>(gameModel)->table->addData(toBePlayedCard);
     if(toBePlayedCard->getType() == 0){// carte numerique, rien a faire
+    }else if(toBePlayedCard->getName() == "Joker"){
+        int couleur = gameController->askCommandString(couleurString);
+        toBePlayedCard->changeColor(couleurString[couleur]);
 
     }
+    
     
 
 
@@ -82,7 +82,5 @@ void JouerCommand::run()
     
     int playedCardId = gameController->askCommandString(availbleCardsString);
     playCard(playedCardId);
-    
-    std::cout<<"out ==========================\n";
     *actionEnCours = false;
 }

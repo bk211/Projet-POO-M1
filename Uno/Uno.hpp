@@ -8,8 +8,9 @@ private:
     int type;
     std::string couleur;
     std::string description;
-
+    bool hasChangedColor;
 public:
+    void changeColor(std::string couleur);
     UnoCard(std::string name,int type,std::string couleur, int value, std::string description);
     ~UnoCard();
     std::string getCouleur();
@@ -63,6 +64,7 @@ public:
 class Uno
 {
 private:
+
 public:
     UnoGameModel gameModel;
     UnoGameView gameView;
@@ -81,6 +83,7 @@ private:
     int foundPlayableCards();
     bool playable(UnoCard* first, UnoCard* second)const;
     std::vector<std::string> availbleCardsString;
+    std::vector<std::string> couleurString{"Bleu", "Rouge", "Jaune", "Vert"};
 
 public:
     JouerCommand(UnoGameModel * gameModel, GameController * gameController, UnoGameView * gameView, bool *actionEnCours);

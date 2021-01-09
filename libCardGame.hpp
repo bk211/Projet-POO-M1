@@ -80,12 +80,16 @@ public:
     virtual Carte * drawRandom();
     virtual int size()const;
     virtual Carte * operator [](int pos)const;
+    virtual Carte* at(int pos);
+    virtual Carte* first();
+    virtual Carte* last();
     virtual std::string toString()const;
     virtual bool isEmpty()const;
     virtual void clear();
     virtual void shuffle();
     virtual void insertData(Carte *c, int pos);
     virtual void insertFront(Carte *c);
+
 };
 
 

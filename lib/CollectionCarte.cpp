@@ -114,6 +114,23 @@ Carte* CollectionCarte::operator[](int pos) const
     return data.at(pos);
 }
 
+Carte* CollectionCarte::at(int pos)
+{
+    return data.at(pos);
+}
+
+Carte* CollectionCarte::first()
+{
+    if(data.empty()) return nullptr;
+    return data.at(0);
+}
+
+Carte* CollectionCarte::last()
+{
+    if(data.empty()) return nullptr;
+    return data.at(data.size()-1);
+}
+
 std::string CollectionCarte::toString() const
 {
     std::string result{};

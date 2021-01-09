@@ -1,7 +1,7 @@
 #ifndef UNO_HPP
 #define UNO_HPP
 #include "libCardGame.hpp"
-
+#include <map>
 
 class Uno;
 class UnoGameModel: public GameModel

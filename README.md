@@ -4,8 +4,7 @@ Il est parfaitement exploitable pour des jeux de carte avec un deck classique ou
 
 
 # Environnement
-La bibliothèque compile et a été testé sous Linux(Manjaro) et Windows(10)
-Si vous êtes sous windows, beurk, j'y peux rien pour vous  
+La bibliothèque compile et a été testée sous Linux(Manjaro) et Windows(10) 
 ***mingw32-make*** est la version windows de make  
 
 

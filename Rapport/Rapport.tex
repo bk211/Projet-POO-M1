@@ -31,6 +31,8 @@ Notre projet est donc de développer un framework générale qui permet de géne
 du developpement d'un jeu de carte. \\
 Un README.ME est incluse dans le fichier, il contient quelques explications quand à l'utilisation et compilation de la bibliothèque ainsi que les jeux que 
 nous avons développés.\\
+Il existe un dépôt github si jamais vous avez un souci avec le dossier .zip ou .rar\\
+\url{https://github.com/bk211/Projet-POO-M1}
 
 \subsection{Compatibilité et environnement}
 La bibliothèque ainsi que les jeux ont été développé en intégralité sous le standard c++11, avec le compilateur g++.
@@ -163,12 +165,12 @@ public:
 
 \subsection{MVC or not MVC? That's The Question}
 
-La bibliothèque propose un cadre MVC presque prête à l'emploie, à vous de voir si ce cadre ou convient ou non.\\
+La bibliothèque propose un cadre MVC presque prêt à l'emploi, à vous de voir si ce cadre ou convient ou non.\\
 Les classes Controller et View étant très simple, je ne les détailleras pas ici.\\
-Pour la classe GameModele, il y a 3 fonctions virtuel pure, il faut donc les implémenter ou juste donner une définition bidon si vous n'en avez pas besoin. 
-initPlayers() et startGame() sont plus optionnel
-
-
+Pour la classe GameModele, il y a 1 fonctions virtuel pure, il faut donc les implémenter ou juste donner une définition bidon si vous n'en avez pas besoin.\\
+Pour cette fonction virtuel pure pushDataFromStrLine, elle prend en entrée un vecteur de string et retourne rien,
+son but est de d'instancier les bonnes Cartes nécessaire au jeu selon l'argument donné, vous vous rappelez du parseur? 
+C'est ici qu'il donneras petit à petit l'intégralité de son contenue, ligne après ligne.\\
 
 \begin{Verbatim}[numbers=left,xleftmargin = 5mm]
 class GameModel{
@@ -188,15 +190,33 @@ public:
 };
 \end{Verbatim} 
 
-%\begin{figure}
-%    \includegraphics[width=\linewidth]{img/L1.png}
-%    \caption{Welcome page}
-%    \label{fig:L1}
-%\end{figure} 
 
 
-%\subsection{Profile}
-%\includegraphics[width=\linewidth]{img/L6.png}
+\section{Diagramme UML}
+\includegraphics[width=\linewidth]{Diagramme.PNG}
 
+\section{Présentation du jeu Uno realisé grâce à notre bibliothèque}
+\subsection{Démarches de developpement}
+Pour le jeux Uno j’ai décidé d’utiliser le cadre MVC que proposait notre bibliothèque, 
+le début était plutôt simple car pour créer le deck de jeu, j’avais juste à écrire ma définition de pushDataFromStrLine \\
 
+J’ai aussi créé une classe UnoCard, ce n’était pas si nécessaire mais cela apportait plus de visibilité à la structure de données,
+plutôt que d’utiliser le vecteur de chaîne de charactere fourni par la classe Carte.\\
+Une fois l’initiation faite, je n’avais plus qu’à écrire la boucle de jeu principale. J’ai du coup employé le Command Pattern dans ce but.\\
+Le déroulement est très simple, afficher d’abord les informations utiles comme la main du joueur qui est en train de jouer.\\
+Puis je propose au joueur de choisir une action qu’il souhaite exécuter.\\
+Enfin je retrouve la bonne classe Command qui est associée à cette action.\\
+Pour le Uno, l’utilisateur pouvait choisir entre "piocher" "jouer une carte" et "crier Uno".\\
+Pour chaque action il existe alors une classe Command qui lui était associée.\\
+Ainsi je peux me permettre de se concentrer sur l’action précise au lieu de tomber dans des boucles logiques de jeu interminable.\\
+Cela apporte donc une meilleur visibilité, compréhension du code et une certaines modularités lors du développement.\\
+
+A vrai dire nous n’avions pas besoin pour ces jeux d’une architecture MVC très sophistiqué, mais si on pense les choses un peu plus loin, cela est bénéfique. 
+Imaginons qu’on décide un jour d’apporter une interface graphique à notre jeux, grâce à notre vue, le code du projet se modifiera que très peu. 
+Nous avons besoin juste de changer la méthode affichage de notre vue.\\
+
+\subsection{Diagramme de classe de UNO}
+
+\includegraphics[width=\linewidth]{uno.PNG}
+ 
 \end{document}

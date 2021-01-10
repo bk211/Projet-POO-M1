@@ -11,6 +11,7 @@ private:
     void initPlayers();
     void startGame();
     bool isGameOver();
+    Carte * atout;
 public:
     void countScore();
     ~BriscolaGameModel();

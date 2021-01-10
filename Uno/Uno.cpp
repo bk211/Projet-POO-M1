@@ -6,9 +6,10 @@ Uno::Uno():parseur(Parseur("UnoConfig.txt",42,false)){
     gameModel.table = new CollectionCarte();
     gameModel.initGameData(parseur.get_lignes());
     gameModel.playerManager = new PlayerManager();
-    gameModel.initPlayers();
-    
 
+    gameModel.gameView = &gameView;
+    gameModel.gameController = &gameController;
+    gameModel.initPlayers();
 
 }
 
@@ -18,12 +19,15 @@ Uno::~Uno()
 
 void Uno::start(){
     gameModel.startGame();// distribuer les cartes au joueurs
-//    std::cout<<gameModel.playerManager->players[0]->getHand().toString();
 
 
     while (!gameModel.isGameOver()){
-        Player * player = gameModel.getPlayerManager()->getCurrentPlayer();
+        if(gameModel.data->size() < 10 || gameModel.currentPenalty > gameModel.data->size()){
+            //si la pioche est presque vide ou bientot vide
+            gameModel.reFill();
+        }
 
+        Player * player = gameModel.getPlayerManager()->getCurrentPlayer();
         bool actionEnCours = true;
         while (actionEnCours){
             gameView.afficher("==============================================\n");
@@ -35,7 +39,6 @@ void Uno::start(){
             gameView.afficher("Quelle est votre action? ");
             int userAction = gameController.askCommandString(gameModel.commandStrings);
             std::cout<<"utilisateur a choisi : " << userAction<<std::endl;
-
 
             // switch pour savoir quel command executer
             Command * command;
@@ -49,8 +52,8 @@ void Uno::start(){
             command->run();
 
         }
-        
         gameModel.playerManager->rotateToNext();
+
     }
     
 }

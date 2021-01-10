@@ -51,8 +51,11 @@ private:
     int currentPenalty;
     std::vector<std::string> commandStrings{"Jouer une carte", "Piocher", "Uno"};
     void applyPenalty();
-public:
+    int currentWinnerId;
     void countScore();
+    void reFill();
+
+public:
     ~UnoGameModel();
     UnoGameModel();
     friend Uno;

@@ -7,12 +7,9 @@ UnoGameModel::UnoGameModel():currentPenalty(0)
 
 UnoGameModel::~UnoGameModel()
 {
+    delete data;
 }
 
-
-void UnoGameModel::countScore()
-{
-}
 
 void UnoGameModel::pushDataFromStrLine(std::vector<std::string> line)
 {
@@ -62,16 +59,26 @@ void UnoGameModel::startGame(){//debut de la partie, distribuer les cartes
 
 void UnoGameModel::initPlayers()
 {
-    Player *p1 = new Player{"joueur 1", 1};
-    Player *p2 = new Player{"joueur 2", 1};
-    playerManager->addPlayer(p1);
-    playerManager->addPlayer(p2);
-    // TODO()
+    
+    int nbPlayer = std::stoi(gameController->askUser("Combien de joueur vous etes?"));
+    for (int i = 0; i < nbPlayer; i++){
+    
+        std::string playerName = gameController->askUser("Quelle est votre nom?");      
+        Player *p = new Player{playerName, 1};
+        playerManager->addPlayer(p);
+        gameView->afficher("Le joueur "+ p->getName() + " a rejoins la partie");
+    }
 }
 
 bool UnoGameModel::isGameOver()
 { // verifie les conditions de fin de jeu
-    // TODO()
+
+    for (size_t i = 0; i < playerManager->players.size(); i++){
+        if(playerManager->players.at(i)->getHand()->size() == 0){
+            currentWinnerId = i;
+            return true;
+        }
+    }
     return false;
 }
 
@@ -85,3 +92,19 @@ void UnoGameModel::applyPenalty(){
     }
     currentPenalty = 0;
 }
+
+void UnoGameModel::countScore(){
+    Player * winner = playerManager->getPlayer(currentWinnerId);
+    winner->setScore(winner->getScore() + 50);
+}
+
+void UnoGameModel::reFill(){
+    Carte * last = table->draw();// met de cote la dernier carte de la table
+    while (!table->isEmpty()){ // push le tas de carte de la table dans le deck 
+        data->addData(table->draw());
+    }
+    table->addData(last); // remettre en haut la dernier carte sur la table
+    data->shuffle();// shuffle le deck de pioche
+}
+
+

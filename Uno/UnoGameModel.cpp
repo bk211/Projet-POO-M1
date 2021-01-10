@@ -120,7 +120,7 @@ void  UnoGameModel::reset(){
 }
 
 
-void HuitGameModel::CelebrateVictory(){
+void UnoGameModel::CelebrateVictory(){
     gameView->afficher("La partie est terminee, le joueur gagnat est: ");
     gameView->afficher(playerManager->getPlayer(currentWinnerId)->getName());
     gameView->afficher("Il remporte 50 points!!!");

@@ -83,7 +83,7 @@ public:
 
 class JouerCommand:public Command
 {
-private:
+protected:
     bool * actionEnCours;
     int foundPlayableCards();
     bool playable(UnoCard* first, UnoCard* second)const;
@@ -93,10 +93,11 @@ private:
 public:
     JouerCommand(UnoGameModel * gameModel, GameController * gameController, UnoGameView * gameView, bool *actionEnCours);
     ~JouerCommand();
-    void run();
-    void playCard(int playedCardId);
-
+    virtual void run();
+    virtual void playCard(int playedCardId);
 };
+
+
 
 class PiocherCommand:public Command
 {
@@ -119,6 +120,14 @@ public:
     void run();
 };
 
+class IAJouerCommand:public JouerCommand
+{
+private:
+public:
+    IAJouerCommand(UnoGameModel * gameModel, GameController * gameController, UnoGameView * gameView, bool *actionEnCours);
+    ~IAJouerCommand();
+    virtual void run();
+};
 
 
 #endif

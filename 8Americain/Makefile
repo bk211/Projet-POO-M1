@@ -36,15 +36,6 @@ HuitCommand.o:	HuitCommand.cpp $(HEADER)
 IAJouerCommand.o:	IAJouerCommand.cpp $(HEADER)
 	$(CC) $(CFLAGS) $< -c
 
-Test.o:	Test.cpp $(HEADER)
-	$(CC) $(CFLAGS) $< -c
-
-test:	test_exec
-	./test_exec
-
-test_exec:	Test.o $(BINAIRES) libCardGame.a
-	$(CC) $(CFLAGS) $^ -o $@
-
 
 update_lib: ../libCardGame.a ../libCardGame.hpp
 	rm -rf libCardGame.a libCardGame.hpp

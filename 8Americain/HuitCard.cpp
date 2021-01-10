@@ -43,7 +43,7 @@ void HuitCard::changeColor(std::string _couleur){
     if(hasChangedColor){
         return;
     }else{
-        if(name == "Joker" || name == "+4"){ // si la carte est un Joker/+4 et qu'elle a jamais change de couleur
+        if(name == "Joker" || name =="8"){ // si la carte est un Joker/+4 et qu'elle a jamais change de couleur
             hasChangedColor = true;
             couleur = _couleur;
         }

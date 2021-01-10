@@ -1,9 +1,9 @@
-#include "Uno.hpp"
+#include "Huit.hpp"
 
 using namespace std;
 int main(int argc, char const *argv[])
 {    
-    Uno jeu = Uno();
+    Huit jeu = Huit();
     jeu.start();
     return 0;
 }

@@ -1,17 +1,17 @@
-#include "Uno.hpp"
+#include "Huit.hpp"
 
-UnoGameView::UnoGameView(/* args */)
+HuitGameView::HuitGameView(/* args */)
 {
 }
 
-UnoGameView::~UnoGameView()
+HuitGameView::~HuitGameView()
 {
 }
 
-void UnoGameView::afficherPlayersCollection(CollectionCarte * deck){
+void HuitGameView::afficherPlayersCollection(CollectionCarte * deck){
     std::cout<<"\nVoici votre main:"<<std::endl;
     for (int i = 0; i < deck->size(); i++){
-        std::cout<<dynamic_cast<UnoCard*> (deck->at(i))->toStringLess();
+        std::cout<<dynamic_cast<HuitCard*> (deck->at(i))->toStringLess();
     }
     
     

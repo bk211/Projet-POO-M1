@@ -1,11 +1,11 @@
 #include "Huit.hpp"
 
-Huit::Huit():parseur(Parseur("UnoConfig.txt",42,false)){
+Huit::Huit():parseur(Parseur("HuitConfig.txt",42,false)){
     //parseur.print_lines();//affiche toutes les lignes lu par le parseur
     gameModel.data = new CollectionCarte(); 
     gameModel.table = new CollectionCarte();
-    gameModel.initGameData(parseur.get_lignes());
     gameModel.playerManager = new PlayerManager();
+    gameModel.initGameData(parseur.get_lignes());
 
     gameModel.gameView = &gameView;
     gameModel.gameController = &gameController;
@@ -33,7 +33,7 @@ void Huit::start(){
             gameView.afficher("C'est au tour de : "+ player->getName());
             gameView.afficherPlayersCollection(player->getHand());
             gameView.afficher("La carte actuellement mise sur la table est :");
-            gameView.afficher(dynamic_cast<UnoCard*>(gameModel.table->last())->toStringLess());
+            gameView.afficher(dynamic_cast<HuitCard*>(gameModel.table->last())->toStringLess());
             
             gameView.afficher("Quelle est votre action? ");
             int userAction = gameController.askCommandString(gameModel.commandStrings);
@@ -46,7 +46,7 @@ void Huit::start(){
             }else if(userAction == 1){
                 command = new PiocherCommand(&gameModel, &gameController, &gameView, &actionEnCours);
             }else if(userAction == 2){
-                command = new UnoCommand(&gameModel, &gameController, &gameView, &actionEnCours);
+                command = new HuitCommand(&gameModel, &gameController, &gameView, &actionEnCours);
             }
             command->run();
 

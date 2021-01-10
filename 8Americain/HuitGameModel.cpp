@@ -1,17 +1,17 @@
-#include "Uno.hpp"
+#include "Huit.hpp"
 
-UnoGameModel::UnoGameModel():currentPenalty(0)
+HuitGameModel::HuitGameModel():currentPenalty(0)
 {
 
 }
 
-UnoGameModel::~UnoGameModel()
+HuitGameModel::~HuitGameModel()
 {
     delete data;
 }
 
 
-void UnoGameModel::pushDataFromStrLine(std::vector<std::string> line)
+void HuitGameModel::pushDataFromStrLine(std::vector<std::string> line)
 {
     /*
     std::cout << "Dealing with line content: ";
@@ -29,18 +29,18 @@ void UnoGameModel::pushDataFromStrLine(std::vector<std::string> line)
         for (int i = 0; i < nbCouleur; i++)
         {
             auto couleur = line[6 + i];
-            UnoCard *result = new UnoCard(line[1], type, couleur, value, description);
+            HuitCard *result = new HuitCard(line[1], type, couleur, value, description);
 
             //decommenter ici pour voir les cartes;
-            //std::cout << *result;
-            //std::cout << "\n";
+            std::cout << *result;
+            std::cout << "\n";
 
             data->addData(result);
         }
     }    
 }
 
-void UnoGameModel::startGame(){//debut de la partie, distribuer les cartes
+void HuitGameModel::startGame(){//debut de la partie, distribuer les cartes
     data->shuffle(); // melanger les cartes;
     std::cout<<"--------------------------start game ----------------------------\n";
     int nbCarte = 1;
@@ -52,12 +52,12 @@ void UnoGameModel::startGame(){//debut de la partie, distribuer les cartes
     }
     //tirer une carte et poser sur la table;
     // si la carte est une carte speciale, continuer jusqu'a trouver une carte numerique
-    while (table->isEmpty() ||dynamic_cast<UnoCard*>(table->last())->getType() == 1){
+    while (table->isEmpty() ||dynamic_cast<HuitCard*>(table->last())->getType() == 1){
         table->addData(data->draw());
     }
 }
 
-void UnoGameModel::initPlayers()
+void HuitGameModel::initPlayers()
 {
     
     int nbPlayer = std::stoi(gameController->askUser("Combien de joueur vous etes?"));
@@ -70,7 +70,7 @@ void UnoGameModel::initPlayers()
     }
 }
 
-bool UnoGameModel::isGameOver()
+bool HuitGameModel::isGameOver()
 { // verifie les conditions de fin de jeu
 
     for (size_t i = 0; i < playerManager->players.size(); i++){
@@ -82,7 +82,7 @@ bool UnoGameModel::isGameOver()
     return false;
 }
 
-void UnoGameModel::applyPenalty(){
+void HuitGameModel::applyPenalty(){
     if (currentPenalty ==0){
         return;
     }
@@ -93,12 +93,12 @@ void UnoGameModel::applyPenalty(){
     currentPenalty = 0;
 }
 
-void UnoGameModel::countScore(){
+void HuitGameModel::countScore(){
     Player * winner = playerManager->getPlayer(currentWinnerId);
     winner->setScore(winner->getScore() + 50);
 }
 
-void UnoGameModel::reFill(){
+void HuitGameModel::reFill(){
     Carte * last = table->draw();// met de cote la dernier carte de la table
     while (!table->isEmpty()){ // push le tas de carte de la table dans le deck 
         data->addData(table->draw());
@@ -108,7 +108,7 @@ void UnoGameModel::reFill(){
 }
 
 
-void  UnoGameModel::reset(){
+void  HuitGameModel::reset(){
     for (Player * p : playerManager->players){
         p->getHand()->clear();
     }

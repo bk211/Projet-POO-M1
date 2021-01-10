@@ -1,5 +1,5 @@
-#ifndef UNO_HPP
-#define UNO_HPP
+#ifndef HUIT_HPP
+#define HUIT_HPP
 #include "libCardGame.hpp"
 #include <map>
 
@@ -61,7 +61,7 @@ public:
     friend Huit;
     friend JouerCommand;
     friend PiocherCommand;
-    friend UnoCommand;
+    friend HuitCommand;
     
 };
 
@@ -108,13 +108,13 @@ public:
 };
 
 
-class UnoCommand:public Command
+class HuitCommand:public Command
 {
 private:
     bool * actionEnCours;
 public:
-    UnoCommand(HuitGameModel * gameModel, GameController * gameController, HuitGameView * gameView, bool *actionEnCours);
-    ~UnoCommand();
+    HuitCommand(HuitGameModel * gameModel, GameController * gameController, HuitGameView * gameView, bool *actionEnCours);
+    ~HuitCommand();
     void run();
 };
 

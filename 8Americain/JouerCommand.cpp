@@ -1,6 +1,6 @@
-#include "Uno.hpp"
+#include "Huit.hpp"
 
-JouerCommand::JouerCommand(UnoGameModel * gameModel, GameController * gameController, UnoGameView * gameView,bool *actionEnCours)
+JouerCommand::JouerCommand(HuitGameModel * gameModel, GameController * gameController, HuitGameView * gameView,bool *actionEnCours)
 :Command(gameModel, gameController, gameView), actionEnCours(actionEnCours)
 {
 }
@@ -13,7 +13,7 @@ JouerCommand::~JouerCommand()
     * true -> si on peut jouer first au dessus de second
     * false -> sinon
 */
-bool JouerCommand::playable(UnoCard* first, UnoCard* second)const{
+bool JouerCommand::playable(HuitCard* first, HuitCard* second)const{
     if(first->getName() == "Joker" || first->getName() == "+4"){//cas specifiques
         return true;
     }else if (first->getCouleur() == second->getCouleur()){ // si 2 cartes de meme couleurs
@@ -33,9 +33,9 @@ bool JouerCommand::playable(UnoCard* first, UnoCard* second)const{
 int JouerCommand::foundPlayableCards(){
     int result = 0;
 
-    UnoCard * carteTable = dynamic_cast<UnoCard*>(dynamic_cast<UnoGameModel*>(gameModel)->table->last());
+    HuitCard * carteTable = dynamic_cast<HuitCard*>(dynamic_cast<HuitGameModel*>(gameModel)->table->last());
     for (int i = 0; i < gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->size(); i++){
-        UnoCard* currentCard = dynamic_cast<UnoCard*>(gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->at(i));
+        HuitCard* currentCard = dynamic_cast<HuitCard*>(gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->at(i));
         if(playable( currentCard, carteTable)){
             result++;
             std::string cardString = currentCard->getName() + "\t" + currentCard->getCouleur();
@@ -47,10 +47,10 @@ int JouerCommand::foundPlayableCards(){
 }
 
 void JouerCommand::playCard(int playedCardId){
-    UnoCard* toBePlayedCard;
+    HuitCard* toBePlayedCard;
     // retrouver la bonne carte 
     for (int i = 0; i < gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->size(); i++){
-        toBePlayedCard = dynamic_cast<UnoCard*>(gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->at(i));
+        toBePlayedCard = dynamic_cast<HuitCard*>(gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->at(i));
         std::string cardString = toBePlayedCard->getName() + "\t" + toBePlayedCard->getCouleur();
         if(cardString == availbleCardsString[playedCardId]){    
             //retirer la carte de la main du joueur
@@ -60,22 +60,22 @@ void JouerCommand::playCard(int playedCardId){
     }
 
     int couleur;
-    int currentPenalty = dynamic_cast<UnoGameModel*>(gameModel)->currentPenalty;
+    int currentPenalty = dynamic_cast<HuitGameModel*>(gameModel)->currentPenalty;
     //mettre la carte sur la table et appliquer son effet
-    dynamic_cast<UnoGameModel*>(gameModel)->table->addData(toBePlayedCard);
+    dynamic_cast<HuitGameModel*>(gameModel)->table->addData(toBePlayedCard);
     if(toBePlayedCard->getType() == 0){
         if(currentPenalty != 0){
             gameView->afficher("Vous avez pris la penalite");
             gameView->afficher("Vous allez piocher " + std::to_string(currentPenalty)+ " cartes");
-            dynamic_cast<UnoGameModel*>(gameModel)->applyPenalty();
+            dynamic_cast<HuitGameModel*>(gameModel)->applyPenalty();
         }
     }else if(toBePlayedCard->getName() == "Joker"){
         couleur = gameController->askCommandString(couleurString);
         toBePlayedCard->changeColor(couleurString[couleur]);
     }else if (toBePlayedCard->getName() == "+2"){
-        dynamic_cast<UnoGameModel*>(gameModel)->currentPenalty +=2;
+        dynamic_cast<HuitGameModel*>(gameModel)->currentPenalty +=2;
         gameView->afficher("Une penalite de +2 a ete ajoute");
-        gameView->afficher("Une penalite cummule vaut maintenant: " + std::to_string(dynamic_cast<UnoGameModel*>(gameModel)->currentPenalty));
+        gameView->afficher("Une penalite cummule vaut maintenant: " + std::to_string(dynamic_cast<HuitGameModel*>(gameModel)->currentPenalty));
 
     }else if(toBePlayedCard->getName() == "Pass")
     {
@@ -86,7 +86,7 @@ void JouerCommand::playCard(int playedCardId){
         if(currentPenalty != 0){
             gameView->afficher("Vous avez pris la penalite");
             gameView->afficher("Vous allez piocher " + std::to_string(currentPenalty)+ " cartes");
-            dynamic_cast<UnoGameModel*>(gameModel)->applyPenalty();
+            dynamic_cast<HuitGameModel*>(gameModel)->applyPenalty();
         }
 
     }else if(toBePlayedCard->getName() == "Inv")
@@ -95,19 +95,19 @@ void JouerCommand::playCard(int playedCardId){
         if(currentPenalty != 0){
             gameView->afficher("Vous avez pris la penalite");
             gameView->afficher("Vous allez piocher " + std::to_string(currentPenalty)+ " cartes");
-            dynamic_cast<UnoGameModel*>(gameModel)->applyPenalty();
+            dynamic_cast<HuitGameModel*>(gameModel)->applyPenalty();
         }
         
     }else if(toBePlayedCard->getName() == "+4")
     {
         // penalite +4
-        dynamic_cast<UnoGameModel*>(gameModel)->currentPenalty +=4;
+        dynamic_cast<HuitGameModel*>(gameModel)->currentPenalty +=4;
         gameView->afficher("Une penalite de +4 a ete ajoute");
-        gameView->afficher("Une penalite cummule vaut maintenant: " + std::to_string(dynamic_cast<UnoGameModel*>(gameModel)->currentPenalty));
+        gameView->afficher("Une penalite cummule vaut maintenant: " + std::to_string(dynamic_cast<HuitGameModel*>(gameModel)->currentPenalty));
         // change ou non la couleur
         couleur = gameController->askCommandString(couleurString);
         toBePlayedCard->changeColor(couleurString[couleur]);
-        toBePlayedCard->changeColor(dynamic_cast<UnoCard*>(dynamic_cast<UnoGameModel*>(gameModel)->table->last())->getCouleur());
+        toBePlayedCard->changeColor(dynamic_cast<HuitCard*>(dynamic_cast<HuitGameModel*>(gameModel)->table->last())->getCouleur());
         //le prochaine pass son tour
         gameView->afficher("Le tour du prochain joueur saute");
         gameModel->getPlayerManager()->setStep(2);

@@ -9,6 +9,10 @@ BriscolaGameModel::~BriscolaGameModel()
 }
 
 void BriscolaGameModel::startGame(){
+    data->shuffle();
+    while (!data->isEmpty()) {//tant que la pioche n'est pas vide
+
+    }
     //TODO()
 }
 
@@ -18,12 +22,13 @@ void BriscolaGameModel::countScore(){
 
 
 void BriscolaGameModel::pushDataFromStrLine(std::vector<std::string> line){
-    for (int i = 0; i < stoi(line[0]); i++){
-        Carte * result = new Carte(line[1]); // valeur de la carte
-        result->addAttribut(line[2]);        // les differentes enseignes (coupes, batons, etc...) (carte italienne)
-        result->addAttribut(line[3]);        // description pour Vue
-        data->addData(result);
-    }
+    Carte* result = new Carte(line[0]); // valeur de la carte ( de 1 a 10 )
+    result->addAttribut(line[1]);        // les differentes enseignes (coupes, batons, etc...) (carte italienne)
+    result->addAttribut(line[2]);        // description pour Vue
+    result->addAttribut(line[3]);        // Hierarchie des cartes dans la partie. Carte de hierarchie x gagne contre une carte de hierarchie y ssi x>y
+    result->addAttribut(line[4]);        // points que vaut la carte lors du comptage des points
+    data->addData(result);
+   
 }
 
 void BriscolaGameModel::initPlayers(){
@@ -40,7 +45,7 @@ bool BriscolaGameModel::isGameOver(){ // verifie les conditions de fin de jeu
 }
 
 
-Briscola::Briscola():parseur(Parseur("ConfigCarte52.txt", 4)){
+Briscola::Briscola():parseur(Parseur("BriscolaCarte40.txt", 5,false)){
     //parseur.print_lines();
     gameModel.data = new CollectionCarte();
     gameModel.initGameData(parseur.get_lignes());

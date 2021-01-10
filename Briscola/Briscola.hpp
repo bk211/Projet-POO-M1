@@ -5,6 +5,7 @@
 
 
 class Briscola;
+class JouerCommand;
 class BriscolaGameModel: public GameModel
 {
 private:
@@ -24,6 +25,7 @@ public:
     void setTable(Carte *newCarte);
     void resetManche();
     void addPoints(int pts);
+    int getPtsManche();
     
     friend Briscola;
     friend JouerCommand;
@@ -57,8 +59,9 @@ public:
 class JouerCommand:public Command
 {
 private:
+    bool * succeed;
 public:
-    JouerCommand(BriscolaGameModel * gameModel, GameController * gameController, BriscolaGameView * gameView);
+    JouerCommand(BriscolaGameModel * gameModel, GameController * gameController, BriscolaGameView * gameView,bool * succeed);
     ~JouerCommand();
     void run();
     bool playCard(int playedCardId);

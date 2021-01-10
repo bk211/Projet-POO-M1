@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -Wall -std=c++11
 HEADER = libCardGame.hpp Huit.hpp
-BINAIRES = Huit.o HuitCard.o HuitGameModel.o HuitGameView.o JouerCommand.o PiocherCommand.o HuitCommand.o
+BINAIRES = Huit.o HuitCard.o HuitGameModel.o HuitGameView.o JouerCommand.o PiocherCommand.o HuitCommand.o IAJouerCommand.o 
 
 run:	exec
 	./exec
@@ -33,14 +33,8 @@ PiocherCommand.o:	PiocherCommand.cpp $(HEADER)
 HuitCommand.o:	HuitCommand.cpp $(HEADER)
 	$(CC) $(CFLAGS) $< -c
 
-Test.o:	Test.cpp $(HEADER)
+IAJouerCommand.o:	IAJouerCommand.cpp $(HEADER)
 	$(CC) $(CFLAGS) $< -c
-
-test:	test_exec
-	./test_exec
-
-test_exec:	Test.o $(BINAIRES) libCardGame.a
-	$(CC) $(CFLAGS) $^ -o $@
 
 
 update_lib: ../libCardGame.a ../libCardGame.hpp

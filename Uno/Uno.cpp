@@ -28,6 +28,7 @@ void Uno::start(){
 
         Player * player = gameModel.getPlayerManager()->getCurrentPlayer();
         bool actionEnCours = true;
+        Command * command = nullptr;
         while (actionEnCours){
             gameView.afficher("==============================================\n");
             gameView.afficher("C'est au tour de : "+ player->getName());
@@ -37,7 +38,8 @@ void Uno::start(){
             
             gameView.afficher("Quelle est votre action? ");
 
-            Command * command;
+
+            // switch pour savoir quel command executer
             if(player->getClassId() == 0){// joueur IA
                 int userAction = gameController.askCommandString(gameModel.commandStrings);
                 // switch pour savoir quel command executer
@@ -53,14 +55,19 @@ void Uno::start(){
             }
 
             command->run();
+            if(command != nullptr) delete command;
 
         }
+        
         gameModel.playerManager->rotateToNext();
 
     }
 
     gameView.afficher("-------------------------------------------------");
     gameView.afficher("La partie est terminee");
+
+    gameModel.CelebrateVictory();
+
     int rejouer = gameController.askCommandString({"Non", "Oui"});
     if(rejouer){
         gameModel.reset(); // reset les cartes 

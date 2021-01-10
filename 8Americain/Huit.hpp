@@ -3,6 +3,15 @@
 #include "libCardGame.hpp"
 #include <map>
 
+
+
+class Huit;
+class JouerCommand;
+class PiocherCommand;
+class HuitCommand;
+class IAJouerCommand;
+class HuitGameModel;
+
 class HuitCard:public Carte{
 private:
     int type;
@@ -18,15 +27,10 @@ public:
     int getType();
     std::string toString()const;
     std::string toStringLess()const;
-
+    friend HuitGameModel;
 };
 
 
-class Huit;
-class JouerCommand;
-class PiocherCommand;
-class HuitCommand;
-    
 
 class HuitGameView: public GameView
 {
@@ -49,7 +53,7 @@ private:
     bool isGameOver();
     CollectionCarte * table;
     int currentPenalty;
-    std::vector<std::string> commandStrings{"Jouer une carte", "Piocher", "Uno"};
+    std::vector<std::string> commandStrings{"Jouer une carte", "Piocher", "Huit"};
     void applyPenalty();
     int currentWinnerId;
     void countScore();
@@ -64,6 +68,7 @@ public:
     friend JouerCommand;
     friend PiocherCommand;
     friend HuitCommand;
+    friend IAJouerCommand;
     
 };
 
@@ -84,12 +89,12 @@ public:
 
 class JouerCommand:public Command
 {
-private:
+protected:
     bool * actionEnCours;
     int foundPlayableCards();
     bool playable(HuitCard* first, HuitCard* second)const;
     std::vector<std::string> availbleCardsString;
-    std::vector<std::string> couleurString{"Bleu", "Rouge", "Jaune", "Verte"};
+    std::vector<std::string> couleurString{"Trefle","Coeur","Pique","Carreau"};
 
 public:
     JouerCommand(HuitGameModel * gameModel, GameController * gameController, HuitGameView * gameView, bool *actionEnCours);
@@ -120,6 +125,15 @@ public:
     void run();
 };
 
+class IAJouerCommand:public JouerCommand
+{
+private:
+public:
+    IAJouerCommand(HuitGameModel * gameModel, GameController * gameController, HuitGameView * gameView, bool *actionEnCours);
+    ~IAJouerCommand();
+    virtual void run();
+    virtual void playCard(int playedCardId);
+};
 
-
+int playRandom(int number);
 #endif

@@ -1,54 +1,26 @@
 #include "Huit.hpp"
 
-JouerCommand::JouerCommand(HuitGameModel * gameModel, GameController * gameController, HuitGameView * gameView,bool *actionEnCours)
-:Command(gameModel, gameController, gameView), actionEnCours(actionEnCours)
+IAJouerCommand::IAJouerCommand(HuitGameModel * gameModel, GameController * gameController, HuitGameView * gameView,bool *actionEnCours)
+:JouerCommand(gameModel, gameController, gameView, actionEnCours)
 {
 }
 
-JouerCommand::~JouerCommand()
+IAJouerCommand::~IAJouerCommand()
 {
 }
 
-/*
-    * true -> si on peut jouer first au dessus de second
-    * false -> sinon
+/**
+ * retourne aleatoirement un entier au hasard compris entre 0 et number exclus 
 */
-bool JouerCommand::playable(HuitCard* first, HuitCard* second)const{
-    if(first->getName() == "8"){//cas specifiques
-        return true;
-    }else if (first->getCouleur() == second->getCouleur()){ // si 2 cartes de meme couleurs
-        return true;
-    }else if(first->getValue() == second->getValue()){ // si les 2 cartes on la meme valeur
-        return true;
-    }else if(second->getCouleur() == "null"){
-        return true;
-    }else if(first->getName() == "+2" && second->getName() == "+2"){
-        return true;
-    }else if(first->getName() == "+2" && second->getName() == "Joker"){
-        if(first->getCouleur() == second->getCouleur())
-            return true;
-    }
-    
-    return false;
+int playRandom(int number){
+    std::srand(std::time(0));
+    int result = std::rand() % number;
+    return result;    
+
 }
 
-int JouerCommand::foundPlayableCards(){
-    int result = 0;
 
-    HuitCard * carteTable = dynamic_cast<HuitCard*>(dynamic_cast<HuitGameModel*>(gameModel)->table->last());
-    for (int i = 0; i < gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->size(); i++){
-        HuitCard* currentCard = dynamic_cast<HuitCard*>(gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->at(i));
-        if(playable( currentCard, carteTable)){
-            result++;
-            std::string cardString = currentCard->getName() + "\t" + currentCard->getCouleur();
-            availbleCardsString.push_back(cardString);
-        }
-    }
-    
-    return result;
-}
-
-void JouerCommand::playCard(int playedCardId){
+void IAJouerCommand::playCard(int playedCardId){
     HuitCard* toBePlayedCard;
     // retrouver la bonne carte 
     for (int i = 0; i < gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->size(); i++){
@@ -60,8 +32,9 @@ void JouerCommand::playCard(int playedCardId){
             break;
         }
     }
+    
 
-    int couleur;
+    int couleur = playRandom(4); 
     int currentPenalty = dynamic_cast<HuitGameModel*>(gameModel)->currentPenalty;
     //mettre la carte sur la table et appliquer son effet
     dynamic_cast<HuitGameModel*>(gameModel)->table->addData(toBePlayedCard);
@@ -72,7 +45,6 @@ void JouerCommand::playCard(int playedCardId){
             dynamic_cast<HuitGameModel*>(gameModel)->applyPenalty();
         }
     }else if(toBePlayedCard->getName() == "8"){// 8-> changement de couleur
-        couleur = gameController->askCommandString(couleurString);
         toBePlayedCard->changeColor(couleurString[couleur]);
     }else if (toBePlayedCard->getName() == "2"){
         dynamic_cast<HuitGameModel*>(gameModel)->currentPenalty +=2;
@@ -108,23 +80,25 @@ void JouerCommand::playCard(int playedCardId){
         gameView->afficher("Une penalite cummule vaut maintenant: " + std::to_string(dynamic_cast<HuitGameModel*>(gameModel)->currentPenalty));
     }
     
-    
 
 
     
 }
-
-void JouerCommand::run()
+void IAJouerCommand::run()
 {
     int playableCardCount = foundPlayableCards();
     gameView->afficher("Vous pouvez jouer " + std::to_string(playableCardCount) +" cartes");
     if(playableCardCount == 0){
         gameView->afficher("Vous n'avez aucun carte jouable");
+        PiocherCommand * pioche = new PiocherCommand((HuitGameModel*)gameModel, gameController, (HuitGameView*)gameView, actionEnCours);
+        pioche->run();
+        delete pioche;
         return;
     }
     gameView->afficher("Quel carte voulez vous jouer?");
-    
-    int playedCardId = gameController->askCommandString(availbleCardsString);
+    // joueur au hasard parmi les cartes jouables
+    int playedCardId = playRandom(playableCardCount);
     playCard(playedCardId);
     *actionEnCours = false;
+
 }

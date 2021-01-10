@@ -24,11 +24,11 @@ std::string GameController::askUser(std::string question){
 }
 
 int GameController::askCommandString(std::vector<std::string> commandStrings){    
-    std::cout<<"Voici les commandes disponibles:" <<std::endl;
+    std::cout<<"Voici les choix disponibles:" <<std::endl;
     for (size_t i = 0; i < commandStrings.size(); i++){
-        std::cout<< i <<" :"<< commandStrings[i] <<std::endl;
+        std::cout<< i <<" -> "<< commandStrings[i] <<std::endl;
     }
-    std::string userInput = askUser("Merci de saisir un numero de commande");
+    std::string userInput = askUser("Merci de saisir un numero de choix");
     int userChoice;
     try{
         userChoice = std::stoi(userInput);
@@ -37,7 +37,7 @@ int GameController::askCommandString(std::vector<std::string> commandStrings){
         }
     }
     catch(const std::exception& e){
-        std::cout<<"Merci de saisir une entree valide"<<std::endl;
+        std::cout<<"Merci de saisir une entrée valide"<<std::endl;
         return askCommandString(commandStrings);
     }
 

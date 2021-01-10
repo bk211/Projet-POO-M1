@@ -4,7 +4,7 @@ Il est parfaitement exploitable pour des jeux de carte avec un deck classique ou
 
 
 # Environnement
-La bibliothèque compile sous Linux(Manjaro) et Windows(10)
+La bibliothèque compile et a été testé sous Linux(Manjaro) et Windows(10)
 Si vous êtes sous windows, beurk, j'y peux rien pour vous
 
 # Commandes du Makefile 
@@ -41,3 +41,14 @@ Célebre jeux de société qui se joue à plusieurs
 
 ## Briscola
 Célebre jeux de carte Italien
+
+# répertoire lib
+répertoire où sont situé les fichiers .cpp de la bibliothèque
+
+# répertoire BaseCommun
+Contient une base de developpement si vous souhaiter utiliser notre bibliothèque et avoir déja un début de code  
+
+# Usage de la bibiothèque 
+Pour utiliser notre bibiothèque, copier-coller les fichiers ***llibCardGame.a*** et ***llibCardGame.hpp***  
+incluez le header dans le header de votre prédiléction  
+puis lors de la compilation, incluez ***llibCardGame.a*** lors de l'assemblage  

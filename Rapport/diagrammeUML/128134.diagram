@@ -1,0 +1,93 @@
+format 223
+
+classcanvas 128006 class_ref 128134 // Carte
+  classdiagramsettings member_max_width 0 end
+  xyz 25.2 214.6 2000
+end
+classcanvas 128134 class_ref 128262 // Parseur
+  classdiagramsettings member_max_width 0 end
+  xyz 249.3 432.2 2000
+end
+classcanvas 128262 class_ref 128518 // Player
+  classdiagramsettings member_max_width 0 end
+  xyz 46.5 45.8 2000
+end
+classcanvas 128518 class_ref 128646 // PlayerManager
+  classdiagramsettings member_max_width 0 end
+  xyz 228.25 28.8 2000
+end
+classcanvas 128646 class_ref 128774 // GameModel
+  classdiagramsettings member_max_width 0 end
+  xyz 431.25 233.6 2000
+end
+classcanvas 128774 class_ref 128902 // GameView
+  classdiagramsettings member_max_width 0 end
+  xyz 605.55 256.5 2000
+end
+classcanvas 128902 class_ref 129030 // GameController
+  classdiagramsettings member_max_width 0 end
+  xyz 528.55 411.7 2000
+end
+classcanvas 129030 class_ref 135558 // CollectionCarte
+  classdiagramsettings member_max_width 0 end
+  xyz 185.5 211.6 2000
+end
+classcanvas 132614 class_ref 135686 // Command
+  classdiagramsettings member_max_width 0 end
+  xyz 379.5 524.8 2000
+end
+relationcanvas 130566 relation_ref 128518 // <directional composition>
+  from ref 129030 z 2001 to ref 128006
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 130694 relation_ref 128646 // <directional composition>
+  from ref 128518 z 2001 to ref 128262
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 131078 relation_ref 128774 // <realization>
+  decenter_end 67
+  from ref 128134 z 2001 stereotype "<<fournit les données brutes>>" xyz 295 407.5 3000 to point 422 372
+  line 132742 z 2001 to ref 128646
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 131206 relation_ref 128902 // <directional composition>
+  from ref 128262 z 2001 to ref 129030
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 131334 relation_ref 129030 // <directional composition>
+  from ref 128646 z 2001 to ref 129030
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 131462 relation_ref 129158 // <directional composition>
+  decenter_begin 528
+  decenter_end 527
+  from ref 128646 z 2001 to ref 128518
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 131718 relation_ref 129414 // <association>
+  decenter_begin 469
+  decenter_end 469
+  from ref 128774 z 2001 to ref 128902
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 131846 relation_ref 129542 // <association>
+  decenter_begin 112
+  from ref 128646 z 2001 to ref 128774
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 132230 relation_ref 129670 // <association>
+  decenter_begin 888
+  decenter_end 222
+  from ref 128646 z 2001 to ref 128902
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+end

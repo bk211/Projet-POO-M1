@@ -61,6 +61,7 @@ void BriscolaGameModel::pushDataFromStrLine(std::vector<std::string> line){
 }
 
 void BriscolaGameModel::initPlayers(){
+
     int nbPlayer = std::stoi(gameController->askUser("Combien de joueur vous etes?"));
     for (int i = 0; i < nbPlayer; i++){
     
@@ -82,6 +83,9 @@ Briscola::Briscola():parseur(Parseur("BriscolaCarte40.txt", 5,false)){
     gameModel.data = new CollectionCarte();
     gameModel.initGameData(parseur.get_lignes());
     gameModel.playerManager = new PlayerManager();
+    
+    gameModel.gameView = &gameView;
+    gameModel.gameController = &gameController;
     gameModel.initPlayers();
 }
 
@@ -149,10 +153,6 @@ void Briscola::start(){
 
     }
 
-
-
-
-    
 }
 
 int compare(Carte * first, Carte * second){

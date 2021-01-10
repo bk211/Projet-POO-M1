@@ -3,17 +3,8 @@ CFLAGS = -Wall -std=c++11
 LIBDIR = lib/
 LIBSRC = Carte.cpp Parseur.cpp Exceptions.cpp CollectionCarte.cpp Player.cpp GameModel.cpp Command.cpp
 HEADER = libCardGame.hpp
-LIBOBJ = $(LIBSRC:.cpp=.o)
 
-
-test:	test_exec
-	./test_exec
-
-test_exec:	Test.o libCardGame.a
-	$(CC) $(CFLAGS) $^ -o $@
-
-Test.o:	Test.cpp
-	$(CC) $(CFLAGS) $< -c
+library: libCardGame.a
 
 libCardGame.a: lib/Carte.o lib/Parseur.o lib/Exceptions.o lib/Player.o lib/CollectionCarte.o lib/GameModel.o lib/PlayerManager.o lib/GameController.o lib/GameView.o lib/Command.o
 	ar rvs $@ $^
@@ -52,5 +43,8 @@ lib/Command.o:	lib/Command.cpp $(HEADER)
 migrate: libCardGame.a libCardGame.hpp
 	cp $^ batailles/
 	cp $^ Briscola/
+	cp $^ Uno/
+	cp $^ 8Americain/
+	
 clean:
 	rm -rf *.o *.exe test_exec lib/*.o lib/*.exe

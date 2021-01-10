@@ -1,7 +1,7 @@
 #include "Briscola.hpp"
 
-JouerCommand::JouerCommand(BriscolaGameModel * gameModel, GameController * gameController, BriscolaGameView * gameView)
-:Command(gameModel, gameController, gameView)
+JouerCommand::JouerCommand(BriscolaGameModel * gameModel, GameController * gameController, BriscolaGameView * gameView,bool *succeed)
+:Command(gameModel, gameController, gameView), succeed(succeed)
 {
 }
 
@@ -42,4 +42,17 @@ bool JouerCommand::playCard(int playedCardId){
         return false;
     }
 
+}
+
+void JouerCommand::run(){
+    gameView->afficher("Quelle carte voulez vous jouer?");
+    gameView->afficher("");
+    std::vector<std::string> ensCarteString;
+    for (int i = 0; i < gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->size(); i++){
+        Carte* currentCard = dynamic_cast<Carte*>(gameModel->getPlayerManager()->getCurrentPlayer()->getHand()->at(i));
+        std::string cardString =currentCard->getAttribut(2);
+        ensCarteString.push_back(cardString);
+    }
+    int playedCardId = gameController->askCommandString(ensCarteString);
+    *succeed = playCard(playedCardId);
 }

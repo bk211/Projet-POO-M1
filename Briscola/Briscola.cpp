@@ -32,6 +32,7 @@ Carte* BriscolaGameModel::getTable(){
 Carte* BriscolaGameModel::getAtout(){
     return atout;
 }
+
 void BriscolaGameModel::setTable(Carte* newCarte){
     table = newCarte;
 }
@@ -43,6 +44,10 @@ void BriscolaGameModel::resetManche(){
 
 void BriscolaGameModel::addPoints(int pts){
     ptsManche += pts;
+}
+
+int BriscolaGameModel::getPtsManche(){
+    return ptsManche;
 }
 
 void BriscolaGameModel::pushDataFromStrLine(std::vector<std::string> line){
@@ -86,12 +91,12 @@ Briscola::~Briscola()
 
 void Briscola::start(){
     gameModel.startGame();// distribuer les cartes au joueurs + atout
-    Player * winnerManche = gameModel.getPlayerManager()->getCurrentPlayer();
+    std::string nameWinner;
 
     while (!gameModel.data->isEmpty()){
-
-        Player * player = winnerManche;
+        
         for(int i=0;i<gameModel.getPlayerManager()->nbPlayers();i++){
+            Player * player = gameModel.getPlayerManager()->getCurrentPlayer();
             gameView.afficher("==============================================\n");
             gameView.afficher("C'est au tour de : "+ player->getName());
             gameView.afficherPlayersCollection(player->getHand());
@@ -101,18 +106,46 @@ void Briscola::start(){
                 gameView.afficher("La carte actuellement mise sur la table est :");
                 gameView.afficher(gameModel.table->toString());
             }
+            bool succeed = false;
+            Command * command;
+            command = new JouerCommand(&gameModel,&gameController,&gameView,&succeed);
+            command->run();
+            if(succeed){
+            nameWinner = player->getName();
+            }
+            gameModel.playerManager->rotateToNext();
         }
-        bool actionEnCours = true;
-        while(actionEnCours){
-            gameView.afficher("==============================================\n");
-            gameView.afficher("C'est au tour de : "+ player->getName());
-            gameView.afficherPlayersCollection(player->getHand());
-            gameView.afficher("La carte actuellement mise sur la table est :");
+        //on modifie maintenant le current player pour la prochaine manche
+        //le premier joueur est le gagnant de l'ancienne manche
+        while(gameModel.getPlayerManager()->getCurrentPlayer()->getName()!=nameWinner){
+             gameModel.playerManager->rotateToNext();
         }
+        int oldScore = gameModel.getPlayerManager()->getCurrentPlayer()->getScore();
+        gameModel.getPlayerManager()->getCurrentPlayer()->setScore(oldScore += gameModel.getPtsManche());
+        //puis on reinitialise la manche
+        gameModel.resetManche();
 
-
-
-
+        //on redistribue 1 carte a chaque joueur
+        for(Player *player : gameModel.getPlayerManager()->players){
+            if(gameModel.data->size()>0){
+                player->getHand()->addData(gameModel.data->draw());
+            }else{
+                player->getHand()->addData(gameModel.getAtout());
+            }
+            
+        }
+        gameView.afficher("-------------------------------------------------");
+        gameView.afficher("La partie est terminee");
+        std::string gagnant;
+        int scoreGagnant =0;
+        for(Player *player : gameModel.getPlayerManager()->players){
+            if(player->getScore()>scoreGagnant){
+                gagnant = player->getName();
+            }
+        }
+        gameView.afficher("Le joueur gagnant est :");
+        gameView.afficher(gagnant);
+        
 
     }
 

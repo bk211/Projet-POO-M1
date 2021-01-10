@@ -1,13 +1,13 @@
 CC = g++
 CFLAGS = -Wall -std=c++11
 HEADER = libCardGame.hpp Briscola.hpp
-LIBOBJ = $(LIBSRC:.cpp=.o)
+BINAIRES = Briscola.o BriscolaGameView.o JouerCommand.o
 
 
 run:	exec
 	./exec
 
-exec:	Main.o Briscola.o libCardGame.a
+exec:	Main.o $(BINAIRES) libCardGame.a
 	$(CC) $(CFLAGS) $^ -o $@
 
 Main.o:	Main.cpp $(HEADER) 
@@ -15,6 +15,12 @@ Main.o:	Main.cpp $(HEADER)
 
 Briscola.o:	Briscola.cpp $(HEADER)
 	$(CC) $(CFLAGS) $< -c
+
+BriscolaGameView.o:	BriscolaGameView.cpp $(HEADER)
+	$(CC) $(CFLAGS) $< -c
+
+JouerCommand.o:	JouerCommand.cpp $(HEADER)
+	$(CC) $(CFLAGS) $< -c	
 
 update_lib: ../libCardGame.a ../libCardGame.hpp
 	rm -rf libCardGame.a libCardGame.hpp

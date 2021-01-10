@@ -55,6 +55,7 @@ private:
     void countScore();
     void reFill();
     void reset();
+    void celebrateVictory();
 public:
     ~UnoGameModel();
     UnoGameModel();

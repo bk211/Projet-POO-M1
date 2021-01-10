@@ -32,8 +32,8 @@ void HuitGameModel::pushDataFromStrLine(std::vector<std::string> line)
             HuitCard *result = new HuitCard(line[1], type, couleur, value, description);
 
             //decommenter ici pour voir les cartes;
-            std::cout << *result;
-            std::cout << "\n";
+            //std::cout << *result;
+            //std::cout << "\n";
 
             data->addData(result);
         }
@@ -43,7 +43,8 @@ void HuitGameModel::pushDataFromStrLine(std::vector<std::string> line)
 void HuitGameModel::startGame(){//debut de la partie, distribuer les cartes
     data->shuffle(); // melanger les cartes;
     std::cout<<"--------------------------start game ----------------------------\n";
-    int nbCarte = 1;
+    int nbCarte = 7;
+    
     for (Player *player : playerManager->players)
     {
         for (int i = 0; i < nbCarte; i++){ 
@@ -60,7 +61,7 @@ void HuitGameModel::startGame(){//debut de la partie, distribuer les cartes
 void HuitGameModel::initPlayers()
 {
     
-    int nbPlayer = std::stoi(gameController->askUser("Combien de joueur vous etes?"));
+    int nbPlayer = std::stoi(gameController->askUser("Combien de joueur vous êtes?"));
     for (int i = 0; i < nbPlayer; i++){
     
         std::string playerName = gameController->askUser("Quelle est votre nom?");      
@@ -117,4 +118,10 @@ void  HuitGameModel::reset(){
     //vide la table et le deck de pioche
     table->clear();
     data->clear();
+}
+
+void HuitGameModel::CelebrateVictory(){
+    gameView->afficher("La partie est terminee, le joueur gagnat est: ");
+    gameView->afficher(playerManager->getPlayer(currentWinnerId)->getName());
+    gameView->afficher("Il remporte 50 points!!!");
 }

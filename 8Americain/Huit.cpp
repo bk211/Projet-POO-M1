@@ -11,6 +11,11 @@ Huit::Huit():parseur(Parseur("HuitConfig.txt",42,false)){
     gameModel.gameController = &gameController;
     gameModel.initPlayers();
 
+    if(gameModel.playerManager->nbPlayers()>3){
+        gameView.afficher("Il y a un nombre important de joueur, un deck supplementaire a ete rajoute");
+        gameModel.initGameData(parseur.get_lignes());
+    }
+    
 }
 
 Huit::~Huit()
@@ -37,8 +42,7 @@ void Huit::start(){
             
             gameView.afficher("Quelle est votre action? ");
             int userAction = gameController.askCommandString(gameModel.commandStrings);
-            std::cout<<"utilisateur a choisi : " << userAction<<std::endl;
-
+        
             // switch pour savoir quel command executer
             Command * command;
             if(userAction == 0){
@@ -57,10 +61,17 @@ void Huit::start(){
 
     gameView.afficher("-------------------------------------------------");
     gameView.afficher("La partie est terminee");
+
+    gameModel.CelebrateVictory();
+
     int rejouer = gameController.askCommandString({"Non", "Oui"});
     if(rejouer){
         gameModel.reset(); // reset les cartes 
         gameModel.initGameData(parseur.get_lignes());
+        if(gameModel.playerManager->nbPlayers()>3){
+        gameView.afficher("Il y a un nombre important de joueur, un deck supplementaire a ete rajoute");
+        gameModel.initGameData(parseur.get_lignes());
+        }
         start();
     }
 }

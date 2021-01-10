@@ -55,6 +55,8 @@ private:
     void countScore();
     void reFill();
     void reset();
+    void CelebrateVictory();
+
 public:
     ~HuitGameModel();
     HuitGameModel();

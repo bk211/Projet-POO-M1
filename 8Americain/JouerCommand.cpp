@@ -14,7 +14,7 @@ JouerCommand::~JouerCommand()
     * false -> sinon
 */
 bool JouerCommand::playable(HuitCard* first, HuitCard* second)const{
-    if(first->getName() == "Joker" || first->getName() == "+4"){//cas specifiques
+    if(first->getName() == "8"){//cas specifiques
         return true;
     }else if (first->getCouleur() == second->getCouleur()){ // si 2 cartes de meme couleurs
         return true;
@@ -24,8 +24,10 @@ bool JouerCommand::playable(HuitCard* first, HuitCard* second)const{
         return true;
     }else if(first->getName() == "+2" && second->getName() == "+2"){
         return true;
+    }else if(first->getName() == "+2" && second->getName() == "Joker"){
+        if(first->getCouleur() == second->getCouleur())
+            return true;
     }
-    
     
     return false;
 }

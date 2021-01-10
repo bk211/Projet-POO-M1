@@ -10,6 +10,7 @@ BriscolaGameModel::~BriscolaGameModel()
 
 void BriscolaGameModel::startGame(){
     data->shuffle();
+    ptsManche = 0;
     std::cout<<"--------------------------start game ----------------------------\n";
     for(Player *player : playerManager->players){
         for(int i=0; i<3;i++){ // on distribue 3 carte à chaque joueur
@@ -24,6 +25,25 @@ void BriscolaGameModel::countScore(){
     //TODO()
 }
 
+Carte* BriscolaGameModel::getTable(){
+    return table;
+}
+
+Carte* BriscolaGameModel::getAtout(){
+    return atout;
+}
+void BriscolaGameModel::setTable(Carte* newCarte){
+    table = newCarte;
+}
+
+void BriscolaGameModel::resetManche(){
+    ptsManche = 0;
+    table  = nullptr;
+}
+
+void BriscolaGameModel::addPoints(int pts){
+    ptsManche += pts;
+}
 
 void BriscolaGameModel::pushDataFromStrLine(std::vector<std::string> line){
     Carte* result = new Carte(line[0]); // valeur de la carte ( de 1 a 10 )

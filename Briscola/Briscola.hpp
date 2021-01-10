@@ -14,11 +14,19 @@ private:
     bool isGameOver();
     Carte * atout;
     Carte * table;
+    int ptsManche;
 public:
     void countScore();
     ~BriscolaGameModel();
     BriscolaGameModel();
+    Carte* getTable();
+    Carte* getAtout();
+    void setTable(Carte *newCarte);
+    void resetManche();
+    void addPoints(int pts);
+    
     friend Briscola;
+    friend JouerCommand;
 };
 
 class BriscolaGameView: public GameView
@@ -44,6 +52,16 @@ public:
     Briscola();
     ~Briscola();
     void start();
+};
+
+class JouerCommand:public Command
+{
+private:
+public:
+    JouerCommand(BriscolaGameModel * gameModel, GameController * gameController, BriscolaGameView * gameView);
+    ~JouerCommand();
+    void run();
+    bool playCard(int playedCardId);
 };
 
 

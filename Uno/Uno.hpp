@@ -26,6 +26,7 @@ class Uno;
 class JouerCommand;
 class PiocherCommand;
 class UnoCommand;
+class IAJouerCommand;
     
 
 class UnoGameView: public GameView
@@ -63,7 +64,7 @@ public:
     friend JouerCommand;
     friend PiocherCommand;
     friend UnoCommand;
-    
+    friend IAJouerCommand;
 };
 
 class Uno
@@ -127,6 +128,7 @@ public:
     IAJouerCommand(UnoGameModel * gameModel, GameController * gameController, UnoGameView * gameView, bool *actionEnCours);
     ~IAJouerCommand();
     virtual void run();
+    virtual void playCard(int playedCardId);
 };
 
 

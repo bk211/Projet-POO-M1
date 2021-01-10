@@ -113,10 +113,6 @@ void JouerCommand::playCard(int playedCardId){
         gameModel->getPlayerManager()->setStep(2);
     }
     
-    
-
-
-    
 }
 
 void JouerCommand::run()

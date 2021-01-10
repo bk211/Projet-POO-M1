@@ -65,7 +65,38 @@ Briscola::~Briscola()
 }
 
 void Briscola::start(){
-    gameModel.startGame();// distribuer les cartes au joueurs
+    gameModel.startGame();// distribuer les cartes au joueurs + atout
+    Player * winnerManche = gameModel.getPlayerManager()->getCurrentPlayer();
+
+    while (!gameModel.data->isEmpty()){
+
+        Player * player = winnerManche;
+        for(int i=0;i<gameModel.getPlayerManager()->nbPlayers();i++){
+            gameView.afficher("==============================================\n");
+            gameView.afficher("C'est au tour de : "+ player->getName());
+            gameView.afficherPlayersCollection(player->getHand());
+            if(i==0){
+                gameView.afficher("Vous etes le gagnant de la derniere manche, veuillez poser la premiere carte :");
+            }else{
+                gameView.afficher("La carte actuellement mise sur la table est :");
+                gameView.afficher(gameModel.table->toString());
+            }
+        }
+        bool actionEnCours = true;
+        while(actionEnCours){
+            gameView.afficher("==============================================\n");
+            gameView.afficher("C'est au tour de : "+ player->getName());
+            gameView.afficherPlayersCollection(player->getHand());
+            gameView.afficher("La carte actuellement mise sur la table est :");
+        }
+
+
+
+
+
+    }
+
+
 
 
     

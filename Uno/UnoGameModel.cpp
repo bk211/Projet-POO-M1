@@ -60,14 +60,23 @@ void UnoGameModel::startGame(){//debut de la partie, distribuer les cartes
 void UnoGameModel::initPlayers()
 {
     
-    int nbPlayer = std::stoi(gameController->askUser("Combien de joueur vous etes?"));
+    int nbPlayer = std::stoi(gameController->askUser("Combien de joueur humain vous etes?"));
     for (int i = 0; i < nbPlayer; i++){
-    
         std::string playerName = gameController->askUser("Quelle est votre nom?");      
         Player *p = new Player{playerName, 1};
         playerManager->addPlayer(p);
         gameView->afficher("Le joueur "+ p->getName() + " a rejoins la partie");
     }
+
+    int nbPlayerAI = std::stoi(gameController->askUser("Combien de joueur IA vous en voulez?"));
+    for (int i = 0; i < nbPlayerAI; i++){
+        std::string playerName = "joueur IA " + std::to_string(i);      
+        Player *p = new Player{playerName, 1};
+        p->setClassId(1);
+        playerManager->addPlayer(p);
+        gameView->afficher("Le joueur "+ p->getName() + " a rejoins la partie");
+    }
+
 }
 
 bool UnoGameModel::isGameOver()

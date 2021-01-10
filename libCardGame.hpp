@@ -213,11 +213,11 @@ public:
     /**
      * initialise les joueurs 
     */
-    virtual void initPlayers() = 0;
+    virtual void initPlayers();
     /**
      * lance le jeu 
     */
-    virtual void startGame() = 0;
+    virtual void startGame();
     virtual void countScore();
     virtual bool isGameOver();
 

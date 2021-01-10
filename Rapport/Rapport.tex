@@ -1,13 +1,17 @@
 \documentclass[12pt, letterpaper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{fancyvrb}
+\usepackage{array}
 
-\title{Rapport de projet : Librairie génerale au developpement de jeu de Carte}
+
+\title{Rapport de projet : Bibliothèque génerale au developpement de jeux de Carte}
 \author{Vincent Auconie \& Chaolei CAI
 \\ 
   \multicolumn{1}{
       p{.7\textwidth}}{\centering\emph{Université de Paris \\
-  UFR info\\}
+  UFR Informatique\\}
   M1 Informatique}
 }
 
@@ -22,13 +26,173 @@
 
 \tableofcontents
 
-\section{Présentation du projet}
-Ce document est mon rapport pour letterpaper
+\section{Avant propos}
+Notre projet est donc de développer un framework générale qui permet de géneraliser certaines tâches lors 
+du developpement d'un jeu de carte. \\
+Un README.ME est incluse dans le fichier, il contient quelques explications quand à l'utilisation et compilation de la bibliothèque ainsi que les jeux que 
+nous avons développés.\\
+
+\subsection{Compatibilité et environnement}
+La bibliothèque ainsi que les jeux ont été développé en intégralité sous le standard c++11, avec le compilateur g++.
+Il est livré sans warning, sans bug(enfin j'espère).\\ 
+Niveau compatibilité, cela ne devrait pas poser de problème que vous soyez sous Linux ou windows.\\
+Sur la plateforme Windows, l'usage de PowerShell est déconseillé car certaines commandes make ne sont pas exécutable depuis ce shell. 
+Utilisez plutôt un shell type git-bash ou cgywin.
+
+
+\section{Présentation de la bibliothèque}
+Le premier point important qui caractérise notre bibliothèque est qu'il est polymorphique dans son intégralité et qu'il est modulable dans une 
+très grand partie des cas. \\
+Il y a un cadre MVC qui présenté mais vous pouvez tout à fait se contenter d'utiliser seulement les classes containers.\\
+Si vous avez besoin d'apporter une spécification à certaines composante, vous êtes libre voire encouragé à le faire ainsi.\\
+e.g: vous avez crée une classe UnoCard pour le jeu de uno, vous pouvez tout à fait garder la classe CollectionCarte comme containers de base, 
+il sera parfaitement opérationnel. Si vous avez besoin d'un containers plus spécifique à une des besoins, vous pouvez aussi crée votre propre CollectionCarte comme UnoCollectionCarte par exemple.
+
+
+\subsection{Un ami qui vous veut du bien: Parseur}
+D'abord, je m'excuse auprès des plus pointilleux, car le terme Parseur est un peu exagérer en vue de sa fonction.\\
+Néaumoins c'est un outils très pratique pour gérer les configurations initiale pour un jeu.\\
+Il permet de lire un fichier (.txt) et de convertir son contenue en un matrice de chaîne de charactère.\\
+Pour être précis, c'est un vecteur<vecteur<string>>, la séparation des string utilise le symbole de la virgule "," comme délimiteur, 
+le désavantage c'est que je n'ai pas fourni de possibilité d'échape à la virgule, donc,
+la virgule a un usage unique.\\
+e.g de démo: \\
+considerez le fichier suivant :\\
+un,deux,3,quatre,\\
+foo,bar,55,zda,\\
+lorem,ipsum,42,ws,\\
+
+Le résultat est donc le matrice suivant:\\
+\begin{tabular}{l|l|l|l}
+  indice[0]  & indice[1] & indice[2] & indice[3]\\
+  \hline  
+  un & deux & 3 & quatre\\
+  \hline
+  foo & bar & 55 & zda\\
+  \hline
+  lorem & ipsum & 42 & ws\\
+\end{tabular}
+\\
+Rien ne vous empêche au niveau des dimension, vous pouvez faire des lignes et colonnes irrégulière selon vos désire.\\
+Tant que vous savez quoi en faire après.
+C'est donc un outils très pratique si permet d'instantier un deck de jeu selon un fichier de configuration prédefinie par exemple.
+
+
+\subsection{Classe fondamentale: Carte}
+La classe Carte est notre structure de donnée qui permet de faire d'en faire une abstraction simpliciste de l'objet Carte.
+Elle est apte au polymorphisme, j'ai enlevé certaines getter et setter afin d'être plus lisible. 
+A priori elle couvre déja une très grand partie des besoins pour la plupart des jeux de carte.\\
+
+
+\begin{Verbatim}[numbers=left,xleftmargin = 5mm]
+class Carte
+{
+private:
+protected:
+  std::string name;
+  std::vector<std::string> attributs;
+  int status;
+  int value; 
+public:
+  virtual ~Carte();
+  virtual std::string toString() const;
+  friend const std::ostream& operator<<(std::ostream& out, const Carte& mat);
+  virtual int operator==(Carte second);
+  virtual int operator==(std::string name);
+  Carte();
+  Carte(std::string name, int status =0, int value = 0);
+
+};
+\end{Verbatim}
+
+\subsection{Conteneur de Carte : CollectionCarte }
+La classe CollectionCarte est notre classe conteneur de prédilection pour stocker un objet de classe Carte ou son classe fils.\\
+Il permet quelques opération très pratique et fréquente lors d'usage d'un deck de carte comme par exemple mélanger, tirer la première/dernière/au hasard carte
+ou encore accèder à une carte d'emplacement précis.
+
+\begin{Verbatim}[numbers=left,xleftmargin = 5mm]
+  class CollectionCarte
+  {
+  protected:
+    std::vector<Carte *> data;
+  public:
+    ...
+\end{Verbatim}
+ 
+\subsection{Le joueur}
+La classe joueur c'est notre instance qui permet de représenter un joueur, il ne possède par défaut qu'un seul main (collection de carte),
+mais vous toujours pouvez crée votre propre classe Joueur qui possède plusieurs conteneur.
+
+\begin{Verbatim}[numbers=left,xleftmargin = 5mm]
+class Player{
+protected:
+    std::string name;
+    int status;
+    int classId;
+    int score;
+    CollectionCarte * hand;
+    ...
+\end{Verbatim} 
+
+\subsection{Conteneur de joueur : PlayerManager}
+PlayerManager est notre classe conteneur pour stocker des joueurs, peu importe sa classe.\\
+Il permet aussi de gérer certains mécanisme à votre place comme de mémoriser le joueur qui est entrain de joueur, 
+ou encore de passer joueur suivant.
+
+\begin{Verbatim}[numbers=left,xleftmargin = 5mm]
+class PlayerManager{
+protected:
+public:
+    PlayerManager();
+    virtual ~PlayerManager();
+    std::vector<Player *> players;
+    int currentPlayer;
+    int lastPlayer;
+    int direction;
+    int step;
+    ...
+    virtual  void swapDirection();
+    virtual void setStep(unsigned int s);
+    virtual void rotateToNext();
+    virtual int nbPlayers();
+    ...    
+};
+
+\end{Verbatim} 
+
+
+\subsection{MVC or not MVC? That's The Question}
+
+La bibliothèque propose un cadre MVC presque prête à l'emploie, à vous de voir si ce cadre ou convient ou non.\\
+Les classes Controller et View étant très simple, je ne les détailleras pas ici.\\
+Pour la classe GameModele, il y a 3 fonctions virtuel pure, il faut donc les implémenter ou juste donner une définition bidon si vous n'en avez pas besoin. 
+initPlayers() et startGame() sont plus optionnel
+
+
+
+\begin{Verbatim}[numbers=left,xleftmargin = 5mm]
+class GameModel{
+protected:
+    CollectionCarte * data;
+    PlayerManager * playerManager;
+    GameView * gameView;
+    GameController * gameController;
+    
+public:
+    GameModel();
+    virtual int initGameData(std::vector<std::vector<std::string>> configData);
+    virtual void pushDataFromStrLine(std::vector<std::string> line) = 0;
+    virtual void initPlayers();
+    virtual void startGame() ;
+    ...
+};
+\end{Verbatim} 
+
 %\begin{figure}
 %    \includegraphics[width=\linewidth]{img/L1.png}
 %    \caption{Welcome page}
 %    \label{fig:L1}
-%\end{figure}
+%\end{figure} 
 
 
 %\subsection{Profile}

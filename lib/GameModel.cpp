@@ -56,3 +56,11 @@ void GameModel::attach(GameView * gv){
 void GameModel::attach(GameController * gc){
     gameController = gc;
 }
+
+void GameModel::initPlayers(){
+
+}
+
+void GameModel::startGame(){
+    
+}

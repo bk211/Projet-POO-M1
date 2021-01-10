@@ -20,7 +20,6 @@ Uno::~Uno()
 void Uno::start(){
     gameModel.startGame();// distribuer les cartes au joueurs
 
-
     while (!gameModel.isGameOver()){
         if(gameModel.data->size() < 10 || gameModel.currentPenalty > gameModel.data->size()){
             //si la pioche est presque vide ou bientot vide
@@ -55,5 +54,13 @@ void Uno::start(){
         gameModel.playerManager->rotateToNext();
 
     }
-    
+
+    gameView.afficher("-------------------------------------------------");
+    gameView.afficher("La partie est terminee");
+    int rejouer = gameController.askCommandString({"Non", "Oui"});
+    if(rejouer){
+        gameModel.reset(); // reset les cartes 
+        gameModel.initGameData(parseur.get_lignes());
+        start();
+    }
 }

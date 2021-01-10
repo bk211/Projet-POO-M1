@@ -54,7 +54,7 @@ private:
     int currentWinnerId;
     void countScore();
     void reFill();
-
+    void reset();
 public:
     ~UnoGameModel();
     UnoGameModel();

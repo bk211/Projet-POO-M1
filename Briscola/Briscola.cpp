@@ -10,9 +10,13 @@ BriscolaGameModel::~BriscolaGameModel()
 
 void BriscolaGameModel::startGame(){
     data->shuffle();
-    while (!data->isEmpty()) {//tant que la pioche n'est pas vide
-
+    std::cout<<"--------------------------start game ----------------------------\n";
+    for(Player *player : playerManager->players){
+        for(int i=0; i<3;i++){ // on distribue 3 carte à chaque joueur
+            player->getHand()->addData(data->draw());
+        }
     }
+    atout = data->draw(); // a verif
     //TODO()
 }
 
@@ -32,15 +36,18 @@ void BriscolaGameModel::pushDataFromStrLine(std::vector<std::string> line){
 }
 
 void BriscolaGameModel::initPlayers(){
-    Player* p1 = new Player{"joueur 1",1};
-    Player* p2 = new Player{"joueur 2",1};
-    playerManager->addPlayer(p1);
-    playerManager->addPlayer(p2);
-    // TODO()
+    int nbPlayer = std::stoi(gameController->askUser("Combien de joueur vous etes?"));
+    for (int i = 0; i < nbPlayer; i++){
+    
+        std::string playerName = gameController->askUser("Quelle est votre nom?");      
+        Player *p = new Player{playerName, 1};
+        playerManager->addPlayer(p);
+        gameView->afficher("Le joueur "+ p->getName() + " a rejoins la partie");
+    }
 }
 
 bool BriscolaGameModel::isGameOver(){ // verifie les conditions de fin de jeu
-    // TODO()
+    //TODO (non necessaire)
     return false;
 }
 
@@ -59,6 +66,8 @@ Briscola::~Briscola()
 
 void Briscola::start(){
     gameModel.startGame();// distribuer les cartes au joueurs
+
+
     
 }
 

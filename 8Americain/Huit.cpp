@@ -33,6 +33,7 @@ void Huit::start(){
 
         Player * player = gameModel.getPlayerManager()->getCurrentPlayer();
         bool actionEnCours = true;
+        Command * command = nullptr;
         while (actionEnCours){
             gameView.afficher("==============================================\n");
             gameView.afficher("C'est au tour de : "+ player->getName());
@@ -41,20 +42,28 @@ void Huit::start(){
             gameView.afficher(dynamic_cast<HuitCard*>(gameModel.table->last())->toStringLess());
             
             gameView.afficher("Quelle est votre action? ");
-            int userAction = gameController.askCommandString(gameModel.commandStrings);
         
             // switch pour savoir quel command executer
-            Command * command;
-            if(userAction == 0){
-                command = new JouerCommand(&gameModel, &gameController, &gameView, &actionEnCours);
-            }else if(userAction == 1){
-                command = new PiocherCommand(&gameModel, &gameController, &gameView, &actionEnCours);
-            }else if(userAction == 2){
-                command = new HuitCommand(&gameModel, &gameController, &gameView, &actionEnCours);
+            if(player->getClassId() == 0){// joueur IA
+                int userAction = gameController.askCommandString(gameModel.commandStrings);
+                // switch pour savoir quel command executer
+                if(userAction == 0){
+                    command = new JouerCommand(&gameModel, &gameController, &gameView, &actionEnCours);
+                }else if(userAction == 1){
+                    command = new PiocherCommand(&gameModel, &gameController, &gameView, &actionEnCours);
+                }else if(userAction == 2){
+                    command = new HuitCommand(&gameModel, &gameController, &gameView, &actionEnCours);
+                }
+            }else if(player->getClassId() == 1){ // joueur IA
+                command = new IAJouerCommand(&gameModel, &gameController, &gameView, &actionEnCours);    
             }
+            
             command->run();
+            if(command != nullptr) delete command;
 
         }
+        gameView.afficher("La carte actuellement mise sur la table est :");
+        gameView.afficher(dynamic_cast<HuitCard*>(gameModel.table->last())->toStringLess());
         gameModel.playerManager->rotateToNext();
 
     }

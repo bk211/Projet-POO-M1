@@ -1,25 +1,40 @@
-#include "Uno.hpp"
+#include "Huit.hpp"
 
 
 using namespace std;
 int main(int argc, char const *argv[])
 {
-    UnoCard * carte = new UnoCard("un",1, "bleu", 1, "ceci est une description");
-    cout<< carte->getCouleur();
-    Carte * ptr = carte;
-    UnoCard * ptr2 = carte;
 
-    cout<< ((UnoCard*)ptr)->getCouleur();
-    cout<< ptr2->getCouleur();
+    Player * p1 = new Player("un",1,0,0);
+    Player * p2 = new Player("deux",1,0,0);
+    PlayerManager * pm = new PlayerManager();
+    pm->addPlayer(p1);
+    pm->addPlayer(p2);
+    pm->addPlayer(p1);
+    pm->addPlayer(p2);
+    cout<<pm->nbPlayers();
 
-    CollectionCarte deck;
-    deck.addData(carte);
-    cout<<*deck[0];
+    //pm->rotateToNext();
+    pm->swapDirection();
     
-    GameController gc{};
-    vector<string> vec = {"dwadaw", "daw2", "dwadw ", "dawd"};
-    std::cout<<gc.askCommandString(vec);
+    for (size_t i = 0; i < 10; i++)
+    {
+        pm->rotateToNext();
+    }
+   pm->swapDirection();
+    
+    for (size_t i = 0; i < 10; i++)
+    {
+        pm->rotateToNext();
+    }
+   pm->swapDirection();
+    
+    for (size_t i = 0; i < 10; i++)
+    {
+        pm->rotateToNext();
+    }
 
-
+    pm->rotateToNext();
+    
     return 0;
 }

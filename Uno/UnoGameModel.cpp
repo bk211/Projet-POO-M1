@@ -43,7 +43,7 @@ void UnoGameModel::pushDataFromStrLine(std::vector<std::string> line)
 void UnoGameModel::startGame(){//debut de la partie, distribuer les cartes
     data->shuffle(); // melanger les cartes;
     std::cout<<"--------------------------start game ----------------------------\n";
-    int nbCarte = 1;
+    int nbCarte = 7;
     for (Player *player : playerManager->players)
     {
         for (int i = 0; i < nbCarte; i++){ 
@@ -59,8 +59,11 @@ void UnoGameModel::startGame(){//debut de la partie, distribuer les cartes
 
 void UnoGameModel::initPlayers()
 {
-    
-    int nbPlayer = std::stoi(gameController->askUser("Combien de joueur humain vous etes?"));
+    int nbPlayer = -1;
+    while (nbPlayer<1 || nbPlayer >5){
+        nbPlayer = std::stoi(gameController->askUser("Combien de joueur humain vous etes?"));
+    }
+
     for (int i = 0; i < nbPlayer; i++){
         std::string playerName = gameController->askUser("Quelle est votre nom?");      
         Player *p = new Player{playerName, 1};
@@ -68,13 +71,30 @@ void UnoGameModel::initPlayers()
         gameView->afficher("Le joueur "+ p->getName() + " a rejoins la partie");
     }
 
-    int nbPlayerAI = std::stoi(gameController->askUser("Combien de joueur IA vous en voulez?"));
+
+    int nbPlayerAI = -1;
+    while (nbPlayerAI <0 || nbPlayerAI > 2){
+        nbPlayerAI = std::stoi(gameController->askUser("Combien de joueur IA vous en voulez?"));
+    }
     for (int i = 0; i < nbPlayerAI; i++){
         std::string playerName = "joueur IA " + std::to_string(i);      
         Player *p = new Player{playerName, 1};
         p->setClassId(1);
         playerManager->addPlayer(p);
         gameView->afficher("Le joueur "+ p->getName() + " a rejoins la partie");
+    }
+
+    if(nbPlayerAI + nbPlayer <2){
+        gameView->afficher("Il n'y a pas assez de joueur, des IA vont être rajouté");
+        while ((nbPlayerAI + nbPlayer)<2){
+            std::string playerName = "joueur IA " + std::to_string(nbPlayerAI++);      
+            Player *p = new Player{playerName, 1};
+            p->setClassId(1);
+            playerManager->addPlayer(p);
+            gameView->afficher("Le joueur "+ p->getName() + " a rejoins la partie");
+            
+        }
+        
     }
 
 }

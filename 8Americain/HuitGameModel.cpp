@@ -8,6 +8,7 @@ HuitGameModel::HuitGameModel():currentPenalty(0)
 HuitGameModel::~HuitGameModel()
 {
     delete data;
+    delete table;
 }
 
 
@@ -60,15 +61,45 @@ void HuitGameModel::startGame(){//debut de la partie, distribuer les cartes
 
 void HuitGameModel::initPlayers()
 {
-    
-    int nbPlayer = std::stoi(gameController->askUser("Combien de joueur vous êtes?"));
+    int nbPlayer = -1;
+    while (nbPlayer<1 || nbPlayer >5){
+        nbPlayer = std::stoi(gameController->askUser("Combien de joueur humain vous etes?"));
+    }
+
     for (int i = 0; i < nbPlayer; i++){
-    
         std::string playerName = gameController->askUser("Quelle est votre nom?");      
         Player *p = new Player{playerName, 1};
         playerManager->addPlayer(p);
         gameView->afficher("Le joueur "+ p->getName() + " a rejoins la partie");
     }
+
+
+    int nbPlayerAI = -1;
+    while (nbPlayerAI <0 || nbPlayerAI > 2){
+        nbPlayerAI = std::stoi(gameController->askUser("Combien de joueur IA vous en voulez?"));
+    }
+    for (int i = 0; i < nbPlayerAI; i++){
+        std::string playerName = "joueur IA " + std::to_string(i);      
+        Player *p = new Player{playerName, 1};
+        p->setClassId(1);
+        playerManager->addPlayer(p);
+        gameView->afficher("Le joueur "+ p->getName() + " a rejoins la partie");
+    }
+
+    if(nbPlayerAI + nbPlayer <2){
+        gameView->afficher("Il n'y a pas assez de joueur, des IA vont être rajouté");
+       
+        while ((nbPlayerAI + nbPlayer) <=2){
+                std::string playerName = "joueur IA " + std::to_string(nbPlayerAI++);      
+                Player *p = new Player{playerName, 1};
+                p->setClassId(1);
+                playerManager->addPlayer(p);
+                gameView->afficher("Le joueur "+ p->getName() + " a rejoins la partie");
+                
+        }
+        
+    }
+
 }
 
 bool HuitGameModel::isGameOver()
@@ -102,6 +133,10 @@ void HuitGameModel::countScore(){
 void HuitGameModel::reFill(){
     Carte * last = table->draw();// met de cote la dernier carte de la table
     while (!table->isEmpty()){ // push le tas de carte de la table dans le deck 
+        HuitCard* tmp = dynamic_cast<HuitCard*>(table->draw());
+        if(tmp->getName() == "8"){
+            tmp->hasChangedColor = false;
+        } 
         data->addData(table->draw());
     }
     table->addData(last); // remettre en haut la dernier carte sur la table

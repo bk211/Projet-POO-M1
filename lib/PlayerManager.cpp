@@ -27,7 +27,11 @@ Player * PlayerManager::getPlayer(int pos)
 
 void PlayerManager::swapDirection()
 {
-    direction = (direction == 1) ? -1 : 1;
+    if(direction == 1){
+        direction = -1;
+    }else{
+        direction = -1;   
+    }
 }
 
 void PlayerManager:: setStep(unsigned int s)
@@ -40,19 +44,22 @@ void PlayerManager::rotateToNext()
 {
     lastPlayer = currentPlayer;
     int next = currentPlayer;
-    int size = players.size();
+    int size = players.size(); 
+
     while (step > 0)
     {
+
         next += direction;
-        if (next >= size)
+
+        if (next >= size) 
         {
             next %= size;
         }
         else if (next < 0)
         {
-            next = size - next;
+            next = size + next;
         }
-
+        
         if(players[next]->status == 1){
           step--;
         }

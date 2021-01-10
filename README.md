@@ -5,7 +5,9 @@ Il est parfaitement exploitable pour des jeux de carte avec un deck classique ou
 
 # Environnement
 La bibliothèque compile et a été testé sous Linux(Manjaro) et Windows(10)
-Si vous êtes sous windows, beurk, j'y peux rien pour vous
+Si vous êtes sous windows, beurk, j'y peux rien pour vous  
+***mingw32-make*** est la version windows de make  
+
 
 # Commandes du Makefile 
 ***make library*** -> vérifie et compile si nécessaire notre bibiothèque, elle porte le nom de ***libCardGame.a***  
@@ -29,6 +31,10 @@ Si vous rencontrez des problèmes de compilation lié aux binaires ***Keep calm 
 
 Si vous avez un problème de compilation qui fait 300 lignes, ne paniquez pas  
 faites plutôt ->***make clean && make update_lib && make exec***  
+Il y a des commandes make qui ne fonctionnent pas sous windows(plus précisement powershell) car je l'avais écrite avant tout sur un system linux  
+par exemple update_lib et make clean ne marcheront pas alors dans ce cas  
+(mais cela marche très bien avec git-bash, normalement avec cgywin aussi) 
+Bref, utiliser des shell type linux comme git-bash ou mieux, developpez sous linux  
 
 ## Batailles
 Célebre jeux de Batailles qui se joue à 1 contre 1

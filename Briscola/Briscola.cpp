@@ -11,6 +11,7 @@ BriscolaGameModel::~BriscolaGameModel()
 void BriscolaGameModel::startGame(){
     data->shuffle();
     ptsManche = 0;
+    table = nullptr;
     std::cout<<"--------------------------start game ----------------------------\n";
     for(Player *player : playerManager->players){
         for(int i=0; i<3;i++){ // on distribue 3 carte à chaque joueur
@@ -51,7 +52,7 @@ int BriscolaGameModel::getPtsManche(){
 }
 
 void BriscolaGameModel::pushDataFromStrLine(std::vector<std::string> line){
-    Carte* result = new Carte(line[0]); // valeur de la carte ( de 1 a 10 )
+    Carte* result = new Carte(line[2]); // description utilise pour le nom
     result->addAttribut(line[1]);        // les differentes enseignes (coupes, batons, etc...) (carte italienne)
     result->addAttribut(line[2]);        // description pour Vue
     result->addAttribut(line[3]);        // Hierarchie des cartes dans la partie. Carte de hierarchie x gagne contre une carte de hierarchie y ssi x>y
@@ -98,14 +99,21 @@ void Briscola::start(){
     std::string nameWinner;
 
     while (!gameModel.data->isEmpty()){
-        
+
+        gameView.afficher("==============================================");
+        for(Player *player : gameModel.getPlayerManager()->players){
+            std::cout<<player->getName()<<" : "<<player->getScore()<<" points, ";
+        }
+        std::cout<<std::endl;
+        gameView.afficher("==============================================\n");
+        gameView.afficher("La carte Atout est : "+gameModel.getAtout()->getName());
         for(int i=0;i<gameModel.getPlayerManager()->nbPlayers();i++){
             Player * player = gameModel.getPlayerManager()->getCurrentPlayer();
             gameView.afficher("==============================================\n");
             gameView.afficher("C'est au tour de : "+ player->getName());
-            gameView.afficherPlayersCollection(player->getHand());
+            //gameView.afficherPlayersCollection(player->getHand()); 
             if(i==0){
-                gameView.afficher("Vous etes le gagnant de la derniere manche, veuillez poser la premiere carte :");
+                gameView.afficher("Veuillez poser la premiere carte :");
             }else{
                 gameView.afficher("La carte actuellement mise sur la table est :");
                 gameView.afficher(gameModel.table->toString());
@@ -138,20 +146,22 @@ void Briscola::start(){
             }
             
         }
-        gameView.afficher("-------------------------------------------------");
-        gameView.afficher("La partie est terminee");
-        std::string gagnant;
-        int scoreGagnant =0;
-        for(Player *player : gameModel.getPlayerManager()->players){
-            if(player->getScore()>scoreGagnant){
-                gagnant = player->getName();
-            }
-        }
-        gameView.afficher("Le joueur gagnant est :");
-        gameView.afficher(gagnant);
         
 
     }
+    gameView.afficher("-------------------------------------------------");
+    gameView.afficher("La partie est terminee");
+    std::string gagnant = "";
+    int scoreGagnant =0;
+    for(Player *player : gameModel.getPlayerManager()->players){
+        if(player->getScore()>scoreGagnant){
+            scoreGagnant=player->getScore();
+            gagnant = player->getName();
+        }
+    }
+    gameView.afficher("Le joueur gagnant est :");
+    gameView.afficher(gagnant);
+    std::cout<<"( "<<scoreGagnant<<" points )"<<std::endl;
 
 }
 

@@ -48,8 +48,9 @@ private:
     void startGame();
     bool isGameOver();
     CollectionCarte * table;
+    int currentPenalty;
     std::vector<std::string> commandStrings{"Jouer une carte", "Piocher", "Uno"};
-    
+    void applyPenalty();
 public:
     void countScore();
     ~UnoGameModel();

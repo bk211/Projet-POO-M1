@@ -1,6 +1,6 @@
 #include "Uno.hpp"
 
-UnoGameModel::UnoGameModel()
+UnoGameModel::UnoGameModel():currentPenalty(0)
 {
 
 }
@@ -73,4 +73,15 @@ bool UnoGameModel::isGameOver()
 { // verifie les conditions de fin de jeu
     // TODO()
     return false;
+}
+
+void UnoGameModel::applyPenalty(){
+    if (currentPenalty ==0){
+        return;
+    }
+
+    for (int i = 0; i < currentPenalty; i++){
+        playerManager->getCurrentPlayer()->getHand()->addData(data->draw());
+    }
+    currentPenalty = 0;
 }

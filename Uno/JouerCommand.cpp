@@ -22,6 +22,8 @@ bool JouerCommand::playable(UnoCard* first, UnoCard* second)const{
         return true;
     }else if(second->getCouleur() == "null"){
         return true;
+    }else if(first->getName() == "+2" && second->getName() == "+2"){
+        return true;
     }
     
     
@@ -57,16 +59,56 @@ void JouerCommand::playCard(int playedCardId){
         }
     }
 
+    int couleur;
+    int currentPenalty = dynamic_cast<UnoGameModel*>(gameModel)->currentPenalty;
     //mettre la carte sur la table et appliquer son effet
     dynamic_cast<UnoGameModel*>(gameModel)->table->addData(toBePlayedCard);
-    if(toBePlayedCard->getType() == 0){// carte numerique, rien a faire
+    if(toBePlayedCard->getType() == 0){
+        if(currentPenalty != 0){
+            gameView->afficher("Vous avez pris la penalite");
+            gameView->afficher("Vous allez piocher " + std::to_string(currentPenalty)+ " cartes");
+            dynamic_cast<UnoGameModel*>(gameModel)->applyPenalty();
+        }
     }else if(toBePlayedCard->getName() == "Joker"){
-        int couleur = gameController->askCommandString(couleurString);
+        couleur = gameController->askCommandString(couleurString);
         toBePlayedCard->changeColor(couleurString[couleur]);
-    }else if(toBePlayedCard->getName() == "+4"){
-        toBePlayedCard->changeColor(dynamic_cast<UnoCard*>(dynamic_cast<UnoGameModel*>(gameModel)->table->last())->getCouleur());
-    }else if(toBePlayedCard->getName() == "Pass"){
+    }else if (toBePlayedCard->getName() == "+2"){
+        dynamic_cast<UnoGameModel*>(gameModel)->currentPenalty +=2;
+        gameView->afficher("Une penalite de +2 a ete ajoute");
+        gameView->afficher("Une penalite cummule vaut maintenant: " + std::to_string(dynamic_cast<UnoGameModel*>(gameModel)->currentPenalty));
+
+    }else if(toBePlayedCard->getName() == "Pass")
+    {
         gameView->afficher("Une carte [Pass] a ete joue");
+        gameView->afficher("Le tour du prochain joueur saute");
+        gameModel->getPlayerManager()->setStep(2);
+        
+        if(currentPenalty != 0){
+            gameView->afficher("Vous avez pris la penalite");
+            gameView->afficher("Vous allez piocher " + std::to_string(currentPenalty)+ " cartes");
+            dynamic_cast<UnoGameModel*>(gameModel)->applyPenalty();
+        }
+
+    }else if(toBePlayedCard->getName() == "Inv")
+    {
+        gameModel->getPlayerManager()->swapDirection();
+        if(currentPenalty != 0){
+            gameView->afficher("Vous avez pris la penalite");
+            gameView->afficher("Vous allez piocher " + std::to_string(currentPenalty)+ " cartes");
+            dynamic_cast<UnoGameModel*>(gameModel)->applyPenalty();
+        }
+        
+    }else if(toBePlayedCard->getName() == "+4")
+    {
+        // penalite +4
+        dynamic_cast<UnoGameModel*>(gameModel)->currentPenalty +=4;
+        gameView->afficher("Une penalite de +4 a ete ajoute");
+        gameView->afficher("Une penalite cummule vaut maintenant: " + std::to_string(dynamic_cast<UnoGameModel*>(gameModel)->currentPenalty));
+        // change ou non la couleur
+        couleur = gameController->askCommandString(couleurString);
+        toBePlayedCard->changeColor(couleurString[couleur]);
+        toBePlayedCard->changeColor(dynamic_cast<UnoCard*>(dynamic_cast<UnoGameModel*>(gameModel)->table->last())->getCouleur());
+        //le prochaine pass son tour
         gameView->afficher("Le tour du prochain joueur saute");
         gameModel->getPlayerManager()->setStep(2);
     }
